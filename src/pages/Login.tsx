@@ -102,7 +102,7 @@ function Login() {
                   type="email"
                   id="email"
                   className="form-control"
-                  placeholder="email.example@email.com"
+                  placeholder="email@example.com"
                   value={input.email}
                   onChange={handleChange}
                 />

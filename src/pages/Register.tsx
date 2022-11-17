@@ -1,8 +1,109 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BlueButton, FormContainer } from "../styles/Styled";
 
+interface IRegister {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  phone: string;
+}
+
 function Register() {
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    email: "",
+    fullname: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+  });
+
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      !inputValidation({
+        email: input.email,
+        password: input.password,
+        confirmPassword: input.confirmPassword,
+        name: input.fullname,
+        phone: input.phone,
+      })
+    ) {
+      try {
+        let user = await axios.post("http://localhost:8081/register", {
+          email: input.email,
+          full_name: input.fullname,
+          password: input.confirmPassword,
+          phone: input.phone,
+          role: "BUYER",
+        });
+        if (user.data != null) {
+          navigate("/login", { replace: true });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setInput({
+      ...input,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const [inputErrors, setInputErrors] = useState({
+    name: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    phone: false,
+    notMatch: false
+  });
+
+  const inputValidation = (payload: IRegister) => {
+    let errorState = {
+      name: false,
+      email: false,
+      password: false,
+      confirmPassword: false,
+      phone: false,
+      notMatch: false,
+    };
+    let errorTotal = false;
+
+    if (payload.email === "") {
+      errorState = { ...errorState, email: true };
+      errorTotal = true;
+    }
+    if (payload.password === "") {
+      errorState = { ...errorState, password: true };
+      errorTotal = true;
+    }
+    if (payload.name === "") {
+      errorState = { ...errorState, name: true };
+      errorTotal = true;
+    }
+    if (payload.phone === "") {
+      errorState = { ...errorState, phone: true };
+      errorTotal = true;
+    }
+    if (payload.confirmPassword === "") {
+      errorState = { ...errorState, confirmPassword: true };
+      errorTotal = true;
+    }
+    if (payload.password !== payload.confirmPassword && payload.password!="" && payload.confirmPassword!="") {
+      errorState = { ...errorState, notMatch: true };
+      errorTotal = true;
+    }
+
+    setInputErrors(errorState);
+    return errorTotal;
+  };
   return (
     <div>
       <div className="mt-5 d-flex justify-content-center">
@@ -11,7 +112,7 @@ function Register() {
             <div className="mt-5">
               <h1 className="fw-bold fs-1">Register</h1>
             </div>
-            <form>
+            <form onSubmit={handleRegister}>
               <div className="row mt-3">
                 <label htmlFor="email" className="form-label fw-bold">
                   Email
@@ -35,9 +136,17 @@ function Register() {
                     type="email"
                     id="email"
                     className="form-control"
+                    placeholder="email@example.com"
+                    value={input.email}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
+              {inputErrors.email ? (
+                <span className="text-danger">This Field is Required</span>
+              ) : (
+                <></>
+              )}
               <div className="row mt-3">
                 <label htmlFor="fullname" className="form-label fw-bold">
                   Full Name
@@ -60,9 +169,17 @@ function Register() {
                     type="text"
                     id="fullname"
                     className="form-control"
+                    placeholder="John Doe"
+                    value={input.fullname}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
+              {inputErrors.name ? (
+                <span className="text-danger">This Field is Required</span>
+              ) : (
+                <></>
+              )}
               <div className="row mt-3">
                 <label htmlFor="password" className="form-label fw-bold">
                   Password
@@ -86,11 +203,18 @@ function Register() {
                     type="password"
                     id="password"
                     className="form-control"
+                    value={input.password}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
+              {inputErrors.password ? (
+                <span className="text-danger">This Field is Required</span>
+              ) : (
+                <></>
+              )}
               <div className="row mt-3">
-                <label htmlFor="confirm-password" className="form-label fw-bold">
+                <label htmlFor="confirmPassword" className="form-label fw-bold">
                   Confirm Password
                 </label>
                 <div className="input-group">
@@ -108,13 +232,29 @@ function Register() {
                     </svg>
                   </span>
                   <input
-                    name="confirm-password"
+                    name="confirmPassword"
                     type="password"
-                    id="confirm-password"
+                    id="confirmPassword"
                     className="form-control"
+                    value={input.confirmPassword}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
+              {inputErrors.confirmPassword ? (
+                <span className="text-danger">
+                  This Field is Required
+                </span>
+              ) : (
+                <></>
+              )}
+              {inputErrors.notMatch ? (
+                <span className="text-danger">
+                  Password must be the same
+                </span>
+              ) : (
+                <></>
+              )}
               <div className="row mt-3">
                 <label htmlFor="phone" className="form-label fw-bold">
                   Phone
@@ -137,15 +277,25 @@ function Register() {
                     type="text"
                     id="phone"
                     className="form-control"
+                    placeholder="0811223344"
+                    value={input.phone}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
+              {inputErrors.phone ? (
+                <span className="text-danger">This Field is Required</span>
+              ) : (
+                <></>
+              )}
               <div className="row mt-4 px-2">
                 <BlueButton type="submit">Register</BlueButton>
               </div>
             </form>
             <div className="row my-2">
-              <p>Already have an account? <Link to='/login'>Login</Link></p>
+              <p>
+                Already have an account? <Link to="/login">Login</Link>
+              </p>
             </div>
           </div>
         </FormContainer>
