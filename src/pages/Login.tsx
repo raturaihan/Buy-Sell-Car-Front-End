@@ -1,8 +1,76 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import instance from "../config/axios";
 import { BlueButton, FormContainer } from "../styles/Styled";
 
+interface ILogin {
+  email: string;
+  password: string;
+}
+
 function Login() {
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setInput({
+      ...input,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      !inputValidation({
+        email: input.email,
+        password: input.password,
+      })
+    ) {
+      try {
+        let user = await instance.post("http://localhost:8081/login", {
+          email: input.email,
+          password: input.password,
+        });
+        if (user.data.role == "BUYER") {
+          navigate("/home", { replace: true });
+        } else if (user.data.role == "ADMIN") {
+          navigate("/home-admin", { replace: true });
+        }
+      } catch (error) {
+        alert(error);
+      }
+    }
+  };
+
+  const [inputErrors, setInputErrors] = useState({
+    email: false,
+    password: false,
+  });
+
+  const inputValidation = (payload: ILogin) => {
+    let errorState = {
+      email: false,
+      password: false,
+    };
+    let errorTotal = false;
+
+    if (payload.email === "") {
+      errorState = { ...errorState, email: true };
+      errorTotal = true;
+    }
+    if (payload.password === "") {
+      errorState = { ...errorState, password: true };
+      errorTotal = true;
+    }
+
+    setInputErrors(errorState);
+    return errorTotal;
+  };
+
   return (
     <div className="mt-5 d-flex justify-content-center">
       <FormContainer className="card py-5 px-5">
@@ -10,7 +78,7 @@ function Login() {
           <div className="mt-5">
             <h1 className="fw-bold fs-1">Login</h1>
           </div>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="row mt-3">
               <label htmlFor="email" className="form-label fw-bold">
                 Email
@@ -34,9 +102,17 @@ function Login() {
                   type="email"
                   id="email"
                   className="form-control"
+                  placeholder="email.example@email.com"
+                  value={input.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
+            {inputErrors.email ? (
+              <span className="text-danger">This Field is Required</span>
+            ) : (
+              <></>
+            )}
             <div className="row mt-3">
               <label htmlFor="password" className="form-label fw-bold">
                 Password
@@ -60,15 +136,24 @@ function Login() {
                   type="password"
                   id="password"
                   className="form-control"
+                  value={input.password}
+                  onChange={handleChange}
                 />
               </div>
             </div>
+            {inputErrors.password ? (
+              <span className="text-danger">This Field is Required</span>
+            ) : (
+              <></>
+            )}
             <div className="row mt-4 px-2">
               <BlueButton type="submit">Login</BlueButton>
             </div>
           </form>
           <div className="row my-2">
-            <p>You don't have an account? <Link to="/register">Register</Link></p>
+            <p>
+              You don't have an account? <Link to="/register">Register</Link>
+            </p>
           </div>
         </div>
       </FormContainer>
