@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ModalFailed from "../components/ModalFailed";
+import ModalSuccess from "../components/ModalSuccess";
+import instance from "../config/axios";
 import { BlueButton, FormContainer } from "../styles/Styled";
 
 interface IRegister {
@@ -20,6 +23,8 @@ function Register() {
     confirmPassword: "",
     phone: "",
   });
+  const [modal, setModal] = useState(false);
+  const [regisError, setRegisError] = useState(false);
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,7 +38,7 @@ function Register() {
       })
     ) {
       try {
-        let user = await axios.post("http://localhost:8081/register", {
+        let user = await instance.post("http://localhost:8081/register", {
           email: input.email,
           full_name: input.fullname,
           password: input.confirmPassword,
@@ -41,10 +46,13 @@ function Register() {
           role: "BUYER",
         });
         if (user.data != null) {
-          navigate("/login", { replace: true });
+          setModal(true);
+          setRegisError(false);
         }
       } catch (error) {
-        console.log(error);
+        setModal(true);
+        setRegisError(true);
+        console.log(error)
       }
     }
   };
@@ -62,7 +70,7 @@ function Register() {
     password: false,
     confirmPassword: false,
     phone: false,
-    notMatch: false
+    notMatch: false,
   });
 
   const inputValidation = (payload: IRegister) => {
@@ -96,7 +104,11 @@ function Register() {
       errorState = { ...errorState, confirmPassword: true };
       errorTotal = true;
     }
-    if (payload.password !== payload.confirmPassword && payload.password!="" && payload.confirmPassword!="") {
+    if (
+      payload.password !== payload.confirmPassword &&
+      payload.password != "" &&
+      payload.confirmPassword != ""
+    ) {
       errorState = { ...errorState, notMatch: true };
       errorTotal = true;
     }
@@ -242,16 +254,12 @@ function Register() {
                 </div>
               </div>
               {inputErrors.confirmPassword ? (
-                <span className="text-danger">
-                  This Field is Required
-                </span>
+                <span className="text-danger">This Field is Required</span>
               ) : (
                 <></>
               )}
               {inputErrors.notMatch ? (
-                <span className="text-danger">
-                  Password must be the same
-                </span>
+                <span className="text-danger">Password must be the same</span>
               ) : (
                 <></>
               )}
@@ -289,7 +297,29 @@ function Register() {
                 <></>
               )}
               <div className="row mt-4 px-2">
-                <BlueButton type="submit">Register</BlueButton>
+                <BlueButton
+                  type="submit"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Register
+                </BlueButton>
+                {!regisError ? (
+                  <ModalSuccess
+                    modalType="Registration Successful!"
+                    buttonModal="login"
+                    pathTarget="/login"
+                    show={modal}
+                    message="You can now login to your account"
+                  />
+                ) : (
+                  <ModalFailed 
+                  modalType="Registration"
+                  buttonModal="close"
+                  pathTarget="/register"
+                  show={modal}
+                  message="Email already registered"/>
+                )}
               </div>
             </form>
             <div className="row my-2">
