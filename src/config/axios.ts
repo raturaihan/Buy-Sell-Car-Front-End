@@ -45,6 +45,7 @@ instance.interceptors.response.use(
     (res) => {
         if(res.data?.data.id_token){
             localStorage.setItem("authentication", `Bearer ${res.data.data.id_token}`);
+            localStorage.setItem("role", `Role ${res.data.data.role}`)
         }
         return res.data;
     }, 
