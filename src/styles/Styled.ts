@@ -22,3 +22,16 @@ export const ModalButton = styled.button({
     color: '#4ea5ea',
     fontWeight: 'bold'
 })
+
+export const ColorCard = styled.div({
+    color: 'rgb(8,55,85)', 
+    backgroundColor: 'rgba(250,200,25,255)'
+})
+
+export const IconColor = styled.div({
+    color: 'rgb(8,55,85)', 
+})
+
+export const BgFooter = styled.div({
+    backgroundColor: 'rgba(17,95,134,255)'
+})

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import HomeAdmin from './pages/Admin/HomeAdmin'
 import Home from './pages/Buyer/Home'
+import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
@@ -15,6 +16,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route element={<UnprotectedRoutes />}>
+          <Route path='/' element={<HomePage />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
         </Route>

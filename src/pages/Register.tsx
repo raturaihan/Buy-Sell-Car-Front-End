@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ModalFailed from "../components/ModalFailed";
 import ModalSuccess from "../components/ModalSuccess";
+import Navbar from "../components/Navbar";
 import instance from "../config/axios";
 import { BlueButton, FormContainer } from "../styles/Styled";
 
@@ -118,6 +119,7 @@ function Register() {
   };
   return (
     <div>
+      <Navbar />
       <div className="mt-5 d-flex justify-content-center">
         <FormContainer className="card py-5 px-5">
           <div className="d-flex flex-column align-items-center">
@@ -316,7 +318,7 @@ function Register() {
                   <ModalFailed 
                   modalType="Registration"
                   buttonModal="close"
-                  pathTarget="/register"
+                  pathTarget="/login"
                   show={modal}
                   message="Email already registered"/>
                 )}
