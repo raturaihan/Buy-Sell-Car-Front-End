@@ -1,3 +1,4 @@
+import { delay } from "lodash";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardCatalog from "../components/CardCatalog";
@@ -5,6 +6,7 @@ import Navbar from "../components/Navbar";
 import { fetchCars } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
+import { DebounceInput } from "react-debounce-input";
 
 function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
@@ -26,7 +28,29 @@ function CatalogPage() {
     <div>
       <Navbar />
       <div className="container mt-5">
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div className="d-flex gap-3">
+          <select name="cartype" id="cartype" className="form-select">
+            <option selected>Choose Car Type</option>
+          </select>
+          <select name="pricerange" id="pricerange" className="form-select">
+            <option selected>Select Price Range</option>
+          </select>
+          <DebounceInput
+            type="text"
+            className="form-control"
+            placeholder="Search..."
+            value={pagination.car_name}
+            debounceTimeout={500}
+            onChange={(e) =>
+              setPagination({
+                page: pagination.page,
+                limit: pagination.limit,
+                car_name: e.target.value,
+              })
+            }
+          />
+        </div>
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
           {carsLoading ? (
             <p>Loading...</p>
           ) : carsError ? (
@@ -46,12 +70,12 @@ function CatalogPage() {
                 <button
                   className="page-link"
                   aria-label="Previous"
-                  disabled={pagination.page == 1 ? (true): (false)}
+                  disabled={pagination.page == 1 ? true : false}
                   onClick={() =>
                     setPagination({
                       page: pagination.page - 1,
-                      limit: 10,
-                      car_name: "",
+                      limit: pagination.limit,
+                      car_name: pagination.car_name,
                     })
                   }
                 >
@@ -65,7 +89,11 @@ function CatalogPage() {
                       <button
                         className="page-link"
                         onClick={() =>
-                          setPagination({ page: page, limit: 10, car_name: "" })
+                          setPagination({
+                            page: page,
+                            limit: pagination.limit,
+                            car_name: pagination.car_name,
+                          })
                         }
                       >
                         {page}
@@ -77,12 +105,12 @@ function CatalogPage() {
               <li className="page-item">
                 <button
                   className="page-link"
-                  disabled={pagination.page == cars.TotalPage ? (true): (false)}
+                  disabled={pagination.page == cars.TotalPage ? true : false}
                   onClick={() =>
                     setPagination({
                       page: pagination.page + 1,
-                      limit: 10,
-                      car_name: "",
+                      limit: pagination.limit,
+                      car_name: pagination.car_name,
                     })
                   }
                   aria-label="Next"
