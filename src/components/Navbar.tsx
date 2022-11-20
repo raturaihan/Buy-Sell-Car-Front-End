@@ -21,7 +21,7 @@ function Navbar() {
                 <Link className='text-decoration-none text-secondary' to={'/'}><a className="nav-link nav-link-active" aria-current="page">Home</a></Link>
                 </li>
                 <li className="nav-item">
-                <Link className='text-decoration-none text-secondary' to={'/transfer'}><a className="nav-link">Car Catalog</a></Link>
+                <Link className='text-decoration-none text-secondary' to={'/catalog'}><a className="nav-link">Car Catalog</a></Link>
                 </li>
                 <li className="nav-item">
                 <Link className='text-decoration-none text-secondary' to={'/register'}><a className="nav-link nav-link-active">Register</a></Link>

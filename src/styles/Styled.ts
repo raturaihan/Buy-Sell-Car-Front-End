@@ -24,14 +24,27 @@ export const ModalButton = styled.button({
 })
 
 export const ColorCard = styled.div({
-    color: 'rgb(8,55,85)', 
+    color: 'rgba(17,95,134,255)', 
     backgroundColor: 'rgba(250,200,25,255)'
 })
 
 export const IconColor = styled.div({
-    color: 'rgb(8,55,85)', 
+    color: 'rgba(17,95,134,255)', 
 })
 
 export const BgFooter = styled.div({
     backgroundColor: 'rgba(17,95,134,255)'
+})
+
+export const CarCategory = styled.div({
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    border: '1px solid rgba(17,95,134,255)',
+    color:'rgba(17,95,134,255)',
+    paddingRight: '5px',
+    paddingLeft: '5px',
+})
+
+export const LocationFont = styled.p({
+    fontSize: '13px',
 })
