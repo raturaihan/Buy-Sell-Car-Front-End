@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardCatalog from "../components/CardCatalog";
 import Navbar from "../components/Navbar";
-import { fetchCars } from "../redux/actions/carActions";
+import { fetchCars, fetchCarsCategory } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { DebounceInput } from "react-debounce-input";
@@ -12,15 +12,19 @@ function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
     (state: RootState) => state.carReducer
   );
+  const { categories, categoriesLoading, categoriesError } = useSelector(
+    (state: RootState) => state.carReducer
+  );
   const [pagination, setPagination] = useState({
     limit: 10,
     page: 1,
     car_name: "",
   });
-  console.log(pagination);
+  const[selectCarType, setSelectCarType] = useState("")
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
+    carDispatch(fetchCarsCategory());
     carDispatch(fetchCars(pagination));
   }, [carDispatch, pagination]);
 
@@ -29,8 +33,26 @@ function CatalogPage() {
       <Navbar />
       <div className="container mt-5">
         <div className="d-flex gap-3">
-          <select name="cartype" id="cartype" className="form-select">
-            <option selected>Choose Car Type</option>
+          <select name="cartype" id="cartype" className="form-select" onChange={(e) => {setSelectCarType(e.target.value)}}>
+            <option value="">All Car Type</option>
+            {categoriesLoading ? (
+              <p>Loading...</p>
+            ) : categoriesError ? (
+              <p>Error: {categoriesError}</p>
+            ) : categories.length === 0 ? (
+              <p>No Categories Available</p>
+            ) : (
+              categories.map((category) => {
+                return (
+                  <option
+                    key={category.category_id}
+                    value={category.category_name}
+                  >
+                    {category.category_name}
+                  </option>
+                );
+              })
+            )}
           </select>
           <select name="pricerange" id="pricerange" className="form-select">
             <option selected>Select Price Range</option>
@@ -58,7 +80,13 @@ function CatalogPage() {
           ) : cars.Data.length === 0 ? (
             <p>No Cars Available</p>
           ) : (
-            cars.Data.map((car) => {
+            cars.Data
+            .filter((car) => {
+              return (
+                car.Category.category_name.toLowerCase().includes(selectCarType.toLowerCase())
+              )
+            })
+            .map((car) => {
               return <CardCatalog car={car} key={car.CarID} />;
             })
           )}

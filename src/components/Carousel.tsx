@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {BlueButton} from '../styles/Styled'
 
 function Carousel() {
@@ -28,7 +29,9 @@ function Carousel() {
         <div className='p-4'>
         <h3 className='text-black fs-1 fw-bold'>Shop on the lot or on the go</h3>
         <h5 className='text-black'>Get ready to choose</h5>
-        <BlueButton>See Catalog</BlueButton>
+        <Link to={'/catalog'}>
+          <BlueButton>See Catalog</BlueButton>
+        </Link>
         </div>
       </div>
     </div>
@@ -39,7 +42,9 @@ function Carousel() {
       <div className="carousel-caption d-none d-md-block my-5">
         <h2 className='text-black fw-bold fs-1'>Get a Trade-in Offer Today</h2>
         <h5 className='text-black fs-3'>Join our community now!</h5>
-        <BlueButton className='fs-5'>Sign Up</BlueButton>
+        <Link to={'/register'}>
+          <BlueButton className='fs-5'>Sign Up</BlueButton>
+        </Link>
       </div>
     </div>
   </div>

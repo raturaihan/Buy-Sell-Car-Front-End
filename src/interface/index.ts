@@ -28,3 +28,8 @@ export interface ICarCatalog {
     Limit: number;
     Data: ICar[];
 }
+
+export interface ICarCategory {
+    category_id: number;
+    category_name: string;
+}
