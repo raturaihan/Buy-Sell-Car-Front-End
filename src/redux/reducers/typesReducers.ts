@@ -7,4 +7,7 @@ export interface ICarState {
     categories: ICarCategory[];
     categoriesLoading: boolean;
     categoriesError: string | null;
+    car: ICar;
+    carLoading: boolean;
+    carError: string | null;
 }

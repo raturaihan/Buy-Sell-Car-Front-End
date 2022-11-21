@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import {CarCategory, FormContainer, SmallFont} from '../styles/Styled'
 import { ICar } from '../interface'
 import {FormatBalance} from '../utils/utils'
+import { Link } from 'react-router-dom'
 
 interface CarCardProps {
   car: ICar;
@@ -11,7 +12,8 @@ interface CarCardProps {
 function CardCatalog({car}:CarCardProps) {
   return (
     <div>
-        <div className='col'>
+      <Link to={`/car/${car.CarID}`} style={{ textDecoration: 'none', color:'black' }}>
+      <div className='col'>
             <FormContainer className='card'>
                 <img src={car.car_img} alt={car.car_name} />
                 <div className='card-body'>
@@ -27,6 +29,7 @@ function CardCatalog({car}:CarCardProps) {
                 </div>
             </FormContainer>
         </div>
+      </Link>
     </div>
   )
 }

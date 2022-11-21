@@ -52,6 +52,28 @@ export const setCarsCategoryError = (payload: string | null): CarAction => {
     }
 }
 
+export const setCar = (payload: ICar): CarAction => {
+    return {
+        type: CarActionType.SET_CAR,
+        payload: payload
+    }
+}
+
+export const setCarLoading = (payload: boolean): CarAction => {
+    return {
+        type: CarActionType.SET_CAR_LOADING,
+        payload: payload
+    }
+}
+
+export const setCarError = (payload: string | null): CarAction => {
+    return {
+        type: CarActionType.SET_CAR_ERROR,
+        payload: payload
+    }
+}
+
+
 export const fetchCars = ({page,limit,car_name, category_id}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
         dispatch(setCarsLoading(true))
@@ -96,5 +118,26 @@ export const fetchCarsCategory = () => {
         .catch((error) => {
             dispatch(setCarsCategoryError(error))})
         .finally(() => dispatch(setCarsCategoryLoading(false)));
+    }
+}
+
+export const fetchCar = (id: string | undefined) => {
+    return async(dispatch: Dispatch<CarAction>) => {
+        dispatch(setCarLoading(true))
+        dispatch(setCarError(""))
+
+        await instance.get(`/catalog/${id}`)
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to fetch car detail')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(setCar(data))
+        })
+        .catch((error) => {
+            dispatch(setCarError(error))})
+        .finally(() => dispatch(setCarLoading(false)));
     }
 }
