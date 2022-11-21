@@ -14,7 +14,7 @@ const ProtectedRoutesAdmin = () => {
     }, []);
     console.log(getIsAdminRole())
     if (!getIsLoginData() || !getIsAdminRole()) {
-        return <Navigate to='/login' />;
+        return <Navigate to='/' />;
     }
 
     return <Outlet />;

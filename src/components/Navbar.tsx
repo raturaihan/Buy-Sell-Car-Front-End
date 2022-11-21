@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const getIsAdminRole = () => JSON.parse(localStorage.getItem('role') == "Role ADMIN" ? 'true' : 'false');
+  const getIsBuyerRole = () => JSON.parse(localStorage.getItem('role') == "Role BUYER" ? 'true' : 'false');
   return (
     <div>
      <nav className="navbar navbar-expand-lg">
@@ -23,9 +25,12 @@ function Navbar() {
                 <li className="nav-item">
                 <Link className='text-decoration-none text-secondary' to={'/catalog'}><a className="nav-link">Car Catalog</a></Link>
                 </li>
-                <li className="nav-item">
+                {!getIsBuyerRole() && !getIsAdminRole() ? (<li className="nav-item">
                 <Link className='text-decoration-none text-secondary' to={'/register'}><a className="nav-link nav-link-active">Register</a></Link>
-                </li>
+                </li>):(<></>)}
+                {getIsBuyerRole() ? (<li className="nav-item">
+                <Link className='text-decoration-none text-secondary' to={'/favorite'}><a className="nav-link nav-link-active">Favorite</a></Link>
+                </li>):(<></>)}
             </ul>
             </div>
         </div>

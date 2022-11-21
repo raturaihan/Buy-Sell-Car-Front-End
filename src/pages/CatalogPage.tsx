@@ -20,8 +20,10 @@ function CatalogPage() {
     page: 1,
     car_name: "",
     category_id: "",
+    min_price: "",
+    max_price: "",
   });
-  console.log(pagination)
+  console.log(pagination);
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
@@ -45,6 +47,8 @@ function CatalogPage() {
                 limit: pagination.limit,
                 car_name: pagination.car_name,
                 category_id: e.target.value,
+                min_price: pagination.min_price,
+                max_price: pagination.max_price,
               });
             }}
           >
@@ -68,8 +72,12 @@ function CatalogPage() {
               })
             )}
           </select>
-          <select name="pricerange" id="pricerange" className="form-select">
-            <option>Select Price Range</option>
+          <select
+            name="pricerange"
+            id="pricerange"
+            className="form-select"
+          >
+            <option value="">Select Price Range</option>
           </select>
           <DebounceInput
             type="text"
@@ -83,6 +91,8 @@ function CatalogPage() {
                 limit: pagination.limit,
                 car_name: e.target.value,
                 category_id: pagination.category_id,
+                min_price: pagination.min_price,
+                max_price: pagination.max_price,
               })
             }
           />
@@ -114,6 +124,8 @@ function CatalogPage() {
                       limit: pagination.limit,
                       car_name: pagination.car_name,
                       category_id: pagination.category_id,
+                      min_price: pagination.min_price,
+                      max_price: pagination.max_price,
                     })
                   }
                 >
@@ -132,6 +144,8 @@ function CatalogPage() {
                             limit: pagination.limit,
                             car_name: pagination.car_name,
                             category_id: pagination.category_id,
+                            min_price: pagination.min_price,
+                            max_price: pagination.max_price,
                           })
                         }
                       >
@@ -151,6 +165,8 @@ function CatalogPage() {
                       limit: pagination.limit,
                       car_name: pagination.car_name,
                       category_id: pagination.category_id,
+                      min_price: pagination.min_price,
+                      max_price: pagination.max_price,
                     })
                   }
                   aria-label="Next"

@@ -36,7 +36,7 @@ function Login() {
           password: input.password,
         });
         if (user.data.role == "BUYER") {
-          navigate("/home", { replace: true });
+          navigate("/", { replace: true });
         } else if (user.data.role == "ADMIN") {
           navigate("/home-admin", { replace: true });
         }

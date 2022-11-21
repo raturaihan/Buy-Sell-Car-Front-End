@@ -14,7 +14,7 @@ const ProtectedRoutesBuyers = () => {
     }, []);
     console.log(getIsBuyerRole())
     if (!getIsLoginData() || !getIsBuyerRole()) {
-        return <Navigate to='/login' />;
+        return <Navigate to='/' />;
     }
 
     return <Outlet />;

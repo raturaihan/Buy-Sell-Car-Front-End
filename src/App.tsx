@@ -1,7 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import HomeAdmin from './pages/Admin/HomeAdmin'
-import Home from './pages/Buyer/Home'
 import CarDetailPage from './pages/CarDetailPage'
 import CatalogPage from './pages/CatalogPage'
 import HomePage from './pages/HomePage'
@@ -17,18 +15,16 @@ function App() {
   return (
     <div className="App">
       <Routes>
+      <Route path='/' element={<HomePage />}/>
+      <Route path="/catalog" element={<CatalogPage />}/>
+      <Route path='/car/:id' element={<CarDetailPage />}/>
         <Route element={<UnprotectedRoutes />}>
-          <Route path='/' element={<HomePage />}/>
-          <Route path="/catalog" element={<CatalogPage />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
-          <Route path='/car/:id' element={<CarDetailPage />}/>
         </Route>
         <Route element={<ProtectedRoutesBuyers />}>
-          <Route path='/home' element={<Home />} />
         </Route>
         <Route element={<ProtectedRoutesAdmin />}>
-          <Route path='/home-admin' element={<HomeAdmin />}/>
         </Route>
         <Route path="*" element={<NotFound />}/>
       </Routes>

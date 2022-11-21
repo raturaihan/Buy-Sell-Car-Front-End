@@ -8,6 +8,8 @@ interface IParams {
     limit: number;
     car_name:string;
     category_id:string;
+    min_price: string;
+    max_price: string;
 }
 
 export const setCars = (payload: ICarCatalog): CarAction => {
@@ -74,7 +76,7 @@ export const setCarError = (payload: string | null): CarAction => {
 }
 
 
-export const fetchCars = ({page,limit,car_name, category_id}:IParams) => {
+export const fetchCars = ({page,limit,car_name, category_id, min_price, max_price}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
         dispatch(setCarsLoading(true))
         dispatch(setCarsError(""))
@@ -84,6 +86,8 @@ export const fetchCars = ({page,limit,car_name, category_id}:IParams) => {
             limit: limit,
             car_name: car_name,
             category_id: category_id,
+            min_price: min_price,
+            max_price: max_price,
         }})
         .then((response) => {
             if(!response.data){
