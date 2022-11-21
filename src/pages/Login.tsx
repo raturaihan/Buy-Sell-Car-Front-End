@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import instance from "../config/axios";
-import { BlueButton, FormContainer } from "../styles/Styled";
+import { BlueGreenButton, FormContainer } from "../styles/Styled";
 
 interface ILogin {
   email: string;
@@ -147,7 +147,7 @@ function Login() {
               <></>
             )}
             <div className="row mt-4 px-2">
-              <BlueButton type="submit">Login</BlueButton>
+              <BlueGreenButton type="submit">Login</BlueGreenButton>
             </div>
           </form>
           <div className="row my-2">

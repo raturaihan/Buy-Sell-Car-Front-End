@@ -7,6 +7,7 @@ interface IParams {
     page: number;
     limit: number;
     car_name:string;
+    category_id:string;
 }
 
 export const setCars = (payload: ICarCatalog): CarAction => {
@@ -51,7 +52,7 @@ export const setCarsCategoryError = (payload: string | null): CarAction => {
     }
 }
 
-export const fetchCars = ({page,limit,car_name}:IParams) => {
+export const fetchCars = ({page,limit,car_name, category_id}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
         dispatch(setCarsLoading(true))
         dispatch(setCarsError(""))
@@ -60,6 +61,7 @@ export const fetchCars = ({page,limit,car_name}:IParams) => {
             page: page,
             limit: limit,
             car_name: car_name,
+            category_id: category_id,
         }})
         .then((response) => {
             if(!response.data){

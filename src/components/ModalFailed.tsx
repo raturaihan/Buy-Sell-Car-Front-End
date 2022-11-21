@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalButton } from "../styles/Styled";
+import { ReverseBlueGreenButton } from "../styles/Styled";
 import { Link } from "react-router-dom";
 
 interface modalFailedDetails {
@@ -49,13 +49,13 @@ function ModalFailed({
                 <div className="row my-3">
                   <Link to={pathTarget} className="text-decoration-none">
                     <div className="d-flex justify-content-center gap-4">
-                      <ModalButton
+                      <ReverseBlueGreenButton
                         type="button"
                         className="btn"
                         data-bs-dismiss="modal"
                       >
                         {buttonModal}
-                      </ModalButton>
+                      </ReverseBlueGreenButton>
                     </div>
                   </Link>
                 </div>

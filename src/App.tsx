@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import HomeAdmin from './pages/Admin/HomeAdmin'
 import Home from './pages/Buyer/Home'
+import CarDetailPage from './pages/CarDetailPage'
 import CatalogPage from './pages/CatalogPage'
 import HomePage from './pages/HomePage'
 import Login from './pages/Login'
@@ -21,6 +22,7 @@ function App() {
           <Route path="/catalog" element={<CatalogPage />}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register />}/>
+          <Route path='/car' element={<CarDetailPage />}/>
         </Route>
         <Route element={<ProtectedRoutesBuyers />}>
           <Route path='/home' element={<Home />} />

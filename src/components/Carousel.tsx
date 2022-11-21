@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {BlueButton} from '../styles/Styled'
+import {BlueGreenButton} from '../styles/Styled'
 
 function Carousel() {
   return (
@@ -30,7 +30,7 @@ function Carousel() {
         <h3 className='text-black fs-1 fw-bold'>Shop on the lot or on the go</h3>
         <h5 className='text-black'>Get ready to choose</h5>
         <Link to={'/catalog'}>
-          <BlueButton>See Catalog</BlueButton>
+          <BlueGreenButton>See Catalog</BlueGreenButton>
         </Link>
         </div>
       </div>
@@ -43,7 +43,7 @@ function Carousel() {
         <h2 className='text-black fw-bold fs-1'>Get a Trade-in Offer Today</h2>
         <h5 className='text-black fs-3'>Join our community now!</h5>
         <Link to={'/register'}>
-          <BlueButton className='fs-5'>Sign Up</BlueButton>
+          <BlueGreenButton className='p-2'>Sign Up</BlueGreenButton>
         </Link>
       </div>
     </div>

@@ -19,8 +19,9 @@ function CatalogPage() {
     limit: 10,
     page: 1,
     car_name: "",
+    category_id: "",
   });
-  const[selectCarType, setSelectCarType] = useState("")
+  console.log(pagination)
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +34,20 @@ function CatalogPage() {
       <Navbar />
       <div className="container mt-5">
         <div className="d-flex gap-3">
-          <select name="cartype" id="cartype" className="form-select" onChange={(e) => {setSelectCarType(e.target.value)}}>
+          <select
+            name="cartype"
+            id="cartype"
+            className="form-select"
+            value={pagination.category_id}
+            onChange={(e) => {
+              setPagination({
+                page: pagination.page,
+                limit: pagination.limit,
+                car_name: pagination.car_name,
+                category_id: e.target.value,
+              });
+            }}
+          >
             <option value="">All Car Type</option>
             {categoriesLoading ? (
               <p>Loading...</p>
@@ -46,7 +60,7 @@ function CatalogPage() {
                 return (
                   <option
                     key={category.category_id}
-                    value={category.category_name}
+                    value={category.category_id.toString()}
                   >
                     {category.category_name}
                   </option>
@@ -55,7 +69,7 @@ function CatalogPage() {
             )}
           </select>
           <select name="pricerange" id="pricerange" className="form-select">
-            <option selected>Select Price Range</option>
+            <option>Select Price Range</option>
           </select>
           <DebounceInput
             type="text"
@@ -68,6 +82,7 @@ function CatalogPage() {
                 page: pagination.page,
                 limit: pagination.limit,
                 car_name: e.target.value,
+                category_id: pagination.category_id,
               })
             }
           />
@@ -80,13 +95,7 @@ function CatalogPage() {
           ) : cars.Data.length === 0 ? (
             <p>No Cars Available</p>
           ) : (
-            cars.Data
-            .filter((car) => {
-              return (
-                car.Category.category_name.toLowerCase().includes(selectCarType.toLowerCase())
-              )
-            })
-            .map((car) => {
+            cars.Data.map((car) => {
               return <CardCatalog car={car} key={car.CarID} />;
             })
           )}
@@ -104,6 +113,7 @@ function CatalogPage() {
                       page: pagination.page - 1,
                       limit: pagination.limit,
                       car_name: pagination.car_name,
+                      category_id: pagination.category_id,
                     })
                   }
                 >
@@ -121,6 +131,7 @@ function CatalogPage() {
                             page: page,
                             limit: pagination.limit,
                             car_name: pagination.car_name,
+                            category_id: pagination.category_id,
                           })
                         }
                       >
@@ -139,6 +150,7 @@ function CatalogPage() {
                       page: pagination.page + 1,
                       limit: pagination.limit,
                       car_name: pagination.car_name,
+                      category_id: pagination.category_id,
                     })
                   }
                   aria-label="Next"

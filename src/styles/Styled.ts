@@ -45,6 +45,25 @@ export const CarCategory = styled.div({
     paddingLeft: '5px',
 })
 
-export const LocationFont = styled.p({
+export const SmallFont = styled.p({
     fontSize: '13px',
+})
+
+export const BlueGreenButton = styled.button({
+    border: 'none',
+    color: 'white', 
+    fontWeight: 'bold',
+    height: '45px',
+    borderRadius: '8px',
+    backgroundColor: 'rgba(17,95,134,255)'
+})
+
+export const ReverseBlueGreenButton = styled.button({
+    border: '1px solid rgba(17,95,134,255)',
+    backgroundColor: 'white', 
+    borderRadius: '8px',
+    height: '45px',
+    width: '80px',
+    color: 'rgba(17,95,134,255)',
+    fontWeight: 'bold'
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
-import {CarCategory, FormContainer, LocationFont} from '../styles/Styled'
+import {CarCategory, FormContainer, SmallFont} from '../styles/Styled'
 import { ICar } from '../interface'
 import {FormatBalance} from '../utils/utils'
 
@@ -20,7 +20,7 @@ function CardCatalog({car}:CarCardProps) {
                     <CarCategory>{car.transmission_type}</CarCategory>
                     <CarCategory>{car.Category.category_name}</CarCategory>
                     </div>
-                    <LocationFont className='card-text mt-2'>&#128205;{car.car_location}</LocationFont>
+                    <SmallFont className='card-text mt-2'>&#128205;{car.car_location}</SmallFont>
                     <div className='d-flex justify-content-end'>
                     <h5 className='card-text text-danger'>Rp {FormatBalance(car.price)}</h5>
                     </div>

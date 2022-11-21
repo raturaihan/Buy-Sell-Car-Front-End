@@ -5,7 +5,7 @@ import ModalFailed from "../components/ModalFailed";
 import ModalSuccess from "../components/ModalSuccess";
 import Navbar from "../components/Navbar";
 import instance from "../config/axios";
-import { BlueButton, FormContainer } from "../styles/Styled";
+import { BlueGreenButton, FormContainer } from "../styles/Styled";
 
 interface IRegister {
   email: string;
@@ -299,13 +299,13 @@ function Register() {
                 <></>
               )}
               <div className="row mt-4 px-2">
-                <BlueButton
+                <BlueGreenButton
                   type="submit"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                 >
                   Register
-                </BlueButton>
+                </BlueGreenButton>
                 {!regisError ? (
                   <ModalSuccess
                     modalType="Registration Successful!"
