@@ -1,7 +1,7 @@
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { ICar, ICarCatalog, ICarCategory } from "../../interface";
-import { ICarState } from "../reducers/typesReducers";
+import { ICar, ICarCatalog, ICarCategory, IUser } from "../../interface";
+import { ICarState, IUserState } from "../reducers/typesReducers";
 
 export enum CarActionType {
   SET_CARS = "SET_CARS",
@@ -71,3 +71,27 @@ export type CarAction =
   | ISetCarLoading
   | ISetCarError;
 export type CarDispatch = ThunkDispatch<ICarState, any, AnyAction>;
+
+export enum UserActionType {
+  SET_USER = "SET_USER",
+  SET_USER_LOADING = "SET_USER_LOADING",
+  SET_USER_ERROR = "SET_USER_ERROR",
+}
+
+export interface ISetUser {
+  type: UserActionType.SET_USER;
+  payload: IUser;
+}
+
+export interface ISetUserLoading {
+  type: UserActionType.SET_USER_LOADING;
+  payload: boolean;
+}
+
+export interface ISetUserError {
+  type: UserActionType.SET_USER_ERROR;
+  payload: string | null;
+}
+
+export type UserAction = ISetUser | ISetUserError | ISetUserLoading;
+export type UserDispatch = ThunkDispatch<IUserState, any, AnyAction>;

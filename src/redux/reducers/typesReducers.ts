@@ -1,4 +1,4 @@
-import { ICar, ICarCatalog, ICarCategory } from "../../interface";
+import { ICar, ICarCatalog, ICarCategory, IUser } from "../../interface";
 
 export interface ICarState {
     cars: ICarCatalog;
@@ -10,4 +10,10 @@ export interface ICarState {
     car: ICar;
     carLoading: boolean;
     carError: string | null;
+}
+
+export interface IUserState {
+    user: IUser;
+    userLoading: boolean;
+    userError: string | null;
 }

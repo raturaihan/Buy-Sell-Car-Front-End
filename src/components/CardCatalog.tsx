@@ -15,7 +15,7 @@ function CardCatalog({car}:CarCardProps) {
       <Link to={`/car/${car.CarID}`} style={{ textDecoration: 'none', color:'black' }}>
       <div className='col'>
             <FormContainer className='card'>
-                <img src={car.car_img} alt={car.car_name} />
+                <img src={car.car_img} alt={car.car_name} style={{ maxWidth: "100%" }}/>
                 <div className='card-body'>
                     <h5 className='card-title'>{car.car_year} {car.car_name}</h5>
                     <div className='d-flex gap-2'>

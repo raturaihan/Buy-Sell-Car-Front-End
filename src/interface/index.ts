@@ -33,3 +33,10 @@ export interface ICarCategory {
     category_id: number;
     category_name: string;
 }
+
+export interface IUser {
+    email: string;
+    full_name: string;
+    phone: string;
+    profile_img: string;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import instance from "../config/axios";
+import instance, { handleHTTPResponse } from "../config/axios";
 import { BlueGreenButton, FormContainer } from "../styles/Styled";
 
 interface ILogin {
@@ -14,6 +14,8 @@ function Login() {
     email: "",
     password: "",
   });
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setInput({
@@ -31,6 +33,8 @@ function Login() {
       })
     ) {
       try {
+        setIsError(false)
+        setErrorMessage("")
         let user = await instance.post("http://localhost:8081/login", {
           email: input.email,
           password: input.password,
@@ -41,7 +45,10 @@ function Login() {
           navigate("/home-admin", { replace: true });
         }
       } catch (error) {
-        alert(error);
+        setIsError(true)
+        if (error instanceof Error){
+          setErrorMessage(error.message)
+        }
       }
     }
   };
@@ -72,6 +79,8 @@ function Login() {
   };
 
   return (
+    <>
+    {isError?(<div className="alert alert-danger" role="alert">{errorMessage}</div>):(<></>)}
     <div className="mt-5 d-flex justify-content-center">
       <FormContainer className="card py-5 px-5">
         <div className="d-flex flex-column align-items-center">
@@ -158,6 +167,7 @@ function Login() {
         </div>
       </FormContainer>
     </div>
+    </>
   );
 }
 

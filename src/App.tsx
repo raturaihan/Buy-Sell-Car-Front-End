@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import ProfilePage from './pages/Buyer/ProfilePage'
 import CarDetailPage from './pages/CarDetailPage'
 import CatalogPage from './pages/CatalogPage'
 import HomePage from './pages/HomePage'
@@ -23,6 +24,7 @@ function App() {
           <Route path='/register' element={<Register />}/>
         </Route>
         <Route element={<ProtectedRoutesBuyers />}>
+          <Route path='/profile' element={<ProfilePage />}/>
         </Route>
         <Route element={<ProtectedRoutesAdmin />}>
         </Route>

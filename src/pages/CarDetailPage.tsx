@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { fetchCar } from "../redux/actions/carActions";
+import { fetchCar, fetchCars } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { FormatBalance } from "../utils/utils";
@@ -14,17 +14,36 @@ import {
   ReverseBlueGreenButton,
   ReverseRedButton,
 } from "../styles/Styled";
+import CardCatalog from "../components/CardCatalog";
 
 function CarDetailPage() {
   const { id } = useParams();
   const { car, carLoading, carError } = useSelector(
     (state: RootState) => state.carReducer
   );
+
+  const { cars, carsLoading, carsError } = useSelector(
+    (state: RootState) => state.carReducer
+  );
+  console.log(cars);
+  const [pagination, setPagination] = useState({
+    limit: 10,
+    page: 1,
+    car_name: "",
+    category_id: "",
+    min_price: "",
+    max_price: "",
+  });
+
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
-    carDispatch(fetchCar(id));
+    carDispatch(fetchCars(pagination));
   }, [carDispatch]);
+
+  useEffect(() => {
+    carDispatch(fetchCar(id));
+  },[carDispatch])
 
   return (
     <div>
@@ -32,7 +51,8 @@ function CarDetailPage() {
       <div className="container">
         {carLoading && <h1>Loading...</h1>}
         {!carLoading && carError && <h1>Error: {carError}</h1>}
-        {car ? (
+        {car ? 
+        (
           <>
             <div className="row my-4">
               <div className="col-lg-8">
@@ -105,6 +125,24 @@ function CarDetailPage() {
         ) : (
           <h1>No Car Detail</h1>
         )}
+        <div className="row mt-4">
+          <h4 className="text-center">Suggested For You</h4>
+          <div className="d-flex mt-3 gap-3" style={{ overflow: "auto" }}>
+            {carsLoading ? (
+              <p>Loading...</p>
+            ) : carsError ? (
+              <p>Error: {carsError}</p>
+            ) : cars.Data.length === 0 ? (
+              <p>No Cars Available</p>
+            ) : (
+              cars.Data
+              .filter((category) => {return (category.Category.category_name.includes(car.Category.category_name))})
+              .map((car) => {
+                return <CardCatalog car={car} key={car.CarID} />;
+              })
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

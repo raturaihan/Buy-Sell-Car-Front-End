@@ -50,11 +50,16 @@ instance.interceptors.response.use(
         return res.data;
     }, 
     (err) => {
+        console.log(err)
         const error = err && err.response && err.response.data
         if (error && error.message === 'Invalid credential'){
             localStorage.clear();
-            throw new Error('Invalid username or password');
-        }else {
+        }else if(error.message === "No Data Found"){
+            throw new Error('Email is not registered');
+        }else if(error.message === "Invalid password"){
+            throw new Error('Email or password incorrect')
+        }
+        else {
             throw err;
         }
     }
