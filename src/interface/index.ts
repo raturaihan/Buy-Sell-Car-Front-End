@@ -35,8 +35,8 @@ export interface ICarCategory {
 }
 
 export interface IUser {
-    email: string;
+    email?: string;
     full_name: string;
     phone: string;
-    profile_img: string;
+    profile_img: string | undefined;
 }

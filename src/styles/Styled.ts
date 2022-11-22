@@ -81,3 +81,7 @@ export const ProfileImage = styled.img({
     width:'150px',
     height:'150px',
 })
+
+export const InputImage = styled.input({
+    content:'Select image',
+})

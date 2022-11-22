@@ -58,9 +58,11 @@ instance.interceptors.response.use(
             throw new Error('Email is not registered');
         }else if(error.message === "Invalid password"){
             throw new Error('Email or password incorrect')
+        }else if(error.message === "Email already exist"){
+            throw new Error('Email already registered')
         }
         else {
-            throw err;
+            throw error.message
         }
     }
 )

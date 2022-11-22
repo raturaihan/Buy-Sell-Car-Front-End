@@ -24,6 +24,27 @@ export const setUserError = (payload: string | null): UserAction => {
     }
 }
 
+export const updateUser = (payload: IUser): UserAction => {
+    return {
+        type: UserActionType.UPDATE_USER,
+        payload: payload
+    }
+}
+
+export const updateUserLoading = (payload: boolean): UserAction => {
+    return {
+        type: UserActionType.UPDATE_USER_LOADING,
+        payload: payload
+    }
+}
+
+export const updateUserError = (payload: string | null): UserAction => {
+    return {
+        type: UserActionType.UPDATE_USER_ERROR,
+        payload: payload
+    }
+}
+
 export const fetchUserDetail = () => {
     return async(dispatch: Dispatch<UserAction>) => {
         dispatch(setUserLoading(true))
@@ -42,5 +63,26 @@ export const fetchUserDetail = () => {
         .catch((error) => {
             dispatch(setUserError(error))})
         .finally(() => dispatch(setUserLoading(false)));
+    }
+}
+
+export const updateUserDetail = (payload: IUser) => {
+    return async(dispatch: Dispatch<UserAction>) => {
+        dispatch(updateUserLoading(true))
+        dispatch(updateUserError(""))
+
+        await instance.patch("/user", payload)
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to update user detail')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(updateUser(data))
+        })
+        .catch((error) => {
+            dispatch(updateUserError(error))})
+        .finally(() => dispatch(updateUserLoading(false)));
     }
 }

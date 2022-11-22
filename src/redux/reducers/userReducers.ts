@@ -12,6 +12,14 @@ const initialState: IUserState = {
   },
   userLoading: false,
   userError: null,
+  userUpdate: {
+    email: "",
+    full_name: "",
+    phone: "",
+    profile_img: "",
+  },
+  userUpdateLoading: false,
+  userUpdateError: null,
 };
 
 export default function userReducer(
@@ -25,7 +33,13 @@ export default function userReducer(
       return { ...state, userLoading: action.payload };
     case UserActionType.SET_USER_ERROR:
       return { ...state, userError: action.payload };
+    case UserActionType.UPDATE_USER:
+      return { ...state, userUpdate: action.payload };
+    case UserActionType.UPDATE_USER_LOADING:
+      return { ...state, userUpdateLoading: action.payload };
+    case UserActionType.UPDATE_USER_ERROR:
+      return { ...state, userUpdateError: action.payload };
     default:
-        return state
+      return state;
   }
 }

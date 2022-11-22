@@ -76,6 +76,9 @@ export enum UserActionType {
   SET_USER = "SET_USER",
   SET_USER_LOADING = "SET_USER_LOADING",
   SET_USER_ERROR = "SET_USER_ERROR",
+  UPDATE_USER = "UPDATE_USER",
+  UPDATE_USER_LOADING = "UPDATE_USER_LOADING",
+  UPDATE_USER_ERROR = "UPDATE_USER_ERROR",
 }
 
 export interface ISetUser {
@@ -93,5 +96,20 @@ export interface ISetUserError {
   payload: string | null;
 }
 
-export type UserAction = ISetUser | ISetUserError | ISetUserLoading;
+export interface IUpdateUser {
+  type: UserActionType.UPDATE_USER;
+  payload: IUser;
+}
+
+export interface IUpdateUserLoading {
+  type: UserActionType.UPDATE_USER_LOADING;
+  payload: boolean;
+}
+
+export interface IUpdateUserError {
+  type: UserActionType.UPDATE_USER_ERROR;
+  payload: string | null;
+}
+
+export type UserAction = ISetUser | ISetUserError | ISetUserLoading | IUpdateUser | IUpdateUserError | IUpdateUserLoading;
 export type UserDispatch = ThunkDispatch<IUserState, any, AnyAction>;

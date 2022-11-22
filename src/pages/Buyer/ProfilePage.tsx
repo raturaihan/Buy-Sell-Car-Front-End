@@ -12,7 +12,6 @@ function ProfilePage() {
     (state: RootState) => state.userReducer
   ); 
   const userDispatch: UserDispatch= useDispatch();
-  console.log(user)
   useEffect(() => {
     userDispatch(fetchUserDetail());
   },[userDispatch])

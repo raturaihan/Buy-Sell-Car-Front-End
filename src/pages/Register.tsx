@@ -26,6 +26,7 @@ function Register() {
   });
   const [modal, setModal] = useState(false);
   const [regisError, setRegisError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -47,13 +48,15 @@ function Register() {
           role: "BUYER",
         });
         if (user.data != null) {
+          setErrorMessage("")
           setModal(true);
           setRegisError(false);
         }
       } catch (error) {
-        setModal(true);
         setRegisError(true);
-        console.log(error)
+        if(error instanceof Error){
+          setErrorMessage(error.message)
+        }
       }
     }
   };
@@ -119,6 +122,7 @@ function Register() {
   };
   return (
     <div>
+      {regisError ? (<div className="alert alert-danger" role="alert">{errorMessage}</div>):(<></>)}
       <Navbar />
       <div className="mt-5 d-flex justify-content-center">
         <FormContainer className="card py-5 px-5">
@@ -314,13 +318,7 @@ function Register() {
                     show={modal}
                     message="You can now login to your account"
                   />
-                ) : (
-                  <ModalFailed 
-                  modalType="Registration"
-                  buttonModal="close"
-                  pathTarget="/login"
-                  show={modal}
-                  message="Email already registered"/>
+                ) : (<></>
                 )}
               </div>
             </form>
