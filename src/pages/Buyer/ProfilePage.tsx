@@ -11,10 +11,13 @@ function ProfilePage() {
   const {user, userLoading, userError} = useSelector(
     (state: RootState) => state.userReducer
   ); 
+  const { userUpdate} = useSelector(
+    (state: RootState) => state.userReducer
+  );
   const userDispatch: UserDispatch= useDispatch();
   useEffect(() => {
     userDispatch(fetchUserDetail());
-  },[userDispatch])
+  },[userDispatch, userUpdate])
   return (
     <div>
       <Navbar />

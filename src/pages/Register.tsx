@@ -24,6 +24,7 @@ function Register() {
     confirmPassword: "",
     phone: "",
   });
+
   const [modal, setModal] = useState(false);
   const [regisError, setRegisError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
