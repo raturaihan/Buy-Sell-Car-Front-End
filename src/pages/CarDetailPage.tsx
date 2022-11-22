@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { fetchCar, fetchCars, suggestedCar } from "../redux/actions/carActions";
+import { fetchCar, suggestedCar } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { FormatBalance } from "../utils/utils";
@@ -21,7 +21,6 @@ function CarDetailPage() {
   const { suggestedCars, suggestedCarsLoading, suggestedCarsError } = useSelector(
     (state: RootState) => state.carReducer
   );
-  console.log(suggestedCars)
 
   const { car, carLoading, carError } = useSelector(
     (state: RootState) => state.carReducer
@@ -125,7 +124,6 @@ function CarDetailPage() {
               <p>No Cars Available</p>
             ) : (
               suggestedCars
-              // .filter((category) => {return (category.Category.category_name.includes(car.Category.category_name))})
               .map((suggestedCar) => {
                 return <CardCatalog car={suggestedCar} key={suggestedCar.CarID} />;
               })

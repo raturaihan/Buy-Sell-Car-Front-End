@@ -1,7 +1,18 @@
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { ICar, ICarCatalog, ICarCategory, IUser } from "../../interface";
-import { ICarState, IUserState } from "../reducers/typesReducers";
+import {
+  ICar,
+  ICarCatalog,
+  ICarCategory,
+  IFavorite,
+  IFavorites,
+  IUser,
+} from "../../interface";
+import {
+  ICarState,
+  IFavoriteState,
+  IUserState,
+} from "../reducers/typesReducers";
 
 export enum CarActionType {
   SET_CARS = "SET_CARS",
@@ -13,9 +24,9 @@ export enum CarActionType {
   SET_CAR = "SET_CAR",
   SET_CAR_LOADING = "SET_CAR_LOADING",
   SET_CAR_ERROR = "SET_CAR_ERROR",
-  SET_SUGESTED_CAR ="SET_SUGGESTED_CAR",
-  SET_SUGESTED_CAR_LOADING ="SET_SUGGESTED_CAR_LOADING",
-  SET_SUGESTED_CAR_ERROR ="SET_SUGGESTED_CAR_ERROR",
+  SET_SUGESTED_CAR = "SET_SUGGESTED_CAR",
+  SET_SUGESTED_CAR_LOADING = "SET_SUGGESTED_CAR_LOADING",
+  SET_SUGESTED_CAR_ERROR = "SET_SUGGESTED_CAR_ERROR",
 }
 
 export interface ISetCars {
@@ -132,5 +143,53 @@ export interface IUpdateUserError {
   payload: string | null;
 }
 
-export type UserAction = ISetUser | ISetUserError | ISetUserLoading | IUpdateUser | IUpdateUserError | IUpdateUserLoading;
+export type UserAction =
+  | ISetUser
+  | ISetUserError
+  | ISetUserLoading
+  | IUpdateUser
+  | IUpdateUserError
+  | IUpdateUserLoading;
 export type UserDispatch = ThunkDispatch<IUserState, any, AnyAction>;
+
+export enum FavoriteActionType {
+  ADD_FAVORITE = "ADD_FAVORITE",
+  REMOVE_FAVORITE = "REMOVE_FAVORITE",
+  GET_FAVORITES = "GET_FAVORITE",
+  GET_FAVORITES_LOADING = "GET_FAVORITE_LOADING",
+  GET_FAVORITES_ERROR = "GET_FAVORITE_ERROR",
+}
+
+export interface IAddFavorite {
+  type: FavoriteActionType.ADD_FAVORITE;
+  payload: IFavorite;
+}
+
+export interface IRemoveFavorite {
+  type: FavoriteActionType.REMOVE_FAVORITE;
+  payload: IFavorite;
+}
+
+export interface IGetFavorites {
+  type: FavoriteActionType.GET_FAVORITES;
+  payload: IFavorites[];
+}
+
+export interface IGetFavoritesLoading {
+  type: FavoriteActionType.GET_FAVORITES_LOADING;
+  payload: boolean;
+}
+
+export interface IGetFavoritesError {
+  type: FavoriteActionType.GET_FAVORITES_ERROR;
+  payload: string | null;
+}
+
+
+export type FavoriteAction =
+  | IAddFavorite
+  | IRemoveFavorite
+  | IGetFavorites
+  | IGetFavoritesLoading
+  | IGetFavoritesError;
+export type FavoriteDispatch = ThunkDispatch<IFavoriteState, any, AnyAction>;

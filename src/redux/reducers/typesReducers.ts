@@ -1,4 +1,4 @@
-import { ICar, ICarCatalog, ICarCategory, IUser } from "../../interface";
+import { ICar, ICarCatalog, ICarCategory, IFavorite, IFavorites, IUser } from "../../interface";
 
 export interface ICarState {
     cars: ICarCatalog;
@@ -22,4 +22,12 @@ export interface IUserState {
     userUpdate: IUser;
     userUpdateLoading: boolean;
     userUpdateError: string | null;
+}
+
+export interface IFavoriteState {
+    carFavorites: IFavorites[];
+    carFavoritesLoading: boolean;
+    carFavoritesError: string | null;
+    addFavorite: IFavorite;
+    removeFavorite: IFavorite;
 }

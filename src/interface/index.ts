@@ -28,7 +28,6 @@ export interface ICarCatalog {
     Limit: number;
     Data: ICar[];
 }
-
 export interface ICarCategory {
     category_id: number;
     category_name: string;
@@ -39,4 +38,17 @@ export interface IUser {
     full_name: string;
     phone: string;
     profile_img: string | undefined;
+}
+
+export interface IFavorites {
+    favorite_id: number;
+    user_id: number;
+    car_id: number;
+    Car: ICar;
+}
+
+export interface IFavorite {
+    favorite_id: number;
+    user_id: number;
+    car_id: number;
 }

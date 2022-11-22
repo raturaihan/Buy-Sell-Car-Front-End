@@ -8,7 +8,6 @@ import { RootState } from "../redux/reducers/indexReducers";
 import { BlueGreenButton } from "../styles/Styled";
 
 function ModalEditProfile() {
-  const imageMimeType = /image\/(png|jpg|jpeg)/i;
   const [imagePreviewUrl, setImagePreviewUrl] = React.useState<string>();
 
   const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {

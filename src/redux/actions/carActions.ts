@@ -159,7 +159,7 @@ export const fetchCar = (id: string | undefined) => {
             return response.data
         })
         .then((data) => {
-            dispatch(setCar(data))
+            dispatch(setCar(data))    
         })
         .catch((error) => {
             dispatch(setCarError(error))})
