@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { fetchCar, fetchCars } from "../redux/actions/carActions";
+import { fetchCar, fetchCars, suggestedCar } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { FormatBalance } from "../utils/utils";
@@ -18,32 +18,21 @@ import CardCatalog from "../components/CardCatalog";
 
 function CarDetailPage() {
   const { id } = useParams();
+  const { suggestedCars, suggestedCarsLoading, suggestedCarsError } = useSelector(
+    (state: RootState) => state.carReducer
+  );
+  console.log(suggestedCars)
+
   const { car, carLoading, carError } = useSelector(
     (state: RootState) => state.carReducer
   );
 
-  const { cars, carsLoading, carsError } = useSelector(
-    (state: RootState) => state.carReducer
-  );
-  console.log(cars);
-  const [pagination, setPagination] = useState({
-    limit: 10,
-    page: 1,
-    car_name: "",
-    category_id: "",
-    min_price: "",
-    max_price: "",
-  });
-
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
-    carDispatch(fetchCars(pagination));
-  }, [carDispatch]);
-
-  useEffect(() => {
     carDispatch(fetchCar(id));
-  },[carDispatch])
+    carDispatch(suggestedCar(car.category_id))
+  },[carDispatch, car.category_id, id])
 
   return (
     <div>
@@ -128,17 +117,17 @@ function CarDetailPage() {
         <div className="row mt-4">
           <h4 className="text-center">Suggested For You</h4>
           <div className="d-flex mt-3 gap-3" style={{ overflow: "auto" }}>
-            {carsLoading ? (
+            {suggestedCarsLoading ? (
               <p>Loading...</p>
-            ) : carsError ? (
-              <p>Error: {carsError}</p>
-            ) : cars.Data.length === 0 ? (
+            ) : suggestedCarsError ? (
+              <p>Error: {suggestedCarsError}</p>
+            ) : suggestedCars.length === 0 ? (
               <p>No Cars Available</p>
             ) : (
-              cars.Data
-              .filter((category) => {return (category.Category.category_name.includes(car.Category.category_name))})
-              .map((car) => {
-                return <CardCatalog car={car} key={car.CarID} />;
+              suggestedCars
+              // .filter((category) => {return (category.Category.category_name.includes(car.Category.category_name))})
+              .map((suggestedCar) => {
+                return <CardCatalog car={suggestedCar} key={suggestedCar.CarID} />;
               })
             )}
           </div>

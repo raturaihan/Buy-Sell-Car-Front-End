@@ -75,6 +75,27 @@ export const setCarError = (payload: string | null): CarAction => {
     }
 }
 
+export const setSuggestedCars = (payload: ICar[]): CarAction => {
+    return {
+        type: CarActionType.SET_SUGESTED_CAR,
+        payload: payload
+    }
+}
+
+export const setSuggestedCarsLoading = (payload: boolean): CarAction => {
+    return {
+        type: CarActionType.SET_SUGESTED_CAR_LOADING,
+        payload: payload
+    }
+}
+
+export const setSuggestedCarsError = (payload: string | null): CarAction => {
+    return {
+        type: CarActionType.SET_SUGESTED_CAR_ERROR,
+        payload: payload
+    }
+}
+
 
 export const fetchCars = ({page,limit,car_name, category_id, min_price, max_price}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
@@ -143,5 +164,26 @@ export const fetchCar = (id: string | undefined) => {
         .catch((error) => {
             dispatch(setCarError(error))})
         .finally(() => dispatch(setCarLoading(false)));
+    }
+}
+
+export const suggestedCar = (id: number | undefined) => {
+    return async(dispatch: Dispatch<CarAction>) => {
+        dispatch(setSuggestedCarsLoading(true))
+        dispatch(setSuggestedCarsError(""))
+
+        await instance.get(`/catalog/category/car/${id}`)
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to fetch suggested car')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(setSuggestedCars(data))
+        })
+        .catch((error) => {
+            dispatch(setSuggestedCarsError(error))})
+        .finally(() => dispatch(setSuggestedCarsLoading(false)));
     }
 }

@@ -27,6 +27,9 @@ const initialState: ICarState = {
   },
   carLoading: false,
   carError: null,
+  suggestedCars: [],
+  suggestedCarsLoading: false,
+  suggestedCarsError: null,
 };
 
 export default function carReducer(
@@ -52,6 +55,12 @@ export default function carReducer(
       return { ...state, carLoading: action.payload };
     case CarActionType.SET_CAR_ERROR:
       return { ...state, carError: action.payload };
+    case CarActionType.SET_SUGESTED_CAR:
+      return { ...state, suggestedCars: action.payload };
+    case CarActionType.SET_SUGESTED_CAR_LOADING:
+      return { ...state, suggestedCarsLoading: action.payload };
+    case CarActionType.SET_SUGESTED_CAR_ERROR:
+      return { ...state, suggestedCarsError: action.payload };
     default:
       return state;
   }

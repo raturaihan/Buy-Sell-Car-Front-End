@@ -10,6 +10,9 @@ export interface ICarState {
     car: ICar;
     carLoading: boolean;
     carError: string | null;
+    suggestedCars: ICar[];
+    suggestedCarsLoading: boolean;
+    suggestedCarsError: string | null;
 }
 
 export interface IUserState {
