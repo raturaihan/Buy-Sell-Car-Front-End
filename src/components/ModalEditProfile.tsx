@@ -26,16 +26,13 @@ function ModalEditProfile() {
     setImagePreviewUrl(uploadPost.data.secure_url);
   };
 
-  // const { userUpdate} = useSelector(
-  //   (state: RootState) => state.userReducer
-  // );
   const userDispatch: UserDispatch = useDispatch();
 
   const [input, setInput] = useState({
     full_name: "",
     phone: "",
     profile_img: "",
-  });
+  });useState
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setInput({

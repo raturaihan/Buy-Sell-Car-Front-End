@@ -3,11 +3,6 @@ import instance from "../../config/axios";
 import { IFavorite, IFavorites } from "../../interface";
 import { FavoriteAction, FavoriteActionType } from "./typesActions";
 
-interface isCarFavorite {
-    car_id: number;
-    car_favorite_id: number;
-}
-
 export const addFavorite = (payload: IFavorite): FavoriteAction => {
     return {
         type: FavoriteActionType.ADD_FAVORITE,

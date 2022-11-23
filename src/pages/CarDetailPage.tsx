@@ -21,6 +21,7 @@ import {
   removeCarFavorite,
 } from "../redux/actions/favoriteAction";
 import ModalEditProfile from "../components/ModalEditProfile";
+import ModalTestDrive from "../components/ModalTestDrive";
 
 function CarDetailPage() {
   const navigate = useNavigate();
@@ -140,10 +141,10 @@ function CarDetailPage() {
                       </div>
                     </div>
                     <div className="d-flex gap-3 justify-content-center m-3">
-                      <BlueGreenButton data-bs-toggle="modal" className="px-2" onClick={handleClickTestDrive}>
+                      <BlueGreenButton data-bs-toggle="modal" data-bs-target="#exampleModal" className="px-2" onClick={handleClickTestDrive}>
                         Test Drive
                       </BlueGreenButton>
-                      <ModalEditProfile/>
+                      <ModalTestDrive />
                       <ReverseBlueGreenButton className="px-4">
                         Buy
                       </ReverseBlueGreenButton>

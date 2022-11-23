@@ -52,3 +52,20 @@ export interface IFavorite {
     user_id: number;
     car_id: number;
 }
+
+export interface ITestDrives {
+    test_drive_id: number;
+    user_id: number;
+    car_id: number;
+    status: string;
+    DateRequest: string;
+    Car: ICar
+}
+
+export interface ITestDrive {
+    test_drive_id: number;
+    user_id: number;
+    car_id: number;
+    DateRequest: string;
+    status: string;
+}

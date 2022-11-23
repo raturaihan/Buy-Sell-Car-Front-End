@@ -6,11 +6,14 @@ import {
   ICarCategory,
   IFavorite,
   IFavorites,
+  ITestDrive,
+  ITestDrives,
   IUser,
 } from "../../interface";
 import {
   ICarState,
   IFavoriteState,
+  ITestDriveState,
   IUserState,
 } from "../reducers/typesReducers";
 
@@ -111,7 +114,7 @@ export enum UserActionType {
   UPDATE_USER = "UPDATE_USER",
   UPDATE_USER_LOADING = "UPDATE_USER_LOADING",
   UPDATE_USER_ERROR = "UPDATE_USER_ERROR",
-  RESET_USER = "RESET_USER"
+  RESET_USER = "RESET_USER",
 }
 
 export interface ISetUser {
@@ -196,7 +199,6 @@ export interface IResetFavorite {
   type: FavoriteActionType.RESET_FAVORITE;
 }
 
-
 export type FavoriteAction =
   | IAddFavorite
   | IRemoveFavorite
@@ -205,3 +207,44 @@ export type FavoriteAction =
   | IGetFavoritesError
   | IResetFavorite;
 export type FavoriteDispatch = ThunkDispatch<IFavoriteState, any, AnyAction>;
+
+export enum TestDriveActionType {
+  REQUEST_TEST_DRIVE = "REQUEST_TEST_DRIVE",
+  REQUEST_TEST_DRIVE_ERROR = "REQUEST_TEST_DRIVE_ERROR",
+  SET_TEST_DRIVES_USER = "SET_TEST_DRIVES_USER",
+  SET_TEST_DRIVES_USER_LOADING = "SET_TEST_DRIVES_USER_LOADING",
+  SET_TEST_DRIVES_USER_ERROR = "SET_TEST_DRIVES_USER_ERROR",
+}
+
+export interface IRequestTestDrive {
+  type: TestDriveActionType.REQUEST_TEST_DRIVE;
+  payload: ITestDrive;
+}
+
+export interface IRequestTestDriveError {
+  type: TestDriveActionType.REQUEST_TEST_DRIVE_ERROR;
+  payload: string | null;
+}
+
+export interface ISetTestDrivesUser {
+  type: TestDriveActionType.SET_TEST_DRIVES_USER;
+  payload: ITestDrives[];
+}
+
+export interface ISetTestDrivesUserLoading {
+  type: TestDriveActionType.SET_TEST_DRIVES_USER_LOADING;
+  payload: boolean;
+}
+
+export interface ISetTestDrivesUserError {
+  type: TestDriveActionType.SET_TEST_DRIVES_USER_ERROR;
+  payload: string | null;
+}
+
+export type TestDriveAction =
+  | IRequestTestDrive
+  | IRequestTestDriveError
+  | ISetTestDrivesUser
+  | ISetTestDrivesUserLoading
+  | ISetTestDrivesUserError;
+export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
