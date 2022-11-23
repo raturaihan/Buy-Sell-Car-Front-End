@@ -3,6 +3,10 @@ import instance from "../../config/axios";
 import { IFavorite, IFavorites } from "../../interface";
 import { FavoriteAction, FavoriteActionType } from "./typesActions";
 
+interface isCarFavorite {
+    car_id: number;
+    car_favorite_id: number;
+}
 
 export const addFavorite = (payload: IFavorite): FavoriteAction => {
     return {
@@ -70,7 +74,7 @@ export const fetchFavorites = () => {
 export const addCarFavorite = (car_id:number) => {
     return async(dispatch: Dispatch<FavoriteAction>) => {
 
-        const res = await instance.post("/user/favorite", car_id)
+        const res = await instance.post("/user/favorite", {car_id: car_id})
         .then((response) => {
             if(!response.data) {
                 throw new Error('failed to add car favorite')
@@ -86,10 +90,10 @@ export const addCarFavorite = (car_id:number) => {
     }
 }
 
-export const removeCarFavorite = (favorite_id:number) => {
+export const removeCarFavorite = (car_id:number) => {
     return async(dispatch: Dispatch<FavoriteAction>) => {
 
-        const res = await instance.patch(`/user/favorite/${favorite_id}`)
+        const res = await instance.patch(`/user/favorite`, {car_id: car_id})
         .then((response) => {
             if(!response.data) {
                 throw new Error('failed to add car favorite')

@@ -72,7 +72,7 @@ export const ReverseRedButton = styled.button({
     backgroundColor: 'rgb(248, 249, 250)', 
     borderRadius: '8px',
     height: '45px',
-    color: 'Red',
+    color: '#ea3c53',
     fontWeight: 'bold'
 })
 
