@@ -1,11 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { resetFavorite } from "../redux/actions/favoriteAction";
+import { FavoriteDispatch, UserDispatch } from "../redux/actions/typesActions";
+import { resetUser } from "../redux/actions/userActions";
 
 function Navbar() {
+  const navigate = useNavigate();
   const getIsAdminRole = () =>
     JSON.parse(localStorage.getItem("role") == "Role ADMIN" ? "true" : "false");
   const getIsBuyerRole = () =>
     JSON.parse(localStorage.getItem("role") == "Role BUYER" ? "true" : "false");
+  const userDispatch: UserDispatch= useDispatch();
+  const favoriteDispatch: FavoriteDispatch= useDispatch();
+  const handleLogout = () => {
+    localStorage.clear();
+    userDispatch(resetUser())
+    favoriteDispatch(resetFavorite())
+    navigate("/register", {replace: true})
+
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
@@ -97,9 +111,9 @@ function Navbar() {
                         </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="#">
+                        <button className="dropdown-item" onClick={handleLogout}>
                           Logout
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </li>

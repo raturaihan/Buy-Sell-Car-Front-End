@@ -120,6 +120,7 @@ export const fetchCars = ({page,limit,car_name, category_id, min_price, max_pric
             dispatch(setCars(data))
         })
         .catch((error) => {
+            console.log(error)
             dispatch(setCarsError(error))})
         .finally(() => dispatch(setCarsLoading(false)));
     }

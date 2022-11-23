@@ -32,6 +32,8 @@ export default function favoriteReducer(
             return {...state, carFavoritesLoading: action.payload};
         case FavoriteActionType.GET_FAVORITES_ERROR:
             return {...state, carFavoritesError: action.payload};
+        case FavoriteActionType.RESET_FAVORITE:
+            return initialState
         default:
             return state;
     }

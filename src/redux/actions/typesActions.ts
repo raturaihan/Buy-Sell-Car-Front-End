@@ -111,6 +111,7 @@ export enum UserActionType {
   UPDATE_USER = "UPDATE_USER",
   UPDATE_USER_LOADING = "UPDATE_USER_LOADING",
   UPDATE_USER_ERROR = "UPDATE_USER_ERROR",
+  RESET_USER = "RESET_USER"
 }
 
 export interface ISetUser {
@@ -143,13 +144,18 @@ export interface IUpdateUserError {
   payload: string | null;
 }
 
+export interface IResetUser {
+  type: UserActionType.RESET_USER;
+}
+
 export type UserAction =
   | ISetUser
   | ISetUserError
   | ISetUserLoading
   | IUpdateUser
   | IUpdateUserError
-  | IUpdateUserLoading;
+  | IUpdateUserLoading
+  | IResetUser;
 export type UserDispatch = ThunkDispatch<IUserState, any, AnyAction>;
 
 export enum FavoriteActionType {
@@ -158,6 +164,7 @@ export enum FavoriteActionType {
   GET_FAVORITES = "GET_FAVORITE",
   GET_FAVORITES_LOADING = "GET_FAVORITE_LOADING",
   GET_FAVORITES_ERROR = "GET_FAVORITE_ERROR",
+  RESET_FAVORITE = "RESET_FAVORITE"
 }
 
 export interface IAddFavorite {
@@ -185,11 +192,16 @@ export interface IGetFavoritesError {
   payload: string | null;
 }
 
+export interface IResetFavorite {
+  type: FavoriteActionType.RESET_FAVORITE;
+}
+
 
 export type FavoriteAction =
   | IAddFavorite
   | IRemoveFavorite
   | IGetFavorites
   | IGetFavoritesLoading
-  | IGetFavoritesError;
+  | IGetFavoritesError
+  | IResetFavorite;
 export type FavoriteDispatch = ThunkDispatch<IFavoriteState, any, AnyAction>;

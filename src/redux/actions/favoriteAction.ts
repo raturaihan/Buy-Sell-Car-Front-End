@@ -39,6 +39,12 @@ export const setFavoritesError = (payload: string | null): FavoriteAction => {
     }
 }
 
+export const resetFavorite = (): FavoriteAction => {
+    return {
+        type: FavoriteActionType.RESET_FAVORITE
+    }
+}
+
 export const fetchFavorites = () => {
     return async(dispatch: Dispatch<FavoriteAction>) => {
         dispatch(setFavoritesLoading(true))

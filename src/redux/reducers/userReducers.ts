@@ -39,6 +39,8 @@ export default function userReducer(
       return { ...state, userUpdateLoading: action.payload };
     case UserActionType.UPDATE_USER_ERROR:
       return { ...state, userUpdateError: action.payload };
+    case UserActionType.RESET_USER:
+      return initialState;
     default:
       return state;
   }

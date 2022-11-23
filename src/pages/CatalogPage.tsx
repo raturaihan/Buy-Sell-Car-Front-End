@@ -43,7 +43,7 @@ function CatalogPage() {
             value={pagination.category_id}
             onChange={(e) => {
               setPagination({
-                page: pagination.page,
+                page: 1,
                 limit: pagination.limit,
                 car_name: pagination.car_name,
                 category_id: e.target.value,

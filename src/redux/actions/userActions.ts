@@ -1,7 +1,7 @@
 import { Dispatch } from "react"
 import instance from "../../config/axios"
 import { IUser } from "../../interface"
-import { UserAction, UserActionType } from "./typesActions"
+import { FavoriteAction, UserAction, UserActionType } from "./typesActions"
 
 export const setUser = (payload: IUser): UserAction => {
     return {
@@ -42,6 +42,12 @@ export const updateUserError = (payload: string | null): UserAction => {
     return {
         type: UserActionType.UPDATE_USER_ERROR,
         payload: payload
+    }
+}
+
+export const resetUser = (): UserAction => {
+    return {
+        type: UserActionType.RESET_USER
     }
 }
 
