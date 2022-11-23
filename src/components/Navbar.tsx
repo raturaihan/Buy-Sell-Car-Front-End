@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { resetFavorite } from "../redux/actions/favoriteAction";
 import { FavoriteDispatch, UserDispatch } from "../redux/actions/typesActions";
 import { resetUser } from "../redux/actions/userActions";
+import { RootState } from "../redux/reducers/indexReducers";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ function Navbar() {
     JSON.parse(localStorage.getItem("role") == "Role ADMIN" ? "true" : "false");
   const getIsBuyerRole = () =>
     JSON.parse(localStorage.getItem("role") == "Role BUYER" ? "true" : "false");
+  const { carFavorites } = useSelector(
+      (state: RootState) => state.favoriteReducer
+    );
   const userDispatch: UserDispatch= useDispatch();
   const favoriteDispatch: FavoriteDispatch= useDispatch();
   const handleLogout = () => {
@@ -86,7 +90,9 @@ function Navbar() {
                       className="text-decoration-none text-secondary"
                       to={"/favorite"}
                     >
-                      <a className="nav-link nav-link-active">Favorite</a>
+                      <a className="nav-link nav-link-active">Favorite {
+                        carFavorites.length != 0 ? (<span className="badge text-bg-danger">{carFavorites.length}</span>):(<></>)
+                      }</a>
                     </Link>
                   </li>
                   <li className="nav-item dropdown">

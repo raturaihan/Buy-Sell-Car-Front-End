@@ -7,6 +7,7 @@ import { fetchCars, fetchCarsCategory } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { DebounceInput } from "react-debounce-input";
+import { InputSlider, RangeGroup } from "../styles/Styled";
 
 function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
@@ -72,13 +73,12 @@ function CatalogPage() {
               })
             )}
           </select>
-          <select
-            name="pricerange"
-            id="pricerange"
-            className="form-select"
-          >
-            <option value="">Select Price Range</option>
-          </select>
+          <div className="container">
+          <div className="row"><p className="text-center">Select Price Range</p></div>
+          <div className="row">
+            <input type="range" className="form-range" min="70000000" max="1000000000" step={"100000000"}/>
+          </div>
+          </div>
           <DebounceInput
             type="text"
             className="form-control"
