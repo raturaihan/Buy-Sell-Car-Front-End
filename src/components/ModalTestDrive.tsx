@@ -1,8 +1,8 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ITestDrive, TestDriveParams } from "../interface";
-import { testdriveRequest } from "../redux/actions/testdriveActions";
+import { TestDriveParams } from "../interface";
+import { getTestDriveUser, testdriveRequest } from "../redux/actions/testdriveActions";
 import { TestDriveDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { BlueGreenButton, ReverseBlueGreenButton } from "../styles/Styled";
@@ -10,13 +10,15 @@ import { BlueGreenButton, ReverseBlueGreenButton } from "../styles/Styled";
 function ModalTestDrive() {
   const [inputDate, setInputDate] = useState("");
   const { car } = useSelector((state: RootState) => state.carReducer);
-  const { reqTestDrive, reqTestDriveError } = useSelector(
+  const { testDrivesUser } = useSelector(
     (state: RootState) => state.testdriveReducer
   );
+
   const testdriveDispatch: TestDriveDispatch = useDispatch();
   const [isRequested, setIsRequested] = useState(false);
-  console.log(isRequested)
+  const [alert, setAlert] = useState(false);
   let formatInput = moment(inputDate).format();
+  console.log(isRequested)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -25,12 +27,19 @@ function ModalTestDrive() {
       date_request: formatInput,
     };
     testdriveDispatch(testdriveRequest(testdriveData));
+    setAlert(true);
   };
+
+  useEffect(()=> {
+    testdriveDispatch(getTestDriveUser())
+  },[])
+
   useEffect(() => {
-    if (reqTestDrive.car_id == car.CarID) {
-      setIsRequested(true);
-    }
-  }, [car])
+    const requestedCar = testDrivesUser.find(
+      (carTD) => carTD.car_id === car.CarID && carTD.status != "REJECTED"
+    );
+    setIsRequested(!!requestedCar);
+  }, [car, testDrivesUser]);
 
   return (
     <div
@@ -48,33 +57,47 @@ function ModalTestDrive() {
                 You already request this car to test drive!
               </div>
             ) : (
-              <></>
+              <>
+                {alert ? (
+                  <div className="alert alert-success" role="alert">
+                    Test drive requested!
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="d-flex justify-content-center mt-4">
+                  <h3>Request Test Drive</h3>
+                </div>
+                <form onSubmit={handleSubmit}>
+                  <label
+                    htmlFor="full_name"
+                    className="form-label fw-bold mt-4"
+                  >
+                    Choose Date
+                  </label>
+                  <input
+                    name="requested_date"
+                    type="date"
+                    className="form-control"
+                    id="requested_date"
+                    value={inputDate}
+                    onChange={(e) => setInputDate(e.currentTarget.value)}
+                  />
+                  <div className="d-flex justify-content-center mt-5 mb-3 gap-4">
+                    <BlueGreenButton
+                      type="submit"
+                      disabled={isRequested ? true : false}
+                    >
+                      Request Test Drive
+                    </BlueGreenButton>
+                  </div>
+                </form>
+              </>
             )}
-            <div className="d-flex justify-content-center mt-4">
-              <h3>Request Test Drive</h3>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="full_name" className="form-label fw-bold mt-4">
-                Choose Date
-              </label>
-              <input
-                name="requested_date"
-                type="date"
-                className="form-control"
-                id="requested_date"
-                value={inputDate}
-                onChange={(e) => setInputDate(e.currentTarget.value)}
-              />
-              <div className="d-flex justify-content-center mt-5 mb-3 gap-4">
-                <BlueGreenButton type="submit">
-                  Request Test Drive
-                </BlueGreenButton>
-              </div>
-            </form>
             <div className="d-flex justify-content-end">
-            <ReverseBlueGreenButton data-bs-dismiss="modal">
-                  Close
-            </ReverseBlueGreenButton>
+              <ReverseBlueGreenButton data-bs-dismiss="modal">
+                Close
+              </ReverseBlueGreenButton>
             </div>
           </div>
         </div>

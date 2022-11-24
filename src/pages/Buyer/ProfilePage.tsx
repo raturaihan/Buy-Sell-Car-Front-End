@@ -91,7 +91,7 @@ function ProfilePage() {
               </div>
             </FormContainer>
           </div>
-          <div className="col-lg-8 mt-3 g-4">
+          <div className="col-lg-8 mt-3 g-4" style={{overflowY: "auto" }}>
             <h4>Test Drive Request</h4>
             {testDriveUserLoading ? (
             <p>Loading...</p>
