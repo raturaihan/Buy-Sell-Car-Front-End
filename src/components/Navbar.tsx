@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { resetFavorite } from "../redux/actions/favoriteAction";
@@ -24,6 +24,7 @@ function Navbar() {
     navigate("/register", {replace: true})
 
   }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg">

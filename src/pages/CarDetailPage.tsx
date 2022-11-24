@@ -20,7 +20,6 @@ import {
   fetchFavorites,
   removeCarFavorite,
 } from "../redux/actions/favoriteAction";
-import ModalEditProfile from "../components/ModalEditProfile";
 import ModalTestDrive from "../components/ModalTestDrive";
 
 function CarDetailPage() {
@@ -52,27 +51,29 @@ function CarDetailPage() {
     if (!getIsBuyerRole()) {
       navigate("/register");
     }
-      isAddedtoFavorite
+    isAddedtoFavorite
       ? favoriteDispatch(removeCarFavorite(car.CarID))
-        : favoriteDispatch(addCarFavorite(car.CarID))
+      : favoriteDispatch(addCarFavorite(car.CarID));
   };
 
   const handleClickTestDrive = () => {
     if (!getIsBuyerRole()) {
       navigate("/register");
     }
-  }
+  };
 
   useEffect(() => {
     carDispatch(fetchCar(id));
     carDispatch(suggestedCar(car.category_id));
-    favoriteDispatch(fetchFavorites())
-  }, [carDispatch, car.category_id,id, addFavorite, removeFavorite]);
+    favoriteDispatch(fetchFavorites());
+  }, [carDispatch, car.category_id, id, addFavorite, removeFavorite]);
 
-  useEffect(() =>{
-    const favoritedCar = carFavorites.find((carfav) => carfav.car_id === car.CarID)
-    setIsAddedtoFavorite(!!favoritedCar)
-  },[carFavorites])
+  useEffect(() => {
+    const favoritedCar = carFavorites.find(
+      (carfav) => carfav.car_id === car.CarID
+    );
+    setIsAddedtoFavorite(!!favoritedCar);
+  }, [carFavorites]);
 
   return (
     <div>
@@ -141,10 +142,15 @@ function CarDetailPage() {
                       </div>
                     </div>
                     <div className="d-flex gap-3 justify-content-center m-3">
-                      <BlueGreenButton data-bs-toggle="modal" data-bs-target="#exampleModal" className="px-2" onClick={handleClickTestDrive}>
+                      <BlueGreenButton
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        className="px-2"
+                        onClick={handleClickTestDrive}
+                      >
                         Test Drive
                       </BlueGreenButton>
-                      <ModalTestDrive />
+                      {!getIsBuyerRole() ? <></> : <ModalTestDrive />}
                       <ReverseBlueGreenButton className="px-4">
                         Buy
                       </ReverseBlueGreenButton>

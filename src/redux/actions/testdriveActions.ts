@@ -1,12 +1,8 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { ITestDrive, ITestDrives } from "../../interface";
+import { ITestDrive, ITestDrives, TestDriveParams } from "../../interface";
 import { TestDriveAction, TestDriveActionType } from "./typesActions";
 
-interface testdriveParams {
-    car_id: number,
-    date_request: string
-}
 export const requestTestDrive = (payload: ITestDrive): TestDriveAction => {
     return {
         type: TestDriveActionType.REQUEST_TEST_DRIVE,
@@ -42,7 +38,7 @@ export const setTestDriveUserError = (payload: string | null): TestDriveAction =
     }
 }
 
-export const testdriveRequest = ({car_id, date_request}:testdriveParams) => {
+export const testdriveRequest = ({car_id, date_request}:TestDriveParams) => {
     return async(dispatch: Dispatch<TestDriveAction>) => {
         dispatch(requestTestError(""))
 

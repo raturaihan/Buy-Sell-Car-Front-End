@@ -2,22 +2,29 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEditProfile from "../../components/ModalEditProfile";
 import Navbar from "../../components/Navbar";
-import { UserDispatch } from "../../redux/actions/typesActions";
+import TestDriveCard from "../../components/TestDriveCard";
+import { getTestDriveUser } from "../../redux/actions/testdriveActions";
+import { TestDriveDispatch, UserDispatch } from "../../redux/actions/typesActions";
 import { fetchUserDetail } from "../../redux/actions/userActions";
 import { RootState } from "../../redux/reducers/indexReducers";
 import { FormContainer, ProfileImage, ReverseBlueGreenButton } from "../../styles/Styled";
 
 function ProfilePage() {
-  const {user, userLoading, userError} = useSelector(
+  const {user} = useSelector(
     (state: RootState) => state.userReducer
   ); 
   const { userUpdate} = useSelector(
     (state: RootState) => state.userReducer
   );
+  const {testDrivesUser, testDriveUserLoading, testDriveUserError} = useSelector(
+    (state: RootState) => state.testdriveReducer
+  )
   const userDispatch: UserDispatch= useDispatch();
+  const testdriveDispatch: TestDriveDispatch= useDispatch();
   useEffect(() => {
     userDispatch(fetchUserDetail());
-  },[userDispatch, userUpdate])
+    testdriveDispatch(getTestDriveUser());
+  },[userDispatch, userUpdate, testdriveDispatch])
   return (
     <div>
       <Navbar />
@@ -84,8 +91,19 @@ function ProfilePage() {
               </div>
             </FormContainer>
           </div>
-          <div className="col-lg-8 mt-3">
+          <div className="col-lg-8 mt-3 g-4">
             <h4>Test Drive Request</h4>
+            {testDriveUserLoading ? (
+            <p>Loading...</p>
+          ) : testDriveUserError ? (
+            <p>Error: {testDriveUserError}</p>
+          ) : testDrivesUser.length === 0 ? (
+            <p>You haven't made any request</p>
+          ) : (
+            testDrivesUser.map((car) => {
+              return <TestDriveCard car={car} key={car.car_id} />;
+            })
+          )}
           </div>
         </div>
       </div>

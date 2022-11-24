@@ -28,7 +28,7 @@ function FavoritePage() {
           ) : carFavoritesError ? (
             <p>Error: {carFavoritesError}</p>
           ) : carFavorites.length === 0 ? (
-            <p>No Cars Available</p>
+            <p>You haven't favorite any car</p>
           ) : (
             carFavorites.map((car) => {
               return <CardCatalog car={car.Car} key={car.car_id} />;

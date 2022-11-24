@@ -56,7 +56,7 @@ export const BlueGreenButton = styled.button({
   height: "45px",
   borderRadius: "8px",
   backgroundColor: "rgba(17,95,134,255)",
-});
+})
 
 export const ReverseBlueGreenButton = styled.button({
   border: "1px solid rgba(17,95,134,255)",
@@ -65,7 +65,7 @@ export const ReverseBlueGreenButton = styled.button({
   height: "45px",
   color: "rgba(17,95,134,255)",
   fontWeight: "bold",
-});
+})
 
 export const ReverseRedButton = styled.button({
   border: "none",

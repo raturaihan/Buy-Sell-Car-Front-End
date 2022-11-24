@@ -7,7 +7,7 @@ const initialState: ITestDriveState = {
     user_id: 0,
     car_id: 0,
     status: "",
-    DateRequest: "",
+    date_request: "",
   },
   reqTestDriveError: null,
   testDrivesUser: [],
@@ -30,5 +30,7 @@ export default function testdriveReducer(
       return { ...state, testDriveUserLoading: action.payload };
     case TestDriveActionType.SET_TEST_DRIVES_USER_ERROR:
       return { ...state, testDriveUserError: action.payload };
+    default:
+      return state
   }
 }

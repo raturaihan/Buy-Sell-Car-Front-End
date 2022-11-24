@@ -58,7 +58,7 @@ export interface ITestDrives {
     user_id: number;
     car_id: number;
     status: string;
-    DateRequest: string;
+    date_request: string;
     Car: ICar
 }
 
@@ -66,6 +66,12 @@ export interface ITestDrive {
     test_drive_id: number;
     user_id: number;
     car_id: number;
-    DateRequest: string;
+    date_request: string;
     status: string;
+}
+
+
+export interface TestDriveParams {
+    car_id: number,
+    date_request: string
 }
