@@ -62,6 +62,13 @@ function CarDetailPage() {
     }
   };
 
+  const handleClickBuy = () => {
+    if (!getIsBuyerRole()) {
+      navigate("/register");
+    }
+    navigate("/checkout")
+  }
+
   useEffect(() => {
     carDispatch(fetchCar(id));
     carDispatch(suggestedCar(car.category_id));
@@ -151,7 +158,7 @@ function CarDetailPage() {
                         Test Drive
                       </BlueGreenButton>
                       {!getIsBuyerRole() ? <></> : <ModalTestDrive />}
-                      <ReverseBlueGreenButton className="px-4">
+                      <ReverseBlueGreenButton className="px-4" onClick={handleClickBuy}>
                         Buy
                       </ReverseBlueGreenButton>
                     </div>
