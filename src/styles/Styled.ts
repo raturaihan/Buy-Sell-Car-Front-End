@@ -62,7 +62,7 @@ export const ReverseBlueGreenButton = styled.button({
   border: "1px solid rgba(17,95,134,255)",
   backgroundColor: "white",
   borderRadius: "8px",
-  height: "45px",
+  height: "35px",
   color: "rgba(17,95,134,255)",
   fontWeight: "bold",
 })
