@@ -14,7 +14,7 @@ function TransactionPage() {
   );
   const transactionDispatch: TransactionDispatch = useDispatch();
   const [pagination, setPagination] = useState({
-    limit: 4,
+    limit: 10,
     page: 1,
     full_name: "",
     sort: "DESC",
@@ -109,7 +109,7 @@ function TransactionPage() {
                   <tbody>
                     {transactions.Data.map((val) => (
                       <tr key={val.transaction_id}>
-                        <td>{moment(val.created_at).format("HH:mm - D MMMM YYYY")}</td>
+                        <td>{moment(val.CreatedAt).format("HH:mm - D MMMM YYYY")}</td>
                         <td>{val.User.full_name}</td>
                         <td>{val.User.email}</td>
                         <td>{val.User.phone}</td>

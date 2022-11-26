@@ -8,6 +8,7 @@ import {
   IFavorites,
   ITestDrive,
   ITestDrives,
+  ITestDrivesPagination,
   ITransactionPagination,
   IUser,
 } from "../../interface";
@@ -216,6 +217,10 @@ export enum TestDriveActionType {
   SET_TEST_DRIVES_USER = "SET_TEST_DRIVES_USER",
   SET_TEST_DRIVES_USER_LOADING = "SET_TEST_DRIVES_USER_LOADING",
   SET_TEST_DRIVES_USER_ERROR = "SET_TEST_DRIVES_USER_ERROR",
+  SET_TEST_DRIVES_ADMIN = "SET_TEST_DRIVES_ADMIN",
+  SET_TEST_DRIVES_ADMIN_LOADING = "SET_TEST_DRIVES_ADMIN_LOADING",
+  SET_TEST_DRIVES_ADMIN_ERROR = "SET_TEST_DRIVES_ADMIN_ERROR",
+  UPDATE_TEST_DRIVE = "UPDATE_TEST_DRIVE",
 }
 
 export interface IRequestTestDrive {
@@ -243,18 +248,43 @@ export interface ISetTestDrivesUserError {
   payload: string | null;
 }
 
+export interface ISetTestDrivesAdmin {
+  type: TestDriveActionType.SET_TEST_DRIVES_ADMIN;
+  payload: ITestDrivesPagination;
+}
+
+export interface ISetTestDrivesAdminLoading {
+  type: TestDriveActionType.SET_TEST_DRIVES_ADMIN_LOADING;
+  payload: boolean;
+}
+
+export interface ISetTestDrivesAdminError {
+  type: TestDriveActionType.SET_TEST_DRIVES_ADMIN_ERROR;
+  payload: string | null;
+}
+
+export interface IUpdateTestDrive {
+  type: TestDriveActionType.UPDATE_TEST_DRIVE;
+  payload: ITestDrive;
+}
+
 export type TestDriveAction =
   | IRequestTestDrive
   | IRequestTestDriveError
   | ISetTestDrivesUser
   | ISetTestDrivesUserLoading
-  | ISetTestDrivesUserError;
+  | ISetTestDrivesUserError
+  | ISetTestDrivesAdmin
+  | ISetTestDrivesAdminLoading
+  | ISetTestDrivesAdminError
+  | IUpdateTestDrive;
 export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
+
 
 export enum TransactionActionType {
   SET_TRANSACTIONS = "SET_TRANSACTIONS",
   SET_TRANSACTIONS_LOADING = "SET_TRANSACTIONS_LOADING",
-  SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR",
+  SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR"
 }
 
 export interface ISetTransactions {
@@ -272,12 +302,6 @@ export interface ISetTransactionsError {
   payload: string | null;
 }
 
-export type TransactionAction =
-  | ISetTransactions
-  | ISetTransactionsLoading
-  | ISetTransactionsError;
-export type TransactionDispatch = ThunkDispatch<
-  ITransactionState,
-  any,
-  AnyAction
->;
+export type TransactionAction = ISetTransactions | ISetTransactionsLoading | ISetTransactionsError
+export type TransactionDispatch = ThunkDispatch<ITransactionState, any, AnyAction>;
+

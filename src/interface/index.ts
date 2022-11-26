@@ -60,6 +60,7 @@ export interface ITestDrives {
     status: string;
     date_request: string;
     Car: ICar
+    User: IUser
 }
 
 export interface ITestDrive {
@@ -68,6 +69,14 @@ export interface ITestDrive {
     car_id: number;
     date_request: string;
     status: string;
+}
+
+export interface ITestDrivesPagination {
+    CurrentPage: number;
+    TotalPage: number;
+    TotalData: number;
+    Limit: number;
+    Data: ITestDrives[];
 }
 
 
@@ -83,7 +92,7 @@ export interface ITransaction {
     final_amount: number;
     coupon_id: number;
     trans_type: string;
-    created_at: string;
+    CreatedAt: string;
     Car: ICar;
     User: IUser;
 }

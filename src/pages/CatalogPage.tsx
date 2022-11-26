@@ -23,7 +23,7 @@ function CatalogPage() {
     min_price: "",
     max_price: "",
   });
-  console.log(pagination);
+
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
