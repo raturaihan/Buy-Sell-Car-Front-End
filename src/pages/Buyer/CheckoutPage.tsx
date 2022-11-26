@@ -39,7 +39,7 @@ function CheckoutPage() {
   console.log(parseInt(yearValue)*12)
   return (
     <div>
-      <div className="container">
+      {car.car_name ? (<div className="container">
         <div className="d-flex justify-content-center m-5">
           <FormContainer className="card mt-5 p-4">
             <div className="card-body">
@@ -183,7 +183,7 @@ function CheckoutPage() {
             </div>
           </FormContainer>
         </div>
-      </div>
+      </div>):(<></>)}
     </div>
   );
 }

@@ -42,7 +42,7 @@ function Login() {
         if (user.data.role == "BUYER") {
           navigate("/", { replace: true });
         } else if (user.data.role == "ADMIN") {
-          navigate("/home-admin", { replace: true });
+          navigate("/transactions", { replace: true });
         }
       } catch (error) {
         setIsError(true)

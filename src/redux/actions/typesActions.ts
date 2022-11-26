@@ -8,12 +8,14 @@ import {
   IFavorites,
   ITestDrive,
   ITestDrives,
+  ITransactionPagination,
   IUser,
 } from "../../interface";
 import {
   ICarState,
   IFavoriteState,
   ITestDriveState,
+  ITransactionState,
   IUserState,
 } from "../reducers/typesReducers";
 
@@ -248,3 +250,34 @@ export type TestDriveAction =
   | ISetTestDrivesUserLoading
   | ISetTestDrivesUserError;
 export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
+
+export enum TransactionActionType {
+  SET_TRANSACTIONS = "SET_TRANSACTIONS",
+  SET_TRANSACTIONS_LOADING = "SET_TRANSACTIONS_LOADING",
+  SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR",
+}
+
+export interface ISetTransactions {
+  type: TransactionActionType.SET_TRANSACTIONS;
+  payload: ITransactionPagination;
+}
+
+export interface ISetTransactionsLoading {
+  type: TransactionActionType.SET_TRANSACTIONS_LOADING;
+  payload: boolean;
+}
+
+export interface ISetTransactionsError {
+  type: TransactionActionType.SET_TRANSACTIONS_ERROR;
+  payload: string | null;
+}
+
+export type TransactionAction =
+  | ISetTransactions
+  | ISetTransactionsLoading
+  | ISetTransactionsError;
+export type TransactionDispatch = ThunkDispatch<
+  ITransactionState,
+  any,
+  AnyAction
+>;

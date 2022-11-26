@@ -13,17 +13,16 @@ function Navbar() {
   const getIsBuyerRole = () =>
     JSON.parse(localStorage.getItem("role") == "Role BUYER" ? "true" : "false");
   const { carFavorites } = useSelector(
-      (state: RootState) => state.favoriteReducer
-    );
-  const userDispatch: UserDispatch= useDispatch();
-  const favoriteDispatch: FavoriteDispatch= useDispatch();
+    (state: RootState) => state.favoriteReducer
+  );
+  const userDispatch: UserDispatch = useDispatch();
+  const favoriteDispatch: FavoriteDispatch = useDispatch();
   const handleLogout = () => {
     localStorage.clear();
-    userDispatch(resetUser())
-    favoriteDispatch(resetFavorite())
-    navigate("/register", {replace: true})
-
-  }
+    userDispatch(resetUser());
+    favoriteDispatch(resetFavorite());
+    navigate("/register", { replace: true });
+  };
 
   return (
     <div>
@@ -57,21 +56,33 @@ function Navbar() {
             id="navbarNav"
           >
             <ul className="navbar-nav gap-3">
-              <li className="nav-item">
-                <Link className="text-decoration-none text-secondary" to={"/"}>
-                  <a className="nav-link nav-link-active" aria-current="page">
-                    Home
-                  </a>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="text-decoration-none text-secondary"
-                  to={"/catalog"}
-                >
-                  <a className="nav-link">Car Catalog</a>
-                </Link>
-              </li>
+              {!getIsAdminRole() ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/"}
+                    >
+                      <a
+                        className="nav-link nav-link-active"
+                        aria-current="page"
+                      >
+                        Home
+                      </a>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/catalog"}
+                    >
+                      <a className="nav-link">Car Catalog</a>
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
               {!getIsBuyerRole() && !getIsAdminRole() ? (
                 <li className="nav-item">
                   <Link
@@ -91,9 +102,16 @@ function Navbar() {
                       className="text-decoration-none text-secondary"
                       to={"/favorite"}
                     >
-                      <a className="nav-link nav-link-active">Favorite {
-                        carFavorites.length != 0 ? (<span className="badge text-bg-danger">{carFavorites.length}</span>):(<></>)
-                      }</a>
+                      <a className="nav-link nav-link-active">
+                        Favorite{" "}
+                        {carFavorites.length != 0 ? (
+                          <span className="badge text-bg-danger">
+                            {carFavorites.length}
+                          </span>
+                        ) : (
+                          <></>
+                        )}
+                      </a>
                     </Link>
                   </li>
                   <li className="nav-item dropdown">
@@ -118,7 +136,61 @@ function Navbar() {
                         </Link>
                       </li>
                       <li>
-                        <button className="dropdown-item" onClick={handleLogout}>
+                        <button
+                          className="dropdown-item"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}
+              {getIsAdminRole() ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/transactions"}
+                    >
+                      <a className="nav-link nav-link-active">Transaction</a>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/testdrives"}
+                    >
+                      <a className="nav-link nav-link-active">Test Drive</a>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/carlisting"}
+                    >
+                      <a className="nav-link nav-link-active">Car Listing</a>
+                    </Link>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <a
+                      className="nav-link dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Hi, Admin!
+                    </a>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <button
+                          className="dropdown-item"
+                          onClick={handleLogout}
+                        >
                           Logout
                         </button>
                       </li>

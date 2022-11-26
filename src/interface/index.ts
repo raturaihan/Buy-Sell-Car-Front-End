@@ -75,3 +75,23 @@ export interface TestDriveParams {
     car_id: number,
     date_request: string
 }
+
+export interface ITransaction {
+    transaction_id: number;
+    user_id: number;
+    car_id: number;
+    final_amount: number;
+    coupon_id: number;
+    trans_type: string;
+    created_at: string;
+    Car: ICar;
+    User: IUser;
+}
+
+export interface ITransactionPagination {
+    CurrentPage: number;
+    TotalPage: number;
+    TotalData: number;
+    Limit: number;
+    Data: ITransaction[];
+}

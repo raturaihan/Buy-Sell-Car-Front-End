@@ -1,4 +1,4 @@
-import { ICar, ICarCatalog, ICarCategory, IFavorite, IFavorites, ITestDrive, ITestDrives, IUser } from "../../interface";
+import { ICar, ICarCatalog, ICarCategory, IFavorite, IFavorites, ITestDrive, ITestDrives, ITransaction, ITransactionPagination, IUser } from "../../interface";
 
 export interface ICarState {
     cars: ICarCatalog;
@@ -38,4 +38,10 @@ export interface ITestDriveState {
     testDrivesUser: ITestDrives[];
     testDriveUserLoading: boolean;
     testDriveUserError: string | null;
+}
+
+export interface ITransactionState {
+    transactions: ITransactionPagination;
+    transactionsLoading: boolean;
+    transactionsError: string | null;
 }

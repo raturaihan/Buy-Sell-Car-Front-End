@@ -182,7 +182,7 @@ function CarDetailPage() {
         )}
         <div className="row mt-4">
           <h4 className="text-center">Suggested For You</h4>
-          <div className="d-flex mt-3 gap-3" style={{ overflow: "auto" }}>
+          <div className="d-flex mt-3 gap-3 " style={{ overflow: "auto" }}>
             {suggestedCarsLoading ? (
               <p>Loading...</p>
             ) : suggestedCarsError ? (

@@ -1,5 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import CarListingPage from './pages/Admin/CarListingPage'
+import TestDrivePage from './pages/Admin/TestDrivePage'
+import TransactionPage from './pages/Admin/TransactionPage'
 import CheckoutPage from './pages/Buyer/CheckoutPage'
 import FavoritePage from './pages/Buyer/FavoritePage'
 import ProfilePage from './pages/Buyer/ProfilePage'
@@ -31,6 +34,9 @@ function App() {
           <Route path='/checkout' element={<CheckoutPage />}/>
         </Route>
         <Route element={<ProtectedRoutesAdmin />}>
+          <Route path='/transactions' element={<TransactionPage />}/>
+          <Route path='/testdrives' element={<TestDrivePage />}/>
+          <Route path='/carlisting' element={<CarListingPage />}/>
         </Route>
         <Route path="*" element={<NotFound />}/>
       </Routes>

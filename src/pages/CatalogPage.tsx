@@ -7,7 +7,6 @@ import { fetchCars, fetchCarsCategory } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { DebounceInput } from "react-debounce-input";
-import { InputSlider, RangeGroup } from "../styles/Styled";
 
 function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
