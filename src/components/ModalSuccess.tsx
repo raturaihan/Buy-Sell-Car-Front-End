@@ -8,6 +8,7 @@ interface modalSuccessDetails {
   buttonModal: string;
   pathTarget: string;
   show?: boolean;
+  isPayment?: boolean;
 }
 
 function ModalSuccess({
@@ -16,6 +17,7 @@ function ModalSuccess({
   buttonModal,
   pathTarget,
   show,
+  isPayment,
 }: modalSuccessDetails) {
   return (
     <div>
@@ -38,9 +40,7 @@ function ModalSuccess({
                 </div>
                 <div className="row mt-3">
                   <div className="d-flex justify-content-center">
-                    <h3 className="fw-bold text-success">
-                      {modalType}
-                    </h3>
+                    <h3 className="fw-bold text-success">{modalType}</h3>
                   </div>
                 </div>
                 <div className="row mt-5">
@@ -48,6 +48,14 @@ function ModalSuccess({
                     <p className="fw-bold fs-5">{message}</p>
                   </div>
                 </div>
+                {isPayment ? (
+                  <div className="row mt-3">
+                    <p>Virtual Account</p>
+                    <h5>12804375802003940</h5>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <div className="row my-3">
                   <Link to={pathTarget} className="text-decoration-none">
                     <div className="d-flex justify-content-center gap-4">

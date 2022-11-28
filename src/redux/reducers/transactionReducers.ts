@@ -10,7 +10,9 @@ const initialState: ITransactionState = {
         Data: []
     },
     transactionsLoading: false,
-    transactionsError: null
+    transactionsError: null,
+    payment: "",
+    paymentError: null
 }
 
 export default function transactionReducer(
@@ -24,6 +26,10 @@ export default function transactionReducer(
             return {...state, transactionsLoading: action.payload}; 
         case TransactionActionType.SET_TRANSACTIONS_ERROR:
             return {...state, transactionsError: action.payload};
+        case TransactionActionType.POST_PAYMENT:
+            return {...state, payment: action.payload};
+        case TransactionActionType.POST_PAYMENT_ERROR:
+            return {...state, paymentError: action.payload};
         default:
             return state;
     }

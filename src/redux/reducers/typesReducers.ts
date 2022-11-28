@@ -48,4 +48,6 @@ export interface ITransactionState {
     transactions: ITransactionPagination;
     transactionsLoading: boolean;
     transactionsError: string | null;
+    payment: string;
+    paymentError: string | null;
 }

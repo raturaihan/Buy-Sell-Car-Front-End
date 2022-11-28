@@ -280,11 +280,12 @@ export type TestDriveAction =
   | IUpdateTestDrive;
 export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
 
-
 export enum TransactionActionType {
   SET_TRANSACTIONS = "SET_TRANSACTIONS",
   SET_TRANSACTIONS_LOADING = "SET_TRANSACTIONS_LOADING",
-  SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR"
+  SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR",
+  POST_PAYMENT = "POST_PAYMENT",
+  POST_PAYMENT_ERROR = "POST_PAYMENT_ERROR",
 }
 
 export interface ISetTransactions {
@@ -302,6 +303,24 @@ export interface ISetTransactionsError {
   payload: string | null;
 }
 
-export type TransactionAction = ISetTransactions | ISetTransactionsLoading | ISetTransactionsError
-export type TransactionDispatch = ThunkDispatch<ITransactionState, any, AnyAction>;
+export interface IPostPayment {
+  type: TransactionActionType.POST_PAYMENT;
+  payload: string;
+}
 
+export interface IPostPaymentError {
+  type: TransactionActionType.POST_PAYMENT_ERROR;
+  payload: string | null;
+}
+
+export type TransactionAction =
+  | ISetTransactions
+  | ISetTransactionsLoading
+  | ISetTransactionsError
+  | IPostPayment
+  | IPostPaymentError;
+export type TransactionDispatch = ThunkDispatch<
+  ITransactionState,
+  any,
+  AnyAction
+>;

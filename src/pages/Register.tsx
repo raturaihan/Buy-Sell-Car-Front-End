@@ -317,6 +317,7 @@ function Register() {
                     pathTarget="/login"
                     show={modal}
                     message="You can now login to your account"
+                    isPayment={false}
                   />
                 ) : (<></>
                 )}

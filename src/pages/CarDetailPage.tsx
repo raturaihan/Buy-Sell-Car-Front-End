@@ -13,6 +13,7 @@ import {
   BlueGreenButton,
   ReverseBlueGreenButton,
   ReverseRedButton,
+  CarImage,
 } from "../styles/Styled";
 import CardCatalog from "../components/CardCatalog";
 import {
@@ -92,8 +93,7 @@ function CarDetailPage() {
           <>
             <div className="row my-4">
               <div className="col-lg-8">
-                <img
-                  style={{ maxWidth: "100%" }}
+                <CarImage
                   src={car.car_img}
                   alt={car.car_name}
                 />

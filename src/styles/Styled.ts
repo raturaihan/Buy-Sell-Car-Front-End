@@ -100,3 +100,8 @@ export const InputSlider = styled.input({
     WebkitAppearance: 'none',
     MozAppearance: 'none',
 })
+
+export const CarImage = styled.img({
+  maxWidth: '100%',
+  height: 'auto'
+})

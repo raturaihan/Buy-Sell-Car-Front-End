@@ -1,6 +1,4 @@
-import React from 'react'
-import Navbar from './Navbar'
-import {CarCategory, FormContainer, SmallFont} from '../styles/Styled'
+import {CarCategory, CarImage, FormContainer, SmallFont} from '../styles/Styled'
 import { ICar } from '../interface'
 import {FormatBalance} from '../utils/utils'
 import { Link } from 'react-router-dom'
@@ -14,8 +12,8 @@ function CardCatalog({car}:CarCardProps) {
     <div>
       <Link to={`/car/${car.CarID}`} style={{ textDecoration: 'none', color:'black' }}>
       <div className='col'>
-            <FormContainer className='card'>
-                <img className='ratio ratio-4x3' src={car.car_img} alt={car.car_name} style={{height:'12rem', objectFit:'cover', width:'100%'}}/>
+            <FormContainer className='card w-100'>
+                <CarImage className='ratio ratio-4x3' src={car.car_img} alt={car.car_name}/>
                 <div className='card-body'>
                     <h5 className='card-title text-truncate'>{car.car_year} {car.car_name}</h5>
                     <div className='d-flex gap-2'>

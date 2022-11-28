@@ -104,3 +104,10 @@ export interface ITransactionPagination {
     Limit: number;
     Data: ITransaction[];
 }
+
+export interface PaymentParams {
+    car_id: number;
+    final_amount: number;
+    trans_type: string;
+    coupon_id?: number;
+}

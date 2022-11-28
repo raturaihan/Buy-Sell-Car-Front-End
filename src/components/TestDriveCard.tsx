@@ -1,7 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { ITestDrives } from "../interface";
-import { CarCategory, FormContainer, SmallFont } from "../styles/Styled";
+import { CarCategory, CarImage, FormContainer, SmallFont } from "../styles/Styled";
 
 interface TDProps {
     car: ITestDrives
@@ -14,9 +14,8 @@ function TestDriveCard({car}: TDProps) {
         <div className="container">
           <div className="row">
             <div className="col-lg-4 p-2">
-              <img
+              <CarImage
                 src={car.Car.car_img} alt={car.Car.car_name}
-                style={{ maxWidth: "100%" }}
               />
             </div>
             <div className="col-lg-4 p-2 m-2">
