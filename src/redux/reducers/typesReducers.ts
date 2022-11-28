@@ -13,6 +13,8 @@ export interface ICarState {
     suggestedCars: ICar[];
     suggestedCarsLoading: boolean;
     suggestedCarsError: string | null;
+    updateCar: ICar;
+    deleteCar: ICar;
 }
 
 export interface IUserState {

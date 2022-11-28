@@ -33,6 +33,11 @@ export interface ICarCategory {
     category_name: string;
 }
 
+export interface EditCarParams {
+    id: number;
+    car: ICar;
+}
+
 export interface IUser {
     email?: string;
     full_name: string;
@@ -85,6 +90,11 @@ export interface TestDriveParams {
     date_request: string
 }
 
+export interface IUpdateTD {
+    id: string | undefined;
+    status: string;
+}
+
 export interface ITransaction {
     transaction_id: number;
     user_id: number;
@@ -110,9 +120,4 @@ export interface PaymentParams {
     final_amount: number;
     trans_type: string;
     coupon_id?: number;
-}
-
-export interface IUpdateTD {
-    id: string | undefined;
-    status: string;
 }

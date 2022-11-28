@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { ICar, ICarCatalog, ICarCategory } from "../../interface";
+import { EditCarParams, ICar, ICarCatalog, ICarCategory } from "../../interface";
 import { CarAction, CarActionType } from "./typesActions";
 
 interface IParams {
@@ -96,6 +96,20 @@ export const setSuggestedCarsError = (payload: string | null): CarAction => {
     }
 }
 
+export const updateCar = (payload: ICar): CarAction => {
+    return {
+        type: CarActionType.UPDATE_CAR,
+        payload: payload
+    }
+}
+
+export const deleteCar = (payload: ICar): CarAction => {
+    return {
+        type: CarActionType.DELETE_CAR,
+        payload: payload
+    }
+}
+
 
 export const fetchCars = ({page,limit,car_name, category_id, min_price, max_price}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
@@ -185,5 +199,41 @@ export const suggestedCar = (id: number | undefined) => {
         .catch((error) => {
             dispatch(setSuggestedCarsError(error))})
         .finally(() => dispatch(setSuggestedCarsLoading(false)));
+    }
+}
+
+export const deleteCarListing = (id: string | undefined) => {
+    return async(dispatch: Dispatch<CarAction>) => {
+        await instance.delete(`/admin/car/${id}`)
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to delete data')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(deleteCar(data))
+        })
+        .catch((error) => {
+            throw error
+        })
+    }
+}
+
+export const editDataCar = ({id, car}: EditCarParams) => {
+    return async(dispatch: Dispatch<CarAction>) => {
+        await instance.patch(`/admin/car/${id}`, car)
+        .then((response) => {
+            if(!response.data) {
+                throw new Error('Failed to update car data')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(updateCar(data))
+        })
+        .catch((error) => {
+            throw error
+        })
     }
 }
