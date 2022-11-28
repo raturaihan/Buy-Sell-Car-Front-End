@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { ITestDrive, ITestDrives, ITestDrivesPagination, TestDriveParams } from "../../interface";
+import { ITestDrive, ITestDrives, ITestDrivesPagination, IUpdateTD, TestDriveParams } from "../../interface";
 import { TestDriveAction, TestDriveActionType } from "./typesActions";
 
 interface IParams {
@@ -9,7 +9,6 @@ interface IParams {
     sortBy: string;
     sort: string;  
 }
-
 
 export const requestTestDrive = (payload: ITestDrive): TestDriveAction => {
     return {
@@ -63,6 +62,13 @@ export const setTestDriveAdminLoading = (payload: boolean): TestDriveAction => {
 export const setTestDriveAdminError = (payload: string | null): TestDriveAction => {
     return {
         type: TestDriveActionType.SET_TEST_DRIVES_ADMIN_ERROR,
+        payload: payload
+    }
+}
+
+export const updateTestDriveAdmin = (payload: ITestDrive): TestDriveAction => {
+    return {
+        type: TestDriveActionType.UPDATE_TEST_DRIVE,
         payload: payload
     }
 }
@@ -135,5 +141,24 @@ export const getTestDriveAdmin = ({page, limit, sortBy, sort}: IParams) => {
         .catch((error) => {
             dispatch(setTestDriveAdminError(error))})
         .finally(() => dispatch(setTestDriveAdminLoading(false)));
+    }
+}
+
+export const updateTestDrive = ({id, status}: IUpdateTD) => {
+    return async(dispatch: Dispatch<TestDriveAction>) => {
+
+        await instance.patch(`/admin/testdrive/${id}`, {status: status})
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to update status test drive')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(updateTestDriveAdmin(data))
+        })
+        .catch((error) => {
+            throw error
+        })
     }
 }

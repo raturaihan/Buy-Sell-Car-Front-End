@@ -2,14 +2,21 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
-import { getTestDriveAdmin } from "../../redux/actions/testdriveActions";
+import { IUpdateTD, TestDriveParams } from "../../interface";
+import {
+  getTestDriveAdmin,
+  updateTestDrive,
+} from "../../redux/actions/testdriveActions";
 import { TestDriveDispatch } from "../../redux/actions/typesActions";
 import { RootState } from "../../redux/reducers/indexReducers";
-import { ReverseBlueGreenButton } from "../../styles/Styled";
+import { BlueGreenButton, ReverseBlueGreenButton } from "../../styles/Styled";
 
 function TestDrivePage() {
   const { testDriveAdmin, testDriveAdminLoading, testDriveAdminError } =
     useSelector((state: RootState) => state.testdriveReducer);
+  const { updateStatusTestDrive} =
+    useSelector((state: RootState) => state.testdriveReducer);
+
   const testdriveDispatch: TestDriveDispatch = useDispatch();
   const [pagination, setPagination] = useState({
     limit: 10,
@@ -17,10 +24,21 @@ function TestDrivePage() {
     sort: "DESC",
     sortBy: "created_at",
   });
+  const [status, setStatus] = useState("ACCEPTED");
+  const [testdriveid, setTestDriveId] = useState("");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const testdriveData: IUpdateTD = {
+      status: status,
+      id: testdriveid,
+    };
+    testdriveDispatch(updateTestDrive(testdriveData));
+  };
 
   useEffect(() => {
     testdriveDispatch(getTestDriveAdmin(pagination));
-  }, [testdriveDispatch, pagination]);
+  }, [testdriveDispatch, pagination, updateStatusTestDrive]);
 
   return (
     <div>
@@ -49,7 +67,7 @@ function TestDrivePage() {
                   </thead>
                   <tbody>
                     {testDriveAdmin.Data.map((val) => (
-                      <tr key={val.test_drive_id}>
+                      <tr key={val.TestDriveID}>
                         <td>
                           {moment(val.date_request).format("D MMMM YYYY")}
                         </td>
@@ -60,7 +78,65 @@ function TestDrivePage() {
                           {val.Car.car_year} {val.Car.car_name}
                         </td>
                         <td>{val.status}</td>
-                        <td><ReverseBlueGreenButton>Edit</ReverseBlueGreenButton></td>
+                        <td>
+                          <ReverseBlueGreenButton
+                            id={val.TestDriveID?.toString()}
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            onClick={(e) => setTestDriveId(e.currentTarget.id)}
+                          >
+                            Edit
+                          </ReverseBlueGreenButton>
+                          <div
+                            className="modal"
+                            tabIndex={-1}
+                            id="exampleModal"
+                            aria-labelledby="exampleModalLabel"
+                            aria-hidden="true"
+                          >
+                            <div className="modal-dialog modal-dialog-centered">
+                              <div className="modal-content">
+                                <div className="modal-body">
+                                  <div className="d-flex justify-content-center mt-4">
+                                    <h3>Edit Status</h3>
+                                  </div>
+                                  <form onSubmit={handleSubmit}>
+                                    <div className="row mt-3">
+                                      <select
+                                        name="statue"
+                                        id="status"
+                                        className="form-select"
+                                        value={status}
+                                        onChange={(e) => {
+                                          setStatus(e.target.value);
+                                        }}
+                                      >
+                                        <option value="ACCEPTED">
+                                          ACCEPTED
+                                        </option>
+                                        <option value="REJECTED">
+                                          REJECTED
+                                        </option>
+                                        <option value="ON THE WAY">
+                                          ON THE WAY
+                                        </option>
+                                        <option value="DONE">DONE</option>
+                                      </select>
+                                    </div>
+                                    <div className="d-flex justify-content-center my-3">
+                                      <BlueGreenButton
+                                        type="submit"
+                                        data-bs-dismiss="modal"
+                                      >
+                                        Edit Status
+                                      </BlueGreenButton>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -70,7 +146,7 @@ function TestDrivePage() {
           )}
         </div>
         <div className="row mt-2">
-        <nav aria-label="Page navigation example">
+          <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-end">
               <li className="page-item">
                 <button

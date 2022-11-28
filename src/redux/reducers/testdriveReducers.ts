@@ -3,7 +3,7 @@ import { ITestDriveState } from "./typesReducers";
 
 const initialState: ITestDriveState = {
   reqTestDrive: {
-    test_drive_id: 0,
+    TestDriveID: 0,
     user_id: 0,
     car_id: 0,
     status: "",
@@ -23,7 +23,7 @@ const initialState: ITestDriveState = {
   testDriveAdminLoading: false,
   testDriveAdminError: null,
   updateStatusTestDrive: {
-    test_drive_id: 0,
+    TestDriveID: 0,
     user_id: 0,
     car_id: 0,
     status: "",

@@ -54,7 +54,7 @@ export interface IFavorite {
 }
 
 export interface ITestDrives {
-    test_drive_id: number;
+    TestDriveID: number;
     user_id: number;
     car_id: number;
     status: string;
@@ -64,7 +64,7 @@ export interface ITestDrives {
 }
 
 export interface ITestDrive {
-    test_drive_id: number;
+    TestDriveID: number;
     user_id: number;
     car_id: number;
     date_request: string;
@@ -110,4 +110,9 @@ export interface PaymentParams {
     final_amount: number;
     trans_type: string;
     coupon_id?: number;
+}
+
+export interface IUpdateTD {
+    id: string | undefined;
+    status: string;
 }

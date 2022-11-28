@@ -102,7 +102,7 @@ function TransactionPage() {
                       <th>Buyer's Email</th>
                       <th>Buyer's Phone</th>
                       <th>Car</th>
-                      <th>Payments Type</th>
+                      <th>Payment Type</th>
                       <th>Payment</th>
                     </tr>
                   </thead>
