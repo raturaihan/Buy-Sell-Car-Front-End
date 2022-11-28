@@ -110,6 +110,13 @@ export const deleteCar = (payload: ICar): CarAction => {
     }
 }
 
+export const createCar = (payload: ICar): CarAction => {
+    return {
+        type: CarActionType.CREATE_CAR,
+        payload: payload
+    }
+}
+
 
 export const fetchCars = ({page,limit,car_name, category_id, min_price, max_price}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
@@ -231,6 +238,24 @@ export const editDataCar = ({id, car}: EditCarParams) => {
         })
         .then((data) => {
             dispatch(updateCar(data))
+        })
+        .catch((error) => {
+            throw error
+        })
+    }
+}
+
+export const addNewCar = (payload: ICar) => {
+    return async(dispatch: Dispatch<CarAction>) => {
+        await instance.post(`/admin/car`, payload)
+        .then((response) => {
+            if(!response.data) {
+                throw new Error('Failed to add new car')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(createCar(data))
         })
         .catch((error) => {
             throw error

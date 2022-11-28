@@ -64,6 +64,23 @@ const initialState: ICarState = {
     description: "",
     Category: { category_id: 0, category_name: "" },
   },
+  createCar: {
+    CarID: 0,
+    car_name: "",
+    car_year: 0,
+    car_img: "",
+    price: 0,
+    color: "",
+    category_id: 0,
+    transmission_type: "",
+    brand_name: "",
+    stnk_date: 0,
+    stnk_month: 0,
+    stnk_year: 0,
+    car_location: "",
+    description: "",
+    Category: { category_id: 0, category_name: "" },
+  },
 };
 
 export default function carReducer(
@@ -99,6 +116,8 @@ export default function carReducer(
       return { ...state, updateCar: action.payload };
     case CarActionType.DELETE_CAR:
       return { ...state, deleteCar: action.payload };
+    case CarActionType.CREATE_CAR:
+      return { ...state, createCar: action.payload };
     default:
       return state;
   }

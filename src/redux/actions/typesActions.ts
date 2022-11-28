@@ -34,7 +34,8 @@ export enum CarActionType {
   SET_SUGESTED_CAR_LOADING = "SET_SUGGESTED_CAR_LOADING",
   SET_SUGESTED_CAR_ERROR = "SET_SUGGESTED_CAR_ERROR",
   UPDATE_CAR = "UPDATE_CAR",
-  DELETE_CAR = "DELETE_CAR"
+  DELETE_CAR = "DELETE_CAR",
+  CREATE_CAR = "CREATE_CAR"
 }
 
 export interface ISetCars {
@@ -107,6 +108,11 @@ export interface IDeleteCar {
   payload: ICar;
 }
 
+export interface ICreateCar {
+  type: CarActionType.CREATE_CAR;
+  payload: ICar;
+}
+
 export type CarAction =
   | ISetCars
   | ISetCarsLoading
@@ -121,7 +127,8 @@ export type CarAction =
   | ISetSuggestedCarsLoading
   | ISetSuggestedCarsError
   | IUpdateCar
-  | IDeleteCar;
+  | IDeleteCar
+  | ICreateCar;
 export type CarDispatch = ThunkDispatch<ICarState, any, AnyAction>;
 
 export enum UserActionType {

@@ -15,6 +15,7 @@ export interface ICarState {
     suggestedCarsError: string | null;
     updateCar: ICar;
     deleteCar: ICar;
+    createCar: ICar;
 }
 
 export interface IUserState {

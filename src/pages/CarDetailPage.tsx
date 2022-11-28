@@ -106,7 +106,7 @@ function CarDetailPage() {
                     </h4>
                     <div className="d-flex gap-2 my-3">
                       <CarCategory>{car.transmission_type}</CarCategory>
-                      <CarCategory>{car.Category.category_name}</CarCategory>
+                      <CarCategory>{car.Category?.category_name}</CarCategory>
                     </div>
                     <div className="bg-light pt-3 px-2 rounded">
                       <h6>

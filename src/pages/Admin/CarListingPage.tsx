@@ -1,6 +1,7 @@
 import React, { isValidElement, useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { useDispatch, useSelector } from "react-redux";
+import ModalCarForm from "../../components/ModalCarForm";
 import Navbar from "../../components/Navbar";
 import { deleteCarListing, fetchCars, fetchCarsCategory } from "../../redux/actions/carActions";
 import { CarDispatch } from "../../redux/actions/typesActions";
@@ -9,7 +10,7 @@ import { BlueGreenButton, ReverseBlueGreenButton, ReverseRedButton } from "../..
 import { FormatBalance } from "../../utils/utils";
 
 function CarListingPage() {
-  const { cars, carsLoading, carsError, deleteCar } = useSelector(
+  const { cars, carsLoading, carsError, deleteCar, updateCar, car} = useSelector(
     (state: RootState) => state.carReducer
   );
   const { categories, categoriesLoading, categoriesError } = useSelector(
@@ -24,14 +25,13 @@ function CarListingPage() {
     max_price: "",
   });
   const [carId, setCarId] = useState("")
-  console.log(carId)
 
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
     carDispatch(fetchCarsCategory());
     carDispatch(fetchCars(pagination));
-  }, [carDispatch, pagination, deleteCar]);
+  }, [carDispatch, pagination, deleteCar, updateCar]);
 
   const handleDelete = () => {
     carDispatch(deleteCarListing(carId))
@@ -137,7 +137,7 @@ function CarListingPage() {
                         <td>{val.car_name}</td>
                         <td>Rp {FormatBalance(val.price)}</td>
                         <td>{val.color}</td>
-                        <td>{val.Category.category_name}</td>
+                        <td>{val.Category?.category_name}</td>
                         <td>
                           {val.stnk_date}/{val.stnk_month}/{val.stnk_year}
                         </td>
@@ -151,11 +151,16 @@ function CarListingPage() {
                         </td>
                         <td>
                           <div className="d-flex justify-content-center gap-2 mt-2">
-                            <ReverseBlueGreenButton>
+                            <ReverseBlueGreenButton
+                              id={val.CarID?.toString()}
+                              data-bs-toggle="modal"
+                              data-bs-target="#carModal"
+                              onClick={(e) => setCarId(e.currentTarget.id)}>
                               Edit
                             </ReverseBlueGreenButton>
+                            <ModalCarForm carid={carId}/>
                             <ReverseRedButton
-                            id={val.CarID.toString()}
+                            id={val.CarID?.toString()}
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
                             onClick={(e) => setCarId(e.currentTarget.id)}>

@@ -32,7 +32,7 @@ function ModalEditProfile() {
     full_name: "",
     phone: "",
     profile_img: "",
-  });useState
+  });
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
     setInput({

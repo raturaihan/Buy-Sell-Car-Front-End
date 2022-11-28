@@ -7,7 +7,7 @@ export interface ICar {
     CarID: number;
     car_name: string;
     car_year: number;
-    car_img: string;
+    car_img: string | undefined;
     price: number;
     color: string;
     category_id: number;
@@ -18,7 +18,7 @@ export interface ICar {
     stnk_year: number;
     car_location: string;
     description: string;
-    Category: ICategory;
+    Category?: ICategory;
 }
 
 export interface ICarCatalog {
@@ -34,7 +34,7 @@ export interface ICarCategory {
 }
 
 export interface EditCarParams {
-    id: number;
+    id: string;
     car: ICar;
 }
 
