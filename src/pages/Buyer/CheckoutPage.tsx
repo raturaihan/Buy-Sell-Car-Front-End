@@ -48,7 +48,7 @@ function CheckoutPage() {
 
   const finalAmount = () => {
     if (isInstallment) {
-      return finalAmountInstallment()
+      return finalAmountInstallment() + downPayment()
     }
     return car.price
   }
