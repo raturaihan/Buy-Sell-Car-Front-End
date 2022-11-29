@@ -138,3 +138,16 @@ export interface PaymentParams {
     trans_type: string;
     coupon_id?: number;
 }
+
+export interface ICoupon {
+    coupon_id: number;
+    code: string;
+    promo_amount: number;
+}
+export interface IGames {
+    game_id:number;
+    user_id: number;
+    coupon_id:number;
+    coupon_status: string;
+    Coupon: ICoupon;
+}

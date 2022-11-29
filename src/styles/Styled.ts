@@ -123,6 +123,6 @@ export const CouponConteiner = styled.div({
 });
 
 export const VerticalLine = styled.div({
-  borderLeft: '4px dashed #fb5c3c',
+  borderLeft: '3px dashed #fb5c3c',
   height: '80px'
 })

@@ -6,6 +6,7 @@ import {
   ICarCategory,
   IFavorite,
   IFavorites,
+  IGames,
   ITestDrive,
   ITestDrives,
   ITestDrivesPagination,
@@ -314,6 +315,12 @@ export enum TransactionActionType {
   SET_TRANSACTIONS_ERROR = "SET_TRANSACTIONS_ERROR",
   POST_PAYMENT = "POST_PAYMENT",
   POST_PAYMENT_ERROR = "POST_PAYMENT_ERROR",
+  GET_ALL_COUPONS = "GET_ALL_COUPONS",
+  GET_ALL_COUPONS_LOADING = "GET_ALL_COUPONS_LOADING",
+  GET_ALL_COUPONS_ERROR = "GET_ALL_COUPONS_ERROR",
+  GET_COUPON_INFO = 'GET_COUPON_INFO',
+  GET_COUPON_INFO_LOADING = 'GET_COUPON_INFO_LOADING',
+  GET_COUPON_INFO_ERROR = 'GET_COUPON_INFO_ERROR'
 }
 
 export interface ISetTransactions {
@@ -341,12 +348,48 @@ export interface IPostPaymentError {
   payload: string | null;
 }
 
+export interface IGetAllCoupons {
+  type: TransactionActionType.GET_ALL_COUPONS;
+  payload: IGames[];
+}
+
+export interface IGetAllCouponsLoading {
+  type: TransactionActionType.GET_ALL_COUPONS_LOADING;
+  payload: boolean;
+}
+
+export interface IGetAllCouponsError {
+  type: TransactionActionType.GET_ALL_COUPONS_ERROR;
+  payload: string | null;
+}
+
+export interface IGetCouponInfo {
+  type: TransactionActionType.GET_COUPON_INFO;
+  payload: IGames;
+}
+
+export interface IGetCouponInfoLoading {
+  type: TransactionActionType.GET_COUPON_INFO_LOADING;
+  payload: boolean;
+}
+
+export interface IGetCouponInfoError {
+  type: TransactionActionType.GET_COUPON_INFO_ERROR;
+  payload: string | null;
+}
+
 export type TransactionAction =
   | ISetTransactions
   | ISetTransactionsLoading
   | ISetTransactionsError
   | IPostPayment
-  | IPostPaymentError;
+  | IPostPaymentError
+  | IGetAllCoupons
+  | IGetAllCouponsError
+  | IGetAllCouponsLoading
+  | IGetCouponInfo
+  | IGetCouponInfoError
+  | IGetCouponInfoLoading;
 export type TransactionDispatch = ThunkDispatch<
   ITransactionState,
   any,

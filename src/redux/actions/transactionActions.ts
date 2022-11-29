@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { ITransactionPagination, PaymentParams } from "../../interface";
+import { IGames, ITransactionPagination, PaymentParams } from "../../interface";
 import { TransactionAction, TransactionActionType } from "./typesActions";
 
 interface IParams {
@@ -42,6 +42,48 @@ export const postPayment = (payload: string): TransactionAction => {
 export const postPaymentError = (payload: string | null): TransactionAction => {
     return {
         type: TransactionActionType.POST_PAYMENT_ERROR,
+        payload: payload
+    }
+}
+
+export const getCoupons = (payload: IGames[]): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_ALL_COUPONS,
+        payload: payload
+    }
+}
+
+export const getCouponsLoading = (payload: boolean): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_ALL_COUPONS_LOADING,
+        payload: payload
+    }
+}
+
+export const getCouponsError = (payload: string | null): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_ALL_COUPONS_ERROR,
+        payload: payload
+    }
+}
+
+export const getCouponInfo = (payload: IGames): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_COUPON_INFO,
+        payload: payload
+    }
+}
+
+export const getCouponInfoLoading = (payload: boolean): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_COUPON_INFO_LOADING,
+        payload: payload
+    }
+}
+
+export const getCouponInfoError = (payload: string | null): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_COUPON_INFO_ERROR,
         payload: payload
     }
 }
@@ -95,5 +137,47 @@ export const doPayment = ({car_id, final_amount, trans_type, coupon_id}: Payment
         .catch((error) => {
             dispatch(postPaymentError(error))
         })
+    }
+}
+
+export const getUserCoupons = () => {
+    return async(dispatch: Dispatch<TransactionAction>) => {
+        dispatch(getCouponsLoading(true))
+        dispatch(getCouponsError(""))
+
+        await instance.get("/user/coupon")
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to fetch coupons')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(getCoupons(data))
+        })
+        .catch((error) => {
+            dispatch(getCouponsError(error))})
+        .finally(() => dispatch(getCouponsLoading(false)));
+    }
+}
+
+export const getUserCouponInfo = (code: string | undefined) => {
+    return async(dispatch: Dispatch<TransactionAction>) => {
+        dispatch(getCouponInfoLoading(true))
+        dispatch(getCouponInfoError(""))
+
+        await instance.get(`/user/coupon-info/${code}`)
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to fetch coupon info')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(getCouponInfo(data))
+        })
+        .catch((error) => {
+            dispatch(getCouponInfoError(error))})
+        .finally(() => dispatch(getCouponInfoLoading(false)));
     }
 }
