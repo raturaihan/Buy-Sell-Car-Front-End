@@ -14,6 +14,7 @@ export interface ICarState {
     suggestedCarsLoading: boolean;
     suggestedCarsError: string | null;
     updateCar: ICar;
+    updateCarError: string | null;
     deleteCar: ICar;
     createCar: ICar;
 }

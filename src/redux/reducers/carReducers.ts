@@ -47,6 +47,7 @@ const initialState: ICarState = {
     description: "",
     Category: { category_id: 0, category_name: "" },
   },
+  updateCarError: null,
   deleteCar: {
     CarID: 0,
     car_name: "",
@@ -114,6 +115,8 @@ export default function carReducer(
       return { ...state, suggestedCarsError: action.payload };
     case CarActionType.UPDATE_CAR:
       return { ...state, updateCar: action.payload };
+    case CarActionType.UPDATE_CAR_ERROR:
+      return { ...state, updateCarError: action.payload };
     case CarActionType.DELETE_CAR:
       return { ...state, deleteCar: action.payload };
     case CarActionType.CREATE_CAR:

@@ -103,6 +103,13 @@ export const updateCar = (payload: ICar): CarAction => {
     }
 }
 
+export const updateCarError = (payload: string | null): CarAction => {
+    return {
+        type: CarActionType.UPDATE_CAR_ERROR,
+        payload: payload
+    }
+}
+
 export const deleteCar = (payload: ICar): CarAction => {
     return {
         type: CarActionType.DELETE_CAR,
@@ -229,7 +236,8 @@ export const deleteCarListing = (id: string | undefined) => {
 
 export const editDataCar = ({id, car}: EditCarParams) => {
     return async(dispatch: Dispatch<CarAction>) => {
-        await instance.patch(`/admin/car/${id}`, car)
+        dispatch(updateCarError(""))
+        await instance.patch(`/admin/car/${id}`,car)
         .then((response) => {
             if(!response.data) {
                 throw new Error('Failed to update car data')
@@ -240,7 +248,7 @@ export const editDataCar = ({id, car}: EditCarParams) => {
             dispatch(updateCar(data))
         })
         .catch((error) => {
-            throw error
+            dispatch(updateCarError(error))
         })
     }
 }

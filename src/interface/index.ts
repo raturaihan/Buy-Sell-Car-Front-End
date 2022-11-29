@@ -4,10 +4,10 @@ export interface ICategory {
 }
 
 export interface ICar {
-    CarID: number;
-    car_name: string;
+    CarID: number ;
+    car_name: string ;
     car_year: number;
-    car_img: string | undefined;
+    car_img: string;
     price: number;
     color: string;
     category_id: number;

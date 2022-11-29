@@ -3,16 +3,32 @@ import { DebounceInput } from "react-debounce-input";
 import { useDispatch, useSelector } from "react-redux";
 import ModalCarForm from "../../components/ModalCarForm";
 import Navbar from "../../components/Navbar";
-import { deleteCarListing, fetchCars, fetchCarsCategory } from "../../redux/actions/carActions";
+import { ICar } from "../../interface";
+import {
+  deleteCarListing,
+  fetchCars,
+  fetchCarsCategory,
+} from "../../redux/actions/carActions";
 import { CarDispatch } from "../../redux/actions/typesActions";
 import { RootState } from "../../redux/reducers/indexReducers";
-import { BlueGreenButton, ReverseBlueGreenButton, ReverseRedButton } from "../../styles/Styled";
+import {
+  BlueGreenButton,
+  ReverseBlueGreenButton,
+  ReverseRedButton,
+} from "../../styles/Styled";
 import { FormatBalance } from "../../utils/utils";
 
 function CarListingPage() {
-  const { cars, carsLoading, carsError, deleteCar, updateCar, car} = useSelector(
-    (state: RootState) => state.carReducer
-  );
+  const {
+    cars,
+    carsLoading,
+    carsError,
+    deleteCar,
+    updateCar,
+    car,
+    carLoading,
+    carError,
+  } = useSelector((state: RootState) => state.carReducer);
   const { categories, categoriesLoading, categoriesError } = useSelector(
     (state: RootState) => state.carReducer
   );
@@ -24,9 +40,15 @@ function CarListingPage() {
     min_price: "",
     max_price: "",
   });
-  const [carId, setCarId] = useState("")
-
+  const [carId, setCarId] = useState("");
+  const [selectedCar, setSelectedCar] = useState<ICar>()
   const carDispatch: CarDispatch = useDispatch();
+  
+  
+  const handleClickEdit=(id:string)=>{
+    const car = cars.Data.find((c)=>c.CarID===Number(id))
+    setSelectedCar(car)
+  }
 
   useEffect(() => {
     carDispatch(fetchCarsCategory());
@@ -34,8 +56,8 @@ function CarListingPage() {
   }, [carDispatch, pagination, deleteCar, updateCar]);
 
   const handleDelete = () => {
-    carDispatch(deleteCarListing(carId))
-  }
+    carDispatch(deleteCarListing(carId));
+  };
   return (
     <div>
       <Navbar />
@@ -126,6 +148,7 @@ function CarListingPage() {
                       <th>Price</th>
                       <th>Color</th>
                       <th>Category</th>
+                      <th>Transmission Type</th>
                       <th>STNK Validity</th>
                       <th>Location</th>
                       <th>Photo</th>
@@ -134,10 +157,11 @@ function CarListingPage() {
                   <tbody>
                     {cars.Data.map((val) => (
                       <tr key={val.CarID}>
-                        <td>{val.car_name}</td>
+                        <td>{val.car_year} {val.car_name}</td>
                         <td>Rp {FormatBalance(val.price)}</td>
                         <td>{val.color}</td>
                         <td>{val.Category?.category_name}</td>
+                        <td>{val.transmission_type}</td>
                         <td>
                           {val.stnk_date}/{val.stnk_month}/{val.stnk_year}
                         </td>
@@ -155,15 +179,17 @@ function CarListingPage() {
                               id={val.CarID?.toString()}
                               data-bs-toggle="modal"
                               data-bs-target="#carModal"
-                              onClick={(e) => setCarId(e.currentTarget.id)}>
+                              onClick={(e) => handleClickEdit(e.currentTarget.id)}
+                            >
                               Edit
                             </ReverseBlueGreenButton>
-                            <ModalCarForm carid={carId}/>
+                            <ModalCarForm car={selectedCar} />
                             <ReverseRedButton
-                            id={val.CarID?.toString()}
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            onClick={(e) => setCarId(e.currentTarget.id)}>
+                              id={val.CarID?.toString()}
+                              data-bs-toggle="modal"
+                              data-bs-target="#deleteModal"
+                              onClick={(e) => setCarId(e.currentTarget.id)}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -175,20 +201,31 @@ function CarListingPage() {
                                 <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                               </svg>
                             </ReverseRedButton>
-                            <div className="modal"
-                            tabIndex={-1}
-                            id="deleteModal"
-                            aria-labelledby="deleteModalLabel"
-                            aria-hidden="true">
+                            <div
+                              className="modal"
+                              tabIndex={-1}
+                              id="deleteModal"
+                              aria-labelledby="deleteModalLabel"
+                              aria-hidden="true"
+                            >
                               <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                   <div className="modal-body">
                                     <div className="d-flex justify-content-center my-3">
-                                      <h5>Are you sure want to delete this car?</h5>
+                                      <h5>
+                                        Are you sure want to delete this car?
+                                      </h5>
                                     </div>
                                     <div className="d-flex justify-content-center gap-2 my-2">
-                                      <BlueGreenButton data-bs-dismiss="modal" onClick={handleDelete}>Yes</BlueGreenButton>
-                                      <ReverseBlueGreenButton data-bs-dismiss="modal">No</ReverseBlueGreenButton>
+                                      <BlueGreenButton
+                                        data-bs-dismiss="modal"
+                                        onClick={handleDelete}
+                                      >
+                                        Yes
+                                      </BlueGreenButton>
+                                      <ReverseBlueGreenButton data-bs-dismiss="modal">
+                                        No
+                                      </ReverseBlueGreenButton>
                                     </div>
                                   </div>
                                 </div>
