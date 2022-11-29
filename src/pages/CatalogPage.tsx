@@ -7,6 +7,7 @@ import { fetchCars, fetchCarsCategory } from "../redux/actions/carActions";
 import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { DebounceInput } from "react-debounce-input";
+import { GetMaximumPrice, GetMinimumPrice } from "../utils/utils";
 
 function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
@@ -25,6 +26,7 @@ function CatalogPage() {
   });
 
   const carDispatch: CarDispatch = useDispatch();
+  console.log(pagination)
 
   useEffect(() => {
     carDispatch(fetchCarsCategory());
@@ -72,12 +74,34 @@ function CatalogPage() {
               })
             )}
           </select>
-          <div className="container">
-          <div className="row"><p className="text-center">Select Price Range</p></div>
-          <div className="row">
-            <input type="range" className="form-range" min="70000000" max="1000000000" step={"100000000"}/>
-          </div>
-          </div>
+          <select
+            name="price-range"
+            id="price-range"
+            className="form-select"
+            onChange={(e) => {
+              setPagination({
+                page: 1,
+                limit: pagination.limit,
+                car_name: pagination.car_name,
+                category_id: pagination.category_id,
+                min_price: GetMinimumPrice(e.target.value),
+                max_price: GetMaximumPrice(e.target.value),
+              });
+            }}
+          >
+            <option value="">Select Price Range</option>
+            <option value="under150">Under Rp 150.000.000</option>
+            <option value="between150_250">
+              Rp 150.000.000 - Rp 250.000.000
+            </option>
+            <option value="between250_350">
+              Rp 250.000.000 - Rp 350.000.000
+            </option>
+            <option value="between350_450">
+              Rp 350.000.000 - Rp 450.000.000
+            </option>
+            <option value="above450">Above Rp 450.000.000</option>
+          </select>
           <DebounceInput
             type="text"
             className="form-control"

@@ -8,8 +8,8 @@ interface IParams {
     limit: number;
     car_name:string;
     category_id:string;
-    min_price: string;
-    max_price: string;
+    min_price: string | undefined;
+    max_price: string | undefined;
 }
 
 export const setCars = (payload: ICarCatalog): CarAction => {
