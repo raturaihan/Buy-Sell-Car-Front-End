@@ -105,3 +105,24 @@ export const CarImage = styled.img({
   maxWidth: '100%',
   height: 'auto'
 })
+
+export const VoucherIcon = styled.img({
+  maxWidth: '100%',
+  borderRadius: "50%",
+  width: "50px",
+  height: "50px",
+})
+
+export const CouponConteiner = styled.div({
+  boxShadow: "0 5px 10px rgba(0,0,0,.2)",
+  backgroundColor:"#f4d873",
+  borderRadius: '15px',
+  height: '80px',
+  width: '270px',
+  border: '2px dashed #fb5c3c'
+});
+
+export const VerticalLine = styled.div({
+  borderLeft: '4px dashed #fb5c3c',
+  height: '80px'
+})

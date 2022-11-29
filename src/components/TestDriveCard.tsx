@@ -22,7 +22,7 @@ function TestDriveCard({car}: TDProps) {
               <h6>{car.Car.car_year} {car.Car.car_name}</h6>
               <div className="d-flex gap-2">
                 <CarCategory>{car.Car.transmission_type}</CarCategory>
-                <CarCategory>{car.Car.Category.category_name}</CarCategory>
+                <CarCategory>{car.Car.Category?.category_name}</CarCategory>
               </div>
               <SmallFont className="card-text mt-2">&#128205;{car.Car.car_location}</SmallFont>
             </div>

@@ -13,21 +13,18 @@ import { RootState } from "../redux/reducers/indexReducers";
 import { BlueGreenButton } from "../styles/Styled";
 
 interface modalFormCarDetails {
-  car: ICar|undefined;
+  car: ICar | undefined;
 }
 
 function ModalCarForm({ car }: modalFormCarDetails) {
-  const {
-    categories,
-    categoriesLoading,
-    categoriesError,
-  } = useSelector((state: RootState) => state.carReducer);
+  const { categories, categoriesLoading, categoriesError } = useSelector(
+    (state: RootState) => state.carReducer
+  );
   const carDispatch: CarDispatch = useDispatch();
 
   const [imagePreviewUrl, setImagePreviewUrl] = React.useState<string>();
 
-  useEffect(() => {
-  }, [car]);
+  useEffect(() => {}, [car]);
 
   const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -49,23 +46,23 @@ function ModalCarForm({ car }: modalFormCarDetails) {
     event.preventDefault();
     const target = event.target as typeof event.target & {
       car_name: { value: string };
-      car_year: {value: number};
-      price: {value: number};
-      color: {value: string};
-      brand_name: {value: string};
-      car_location: {value: string};
-      transmission_type: {value: string};
-      stnk_date: {value: number};
-      stnk_month: {value: number};
-      stnk_year: {value: number};
-      category_id: {value: number};
-      description: {value: string};
+      car_year: { value: number };
+      price: { value: number };
+      color: { value: string };
+      brand_name: { value: string };
+      car_location: { value: string };
+      transmission_type: { value: string };
+      stnk_date: { value: number };
+      stnk_month: { value: number };
+      stnk_year: { value: number };
+      category_id: { value: number };
+      description: { value: string };
     };
     const carData: ICar = {
-      CarID: car?.CarID||-1,
+      CarID: car?.CarID || -1,
       car_name: target.car_name.value,
       car_year: Number(target.car_year.value),
-      car_img: imagePreviewUrl?.toString()||"",
+      car_img: imagePreviewUrl?.toString() || "",
       price: Number(target.price.value),
       color: target.color.value,
       category_id: Number(target.category_id.value),
@@ -79,7 +76,7 @@ function ModalCarForm({ car }: modalFormCarDetails) {
     };
     const editCarParams: EditCarParams = {
       car: carData,
-      id: car?.CarID.toString()||'',
+      id: car?.CarID.toString() || "",
     };
     carDispatch(editDataCar(editCarParams));
   };
@@ -100,7 +97,9 @@ function ModalCarForm({ car }: modalFormCarDetails) {
                 <div className="d-flex justify-content-center mt-4">
                   <h3>Edit Car Data</h3>
                 </div>
-                    <form onSubmit={handleSubmitEdit}>
+                <form onSubmit={handleSubmitEdit}>
+                  <div className="row">
+                    <div className="col">
                       <label
                         htmlFor="car_name"
                         className="form-label fw-bold mt-4"
@@ -179,6 +178,8 @@ function ModalCarForm({ car }: modalFormCarDetails) {
                         id="car_location"
                         defaultValue={car?.car_location}
                       />
+                    </div>
+                    <div className="col">
                       <label
                         htmlFor="transmission_type"
                         className="form-label fw-bold mt-4"
@@ -288,12 +289,14 @@ function ModalCarForm({ car }: modalFormCarDetails) {
                         id="description"
                         defaultValue={car?.description}
                       />
-                      <div className="d-flex justify-content-center my-3">
-                        <BlueGreenButton type="submit" data-bs-dismiss="modal">
-                          Edit Data
-                        </BlueGreenButton>
-                      </div>
-                    </form>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center mt-5">
+                    <BlueGreenButton type="submit" data-bs-dismiss="modal">
+                      Edit Data
+                    </BlueGreenButton>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CouponCard from "../../components/CouponCard";
 import ModalEditProfile from "../../components/ModalEditProfile";
 import Navbar from "../../components/Navbar";
 import TestDriveCard from "../../components/TestDriveCard";
@@ -89,6 +90,17 @@ function ProfilePage() {
                 </div>
                 </div>
               </div>
+            </FormContainer>
+            <br />
+            <FormContainer className="card">
+            <div className="card-body">
+              <h4 className="text-center">Coupons</h4>
+              <div className="d-flex gap-2 mt-4" style={{ overflow: "auto" }}>
+              <CouponCard />
+              <CouponCard />
+              <CouponCard />
+              </div>
+            </div>
             </FormContainer>
           </div>
           <div className="col-lg-8 mt-3 g-4" style={{overflowY: "auto" }}>

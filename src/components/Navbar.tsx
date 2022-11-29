@@ -37,7 +37,7 @@ function Navbar() {
                 height="70"
                 className="d-inline-block align-text-top"
               />
-              <h3 className="fw-bolder">CarSEA</h3>
+              <h3 className="fw-bolder m-0">CarSEA</h3>
             </div>
           </a>
           <button
