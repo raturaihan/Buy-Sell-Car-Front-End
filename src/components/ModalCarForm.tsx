@@ -81,7 +81,6 @@ function ModalCarForm({ car }: modalFormCarDetails) {
       car: carData,
       id: car?.CarID.toString()||'',
     };
-    console.log("val",editCarParams)
     carDispatch(editDataCar(editCarParams));
   };
 

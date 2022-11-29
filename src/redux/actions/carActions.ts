@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { EditCarParams, ICar, ICarCatalog, ICarCategory } from "../../interface";
+import { EditCarParams, ICar, ICarCatalog, ICarCategory, INewCar } from "../../interface";
 import { CarAction, CarActionType } from "./typesActions";
 
 interface IParams {
@@ -253,7 +253,7 @@ export const editDataCar = ({id, car}: EditCarParams) => {
     }
 }
 
-export const addNewCar = (payload: ICar) => {
+export const addNewCar = (payload: INewCar) => {
     return async(dispatch: Dispatch<CarAction>) => {
         await instance.post(`/admin/car`, payload)
         .then((response) => {

@@ -21,6 +21,23 @@ export interface ICar {
     Category?: ICategory;
 }
 
+export interface INewCar {
+    car_name: string ;
+    car_year: number;
+    car_img: string;
+    price: number;
+    color: string;
+    category_id: number;
+    transmission_type: string;
+    brand_name: string;
+    stnk_date: number;
+    stnk_month: number;
+    stnk_year: number;
+    car_location: string;
+    description: string;
+}
+
+
 export interface ICarCatalog {
     CurrentPage: number;
     TotalPage: number;

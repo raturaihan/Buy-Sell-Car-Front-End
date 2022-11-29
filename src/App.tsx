@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import AddNewCarPage from './pages/Admin/AddNewCarPage'
 import CarListingPage from './pages/Admin/CarListingPage'
 import TestDrivePage from './pages/Admin/TestDrivePage'
 import TransactionPage from './pages/Admin/TransactionPage'
@@ -37,6 +38,7 @@ function App() {
           <Route path='/transactions' element={<TransactionPage />}/>
           <Route path='/testdrives' element={<TestDrivePage />}/>
           <Route path='/carlisting' element={<CarListingPage />}/>
+          <Route path='/newcar' element={<AddNewCarPage/>} />
         </Route>
         <Route path="*" element={<NotFound />}/>
       </Routes>

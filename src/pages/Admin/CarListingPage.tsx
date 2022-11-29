@@ -1,6 +1,7 @@
 import React, { isValidElement, useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import ModalCarForm from "../../components/ModalCarForm";
 import Navbar from "../../components/Navbar";
 import { ICar } from "../../interface";
@@ -19,16 +20,9 @@ import {
 import { FormatBalance } from "../../utils/utils";
 
 function CarListingPage() {
-  const {
-    cars,
-    carsLoading,
-    carsError,
-    deleteCar,
-    updateCar,
-    car,
-    carLoading,
-    carError,
-  } = useSelector((state: RootState) => state.carReducer);
+  const { cars, carsLoading, carsError, deleteCar, updateCar } = useSelector(
+    (state: RootState) => state.carReducer
+  );
   const { categories, categoriesLoading, categoriesError } = useSelector(
     (state: RootState) => state.carReducer
   );
@@ -41,14 +35,13 @@ function CarListingPage() {
     max_price: "",
   });
   const [carId, setCarId] = useState("");
-  const [selectedCar, setSelectedCar] = useState<ICar>()
+  const [selectedCar, setSelectedCar] = useState<ICar>();
   const carDispatch: CarDispatch = useDispatch();
-  
-  
-  const handleClickEdit=(id:string)=>{
-    const car = cars.Data.find((c)=>c.CarID===Number(id))
-    setSelectedCar(car)
-  }
+
+  const handleClickEdit = (id: string) => {
+    const car = cars.Data.find((c) => c.CarID === Number(id));
+    setSelectedCar(car);
+  };
 
   useEffect(() => {
     carDispatch(fetchCarsCategory());
@@ -62,74 +55,72 @@ function CarListingPage() {
     <div>
       <Navbar />
       <div className="container mt-5">
-        <div className="d-flex gap-3">
-          <select
-            name="cartype"
-            id="cartype"
-            className="form-select"
-            value={pagination.category_id}
-            onChange={(e) => {
-              setPagination({
-                page: 1,
-                limit: pagination.limit,
-                car_name: pagination.car_name,
-                category_id: e.target.value,
-                min_price: pagination.min_price,
-                max_price: pagination.max_price,
-              });
-            }}
-          >
-            <option value="">All Car Type</option>
-            {categoriesLoading ? (
-              <p>Loading...</p>
-            ) : categoriesError ? (
-              <p>Error: {categoriesError}</p>
-            ) : categories.length === 0 ? (
-              <p>No Categories Available</p>
-            ) : (
-              categories.map((category) => {
-                return (
-                  <option
-                    key={category.category_id}
-                    value={category.category_id.toString()}
-                  >
-                    {category.category_name}
-                  </option>
-                );
-              })
-            )}
-          </select>
-          <div className="container">
-            <div className="row">
-              <p className="text-center">Select Price Range</p>
-            </div>
-            <div className="row">
-              <input
-                type="range"
-                className="form-range"
-                min="70000000"
-                max="1000000000"
-                step={"100000000"}
-              />
+        <div className="row">
+          <div className="col">
+            <select
+              name="cartype"
+              id="cartype"
+              className="form-select"
+              value={pagination.category_id}
+              onChange={(e) => {
+                setPagination({
+                  page: 1,
+                  limit: pagination.limit,
+                  car_name: pagination.car_name,
+                  category_id: e.target.value,
+                  min_price: pagination.min_price,
+                  max_price: pagination.max_price,
+                });
+              }}
+            >
+              <option value="">All Car Type</option>
+              {categoriesLoading ? (
+                <p>Loading...</p>
+              ) : categoriesError ? (
+                <p>Error: {categoriesError}</p>
+              ) : categories.length === 0 ? (
+                <p>No Categories Available</p>
+              ) : (
+                categories.map((category) => {
+                  return (
+                    <option
+                      key={category.category_id}
+                      value={category.category_id.toString()}
+                    >
+                      {category.category_name}
+                    </option>
+                  );
+                })
+              )}
+            </select>
+          </div>
+          <div className="col"></div>
+          <div className="col">
+            <DebounceInput
+              type="text"
+              className="form-control"
+              placeholder="Search..."
+              value={pagination.car_name}
+              debounceTimeout={500}
+              onChange={(e) =>
+                setPagination({
+                  page: pagination.page,
+                  limit: pagination.limit,
+                  car_name: e.target.value,
+                  category_id: pagination.category_id,
+                  min_price: pagination.min_price,
+                  max_price: pagination.max_price,
+                })
+              }
+            />
+          </div>
+          <div className="col-lg-2">
+            <div className="d-flex justify-content-end">
+              <Link to={"/newcar"}>
+                <BlueGreenButton>Add New Car</BlueGreenButton>
+              </Link>
             </div>
           </div>
-          <DebounceInput
-            type="text"
-            className="form-control"
-            placeholder="Search..."
-            value={pagination.car_name}
-            debounceTimeout={500}
-            onChange={(e) =>
-              setPagination({
-                page: pagination.page,
-                limit: pagination.limit,
-                car_name: e.target.value,
-                category_id: pagination.category_id,
-                min_price: pagination.min_price,
-                max_price: pagination.max_price,
-              })
-            }
-          />
         </div>
         <div className="row mt-5">
           {carsLoading ? (
@@ -157,7 +148,9 @@ function CarListingPage() {
                   <tbody>
                     {cars.Data.map((val) => (
                       <tr key={val.CarID}>
-                        <td>{val.car_year} {val.car_name}</td>
+                        <td>
+                          {val.car_year} {val.car_name}
+                        </td>
                         <td>Rp {FormatBalance(val.price)}</td>
                         <td>{val.color}</td>
                         <td>{val.Category?.category_name}</td>
@@ -179,7 +172,9 @@ function CarListingPage() {
                               id={val.CarID?.toString()}
                               data-bs-toggle="modal"
                               data-bs-target="#carModal"
-                              onClick={(e) => handleClickEdit(e.currentTarget.id)}
+                              onClick={(e) =>
+                                handleClickEdit(e.currentTarget.id)
+                              }
                             >
                               Edit
                             </ReverseBlueGreenButton>
