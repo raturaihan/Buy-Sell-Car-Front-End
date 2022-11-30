@@ -45,9 +45,9 @@ export interface ICarCatalog {
     Limit: number;
     Data: ICar[];
 }
-export interface ICarCategory {
-    category_id: number;
-    category_name: string;
+export interface EditCategoryParams {
+    id: string;
+    car: ICategory;
 }
 
 export interface EditCarParams {
@@ -150,4 +150,12 @@ export interface IGames {
     coupon_id:number;
     coupon_status: string;
     Coupon: ICoupon;
+}
+
+export interface ICategoryPagination{
+    CurrentPage: number;
+    TotalPage: number;
+    TotalData: number;
+    Limit: number;
+    Data: ICategory[];
 }

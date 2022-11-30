@@ -3,7 +3,8 @@ import { AnyAction } from "redux";
 import {
   ICar,
   ICarCatalog,
-  ICarCategory,
+  ICategory,
+  ICategoryPagination,
   IFavorite,
   IFavorites,
   IGames,
@@ -15,6 +16,7 @@ import {
 } from "../../interface";
 import {
   ICarState,
+  ICategoryState,
   IFavoriteState,
   ITestDriveState,
   ITransactionState,
@@ -57,7 +59,7 @@ export interface ISetCarsError {
 
 export interface ISetCarsCategory {
   type: CarActionType.SET_CARS_CATEGORY;
-  payload: ICarCategory[];
+  payload: ICategory[];
 }
 
 export interface ISetCarsCategoryLoading {
@@ -243,6 +245,7 @@ export type FavoriteDispatch = ThunkDispatch<IFavoriteState, any, AnyAction>;
 export enum TestDriveActionType {
   REQUEST_TEST_DRIVE = "REQUEST_TEST_DRIVE",
   REQUEST_TEST_DRIVE_ERROR = "REQUEST_TEST_DRIVE_ERROR",
+  RESET_REQ_TEST_DRIVE_ERROR = "RESET_REQ_TEST_DRIVE_ERROR",
   SET_TEST_DRIVES_USER = "SET_TEST_DRIVES_USER",
   SET_TEST_DRIVES_USER_LOADING = "SET_TEST_DRIVES_USER_LOADING",
   SET_TEST_DRIVES_USER_ERROR = "SET_TEST_DRIVES_USER_ERROR",
@@ -260,6 +263,10 @@ export interface IRequestTestDrive {
 export interface IRequestTestDriveError {
   type: TestDriveActionType.REQUEST_TEST_DRIVE_ERROR;
   payload: string | null;
+}
+
+export interface IResetRequestTestDrive {
+  type: TestDriveActionType.RESET_REQ_TEST_DRIVE_ERROR;
 }
 
 export interface ISetTestDrivesUser {
@@ -306,7 +313,8 @@ export type TestDriveAction =
   | ISetTestDrivesAdmin
   | ISetTestDrivesAdminLoading
   | ISetTestDrivesAdminError
-  | IUpdateTestDrive;
+  | IUpdateTestDrive
+  | IResetRequestTestDrive;
 export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
 
 export enum TransactionActionType {
@@ -401,3 +409,72 @@ export type TransactionDispatch = ThunkDispatch<
   any,
   AnyAction
 >;
+
+export enum CategoryActionType {
+  SET_CATEGORIES = "SET_CATEGORIES",
+  SET_CATEGORIES_LOADING = "SET_CATEGORIES_LOADING",
+  SET_CATEGORIES_ERROR = "SET_CATEGORIES_ERROR",
+  ADD_CATEGORY = "ADD_CATEGORY",
+  ADD_CATEGORY_ERROR = "ADD_CATEGORY_ERROR",
+  EDIT_CATEGORY = "EDIT_CATEGORY",
+  EDIT_CATEGORY_ERROR = "EDIT_CATEGORY_ERROR",
+  DELETE_CATEGORY = "DELETE_CATEGORY",
+  DELETE_CATEGORY_ERROR = "DELETE_CATEGORY_ERROR"
+}
+
+export interface ISetCategories {
+  type: CategoryActionType.SET_CATEGORIES;
+  payload: ICategoryPagination;
+}
+
+export interface ISetCategoriesLoading {
+  type: CategoryActionType.SET_CATEGORIES_LOADING;
+  payload: boolean;
+}
+
+export interface ISetCategoriesError {
+  type: CategoryActionType.SET_CATEGORIES_ERROR;
+  payload: string | null;
+}
+
+export interface IAddCategory {
+  type: CategoryActionType.ADD_CATEGORY;
+  payload: ICategory;
+}
+
+export interface IAddCategoryError {
+  type: CategoryActionType.ADD_CATEGORY_ERROR;
+  payload: string | null;
+}
+
+export interface IEditCategory {
+  type: CategoryActionType.EDIT_CATEGORY;
+  payload: ICategory;
+}
+
+export interface IEditCategoryError {
+  type: CategoryActionType.EDIT_CATEGORY_ERROR;
+  payload: string | null;
+}
+
+export interface IDeleteCategory {
+  type: CategoryActionType.DELETE_CATEGORY;
+  payload: ICategory;
+}
+
+export interface IDeleteCategoryError {
+  type: CategoryActionType.DELETE_CATEGORY_ERROR;
+  payload: string | null;
+}
+
+export type CategoryAction = 
+  | ISetCategories
+  | ISetCategoriesLoading
+  | ISetCategoriesError
+  | IAddCategory
+  | IAddCategoryError
+  | IEditCategory
+  | IEditCategoryError
+  | IDeleteCategory
+  | IDeleteCategoryError; 
+export type CategoryDispatch = ThunkDispatch<ICategoryState, any, AnyAction>

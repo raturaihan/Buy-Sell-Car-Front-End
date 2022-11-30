@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { EditCarParams, ICar, ICarCatalog, ICarCategory, INewCar } from "../../interface";
+import { EditCarParams, ICar, ICarCatalog, ICategory, INewCar } from "../../interface";
 import { CarAction, CarActionType } from "./typesActions";
 
 interface IParams {
@@ -33,7 +33,7 @@ export const setCarsError = (payload: string | null): CarAction => {
     }
 }
 
-export const setCarsCategory = (payload: ICarCategory[]): CarAction => {
+export const setCarsCategory = (payload: ICategory[]): CarAction => {
     return {
         type: CarActionType.SET_CARS_CATEGORY,
         payload: payload

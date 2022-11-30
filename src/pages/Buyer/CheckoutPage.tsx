@@ -238,7 +238,7 @@ function CheckoutPage() {
                       id="code"
                       type="text"
                       className="form-control"
-                      placeholder="Enter Coupon Code"
+                      placeholder="Enter Voucher's Code"
                       value={inputCode}
                       onChange={(e) => setInputCode(e.currentTarget.value)}
                     />

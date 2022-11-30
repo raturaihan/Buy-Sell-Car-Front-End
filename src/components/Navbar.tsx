@@ -175,6 +175,14 @@ function Navbar() {
                       <a className="nav-link nav-link-active">Car Listing</a>
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/carcategories"}
+                    >
+                      <a className="nav-link nav-link-active">Car Categories</a>
+                    </Link>
+                  </li>
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"

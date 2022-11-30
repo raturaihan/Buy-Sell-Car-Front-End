@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { fetchCar, suggestedCar } from "../redux/actions/carActions";
-import { CarDispatch, FavoriteDispatch, TransactionDispatch } from "../redux/actions/typesActions";
+import { CarDispatch, FavoriteDispatch, TestDriveDispatch, TransactionDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { FormatBalance } from "../utils/utils";
 import {
@@ -23,6 +23,7 @@ import {
 } from "../redux/actions/favoriteAction";
 import ModalTestDrive from "../components/ModalTestDrive";
 import { resetCoupon } from "../redux/actions/transactionActions";
+import { resetReqTestDrive } from "../redux/actions/testdriveActions";
 
 function CarDetailPage() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function CarDetailPage() {
   const carDispatch: CarDispatch = useDispatch();
   const favoriteDispatch: FavoriteDispatch = useDispatch();
   const transactionDispatch: TransactionDispatch = useDispatch();
+  const testdriveDispatch: TestDriveDispatch = useDispatch();
 
   const handleClickFavorite = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -70,6 +72,7 @@ function CarDetailPage() {
     carDispatch(suggestedCar(car.category_id));
     favoriteDispatch(fetchFavorites());
     transactionDispatch(resetCoupon());
+    testdriveDispatch(resetReqTestDrive());
   }, [carDispatch, car.category_id, id, addFavorite, removeFavorite]);
 
   useEffect(() => {

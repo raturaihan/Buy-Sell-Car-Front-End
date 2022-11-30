@@ -20,14 +20,13 @@ function ModalTestDrive() {
   const { reqTestDrive, reqTestDriveError } = useSelector(
     (state: RootState) => state.testdriveReducer
   );
-
   const testdriveDispatch: TestDriveDispatch = useDispatch();
   const [isRequested, setIsRequested] = useState(false);
   const [alertSuccess, setAlertSuccess] = useState(false);
   const [alertError, setAlertError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(reqTestDriveError);
   let formatInput = moment(inputDate).format();
-  console.log("err msg",reqTestDriveError)
+  console.log("err msg",errorMessage)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!inputValidation(inputDate)) {
@@ -53,14 +52,14 @@ function ModalTestDrive() {
 
   useEffect(() => {
     testdriveDispatch(getTestDriveUser());
-  }, [testdriveDispatch]);
+  }, [testdriveDispatch, alertError, alertSuccess, errorMessage, reqTestDriveError]);
 
   useEffect(() => {
     const requestedCar = testDrivesUser.find(
       (carTD) => carTD.car_id === car.CarID && carTD.status != "REJECTED"
     );
     setIsRequested(!!requestedCar);
-  }, [car, testDrivesUser, alertError, errorMessage, alertSuccess]);
+  }, [car, testDrivesUser]);
 
   const [inputErrors, setInputErrors] = useState(false);
 
