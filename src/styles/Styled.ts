@@ -126,3 +126,8 @@ export const VerticalLine = styled.div({
   borderLeft: '3px dashed #fb5c3c',
   height: '80px'
 })
+
+export const BorderPayment = styled.div({
+  border: '1px solid lightgray',
+  borderRadius: '10px'
+})

@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCar } from "../../redux/actions/carActions";
-import { CarDispatch, TransactionDispatch } from "../../redux/actions/typesActions";
+import {
+  CarDispatch,
+  TransactionDispatch,
+} from "../../redux/actions/typesActions";
 import { RootState } from "../../redux/reducers/indexReducers";
 import { FormatBalance } from "../../utils/utils";
 import {
   BlueGreenButton,
+  BorderPayment,
   FormContainer,
   ReverseBlueGreenButton,
   SmallFont,
 } from "../../styles/Styled";
 import ModalSuccess from "../../components/ModalSuccess";
 import { PaymentParams } from "../../interface";
-import { doPayment } from "../../redux/actions/transactionActions";
+import {
+  doPayment,
+  getUserCouponInfo,
+} from "../../redux/actions/transactionActions";
 
 function CheckoutPage() {
   const { car } = useSelector((state: RootState) => state.carReducer);
+  const { coupon, couponLoading, couponError } = useSelector(
+    (state: RootState) => state.transactionReducer
+  );
+  const [inputCode, setInputCode] = useState("");
   const [isInstallment, setIsInstallment] = useState(false);
   const [calculator, setCalculator] = useState({
     dp: 0.1,
@@ -39,37 +50,53 @@ function CheckoutPage() {
     return Math.round(perMonth);
   };
 
-  const finalAmountModal = () => {
+  const finalAmountCoupon = () => {
     if (isInstallment) {
-      return `Please Pay Rp ${FormatBalance(downPayment())}`
+      if(!couponError) {
+        return downPayment() - coupon.Coupon.promo_amount
+      }
+      return downPayment()
     }
-    return `Please Pay Rp ${FormatBalance(car.price)}`
+    else{
+      if(!couponError){
+        return car.price - coupon.Coupon.promo_amount
+      }
+      return car.price
+    }
   }
+
+  const finalAmountModal = () => {
+    return `Please Pay Rp ${FormatBalance(finalAmountCoupon())}`;
+  };
 
   const finalAmount = () => {
     if (isInstallment) {
-      return finalAmountInstallment() + downPayment()
+      return finalAmountInstallment() + downPayment();
     }
-    return car.price
-  }
+    return car.price;
+  };
 
   const transType = () => {
     if (isInstallment) {
-      return "INSTALLMENT"
+      return "INSTALLMENT";
     }
-    return "CASH"
-  }
-
+    return "CASH";
+  };
 
   const handleClick = () => {
-    setModal(true)
+    setModal(true);
     const transactionData: PaymentParams = {
       car_id: car.CarID,
       final_amount: finalAmount(),
-      trans_type: transType()
+      trans_type: transType(),
+      coupon_id: coupon.coupon_id
     };
-    transactionDispatch(doPayment(transactionData))
-  }
+    transactionDispatch(doPayment(transactionData));
+  };
+
+  const handleApplyClick = () => {
+    transactionDispatch(getUserCouponInfo(inputCode));
+  };
   return (
     <div>
       {car.car_name ? (
@@ -205,18 +232,53 @@ function CheckoutPage() {
                   <></>
                 )}
                 <div className="row mt-4">
-                  <div className="col-lg-8">
+                  <div className="col">
                     <input
+                      name="code"
+                      id="code"
                       type="text"
                       className="form-control"
                       placeholder="Enter Coupon Code"
+                      value={inputCode}
+                      onChange={(e) => setInputCode(e.currentTarget.value)}
                     />
                   </div>
-                  <div className="col-lg-4">
-                    <ReverseBlueGreenButton className="px-5 py-auto">
+                  <div className="col">
+                    <ReverseBlueGreenButton
+                      className="px-5 py-auto"
+                      onClick={handleApplyClick}
+                    >
                       Apply
                     </ReverseBlueGreenButton>
                   </div>
+                  {couponError ? (<p className="text-danger">{couponError}</p>):(<></>)}
+                </div>
+                <div className="row mt-3">
+                  <BorderPayment>
+                    <div className="d-flex justify-content-between mt-3">
+                      <p>Price</p>
+                      <p>
+                        Rp
+                        {isInstallment
+                          ? FormatBalance(downPayment())
+                          : FormatBalance(car.price)}
+                      </p>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      {couponLoading ? (
+                        <p>Loading...</p>
+                      ) : couponError ? (<></>) : coupon.coupon_id != 0 ? (
+                        <>
+                          <p>Promo Amount</p>
+                          <p>-{FormatBalance(coupon.Coupon.promo_amount)}</p>
+                        </>
+                      ): (<></>)}
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <h4>Total</h4>
+                      <h4>Rp {FormatBalance(finalAmountCoupon())}</h4>
+                    </div>
+                  </BorderPayment>
                 </div>
                 <div className="row my-5">
                   <BlueGreenButton
@@ -226,13 +288,14 @@ function CheckoutPage() {
                   >
                     Proceed to Payment
                   </BlueGreenButton>
-                  <ModalSuccess 
+                  <ModalSuccess
                     modalType="Checkout Success!"
                     buttonModal="Done"
-                    pathTarget="/home"
+                    pathTarget="/"
                     message={finalAmountModal()}
                     show={modal}
-                    isPayment={true}/>
+                    isPayment={true}
+                  />
                 </div>
               </div>
             </FormContainer>

@@ -88,6 +88,12 @@ export const getCouponInfoError = (payload: string | null): TransactionAction =>
     }
 }
 
+export const resetCoupon = (): TransactionAction => {
+    return {
+        type: TransactionActionType.RESET_COUPON_INFO
+    }
+}
+
 export const fetchTransactions = ({page, limit, full_name, sortBy, sort}: IParams) => {
     return async(dispatch: Dispatch<TransactionAction>) => {
         dispatch(setTransactionsLoading(true))

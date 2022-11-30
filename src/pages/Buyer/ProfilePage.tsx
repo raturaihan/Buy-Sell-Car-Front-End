@@ -5,27 +5,32 @@ import ModalEditProfile from "../../components/ModalEditProfile";
 import Navbar from "../../components/Navbar";
 import TestDriveCard from "../../components/TestDriveCard";
 import { getTestDriveUser } from "../../redux/actions/testdriveActions";
-import { TestDriveDispatch, UserDispatch } from "../../redux/actions/typesActions";
+import { getUserCoupons } from "../../redux/actions/transactionActions";
+import { TestDriveDispatch, TransactionDispatch, UserDispatch } from "../../redux/actions/typesActions";
 import { fetchUserDetail } from "../../redux/actions/userActions";
 import { RootState } from "../../redux/reducers/indexReducers";
 import { FormContainer, ProfileImage, ReverseBlueGreenButton } from "../../styles/Styled";
 
 function ProfilePage() {
-  const {user} = useSelector(
+  const {user, userUpdate} = useSelector(
     (state: RootState) => state.userReducer
   ); 
-  const { userUpdate} = useSelector(
-    (state: RootState) => state.userReducer
-  );
   const {testDrivesUser, testDriveUserLoading, testDriveUserError} = useSelector(
     (state: RootState) => state.testdriveReducer
   )
+  const {coupons, couponsLoading, couponsError} = useSelector(
+    (state: RootState) => state.transactionReducer
+  )
+
   const userDispatch: UserDispatch= useDispatch();
   const testdriveDispatch: TestDriveDispatch= useDispatch();
+  const transactionDispatch: TransactionDispatch= useDispatch();
+  
   useEffect(() => {
     userDispatch(fetchUserDetail());
     testdriveDispatch(getTestDriveUser());
-  },[userDispatch, userUpdate, testdriveDispatch])
+    transactionDispatch(getUserCoupons())
+  },[userDispatch, userUpdate, testdriveDispatch, transactionDispatch])
   return (
     <div>
       <Navbar />
@@ -94,11 +99,14 @@ function ProfilePage() {
             <br />
             <FormContainer className="card">
             <div className="card-body">
-              <h4 className="text-center">Coupons</h4>
+              <h4 className="text-center">Vouchers</h4>
               <div className="d-flex gap-2 mt-4" style={{ overflow: "auto" }}>
-              <CouponCard />
-              <CouponCard />
-              <CouponCard />
+              {couponsLoading ? (<p>Loading...</p>) : couponsError ? (<p>Error: {couponsError}</p>)
+              : coupons.length === 0 ? (<p>You don't have any voucher</p>): (
+                coupons.map((coupon) => {
+                  return <CouponCard coupon={coupon}/>
+                })
+              )}
               </div>
             </div>
             </FormContainer>

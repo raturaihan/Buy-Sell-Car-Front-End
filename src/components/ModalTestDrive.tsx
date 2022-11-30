@@ -11,6 +11,7 @@ import { RootState } from "../redux/reducers/indexReducers";
 import { BlueGreenButton, ReverseBlueGreenButton } from "../styles/Styled";
 
 function ModalTestDrive() {
+  var todayDate = new Date().toISOString().slice(0, 10);
   const [inputDate, setInputDate] = useState("");
   const { car } = useSelector((state: RootState) => state.carReducer);
   const { testDrivesUser } = useSelector(
@@ -26,7 +27,7 @@ function ModalTestDrive() {
   const [alertError, setAlertError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   let formatInput = moment(inputDate).format();
-
+  console.log("err msg",reqTestDriveError)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!inputValidation(inputDate)) {
@@ -35,15 +36,18 @@ function ModalTestDrive() {
         date_request: formatInput,
       };
       testdriveDispatch(testdriveRequest(testdriveData));
-      if (reqTestDriveError == null) {
+      if (reqTestDrive == null) {
         setErrorMessage("");
         setAlertError(false);
         setAlertSuccess(true);
         return;
       }
-      setErrorMessage(reqTestDriveError);
-      setAlertError(true);
-      setAlertSuccess(false);
+      if (reqTestDriveError != null) {
+        setAlertSuccess(false);
+        setAlertError(true);
+        setErrorMessage(reqTestDriveError);
+        return;
+      }
     }
   };
 
@@ -56,7 +60,7 @@ function ModalTestDrive() {
       (carTD) => carTD.car_id === car.CarID && carTD.status != "REJECTED"
     );
     setIsRequested(!!requestedCar);
-  }, [car, testDrivesUser]);
+  }, [car, testDrivesUser, alertError, errorMessage, alertSuccess]);
 
   const [inputErrors, setInputErrors] = useState(false);
 
@@ -113,6 +117,7 @@ function ModalTestDrive() {
                     type="date"
                     className="form-control"
                     id="requested_date"
+                    min={todayDate}
                     value={inputDate}
                     onChange={(e) => setInputDate(e.currentTarget.value)}
                   />

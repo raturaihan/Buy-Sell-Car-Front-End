@@ -57,6 +57,8 @@ export default function transactionReducer(
       return { ...state, couponLoading: action.payload };
     case TransactionActionType.GET_COUPON_INFO_ERROR:
       return { ...state, couponError: action.payload };
+    case TransactionActionType.RESET_COUPON_INFO:
+      return {...state, coupon: initialState.coupon}
     default:
       return state;
   }

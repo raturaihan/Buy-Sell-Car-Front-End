@@ -320,7 +320,8 @@ export enum TransactionActionType {
   GET_ALL_COUPONS_ERROR = "GET_ALL_COUPONS_ERROR",
   GET_COUPON_INFO = 'GET_COUPON_INFO',
   GET_COUPON_INFO_LOADING = 'GET_COUPON_INFO_LOADING',
-  GET_COUPON_INFO_ERROR = 'GET_COUPON_INFO_ERROR'
+  GET_COUPON_INFO_ERROR = 'GET_COUPON_INFO_ERROR',
+  RESET_COUPON_INFO = "RESET_COUPON_INFO"
 }
 
 export interface ISetTransactions {
@@ -378,6 +379,10 @@ export interface IGetCouponInfoError {
   payload: string | null;
 }
 
+export interface IResetCouponInfo {
+  type: TransactionActionType.RESET_COUPON_INFO;
+}
+
 export type TransactionAction =
   | ISetTransactions
   | ISetTransactionsLoading
@@ -389,7 +394,8 @@ export type TransactionAction =
   | IGetAllCouponsLoading
   | IGetCouponInfo
   | IGetCouponInfoError
-  | IGetCouponInfoLoading;
+  | IGetCouponInfoLoading
+  | IResetCouponInfo;
 export type TransactionDispatch = ThunkDispatch<
   ITransactionState,
   any,

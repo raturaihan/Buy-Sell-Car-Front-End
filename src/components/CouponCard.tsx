@@ -1,4 +1,5 @@
 import React from "react";
+import { IGames } from "../interface";
 import {
   CarImage,
   CouponConteiner,
@@ -6,8 +7,13 @@ import {
   VerticalLine,
   VoucherIcon,
 } from "../styles/Styled";
+import { FormatBalance } from "../utils/utils";
 
-function CouponCard() {
+interface CouponProps {
+  coupon: IGames
+}
+
+function CouponCard({coupon}: CouponProps) {
   return (
     <div>
       <CouponConteiner>
@@ -25,8 +31,8 @@ function CouponCard() {
           </div>
           <div className="col-auto align-self-center">
           <p className="mt-3">
-            PAYDAY500
-            <SmallFont className="text-danger">GET RP 500.000 OFF</SmallFont>
+            {coupon.Coupon.code}
+            <SmallFont className="text-danger">GET RP {FormatBalance(coupon.Coupon.promo_amount)} OFF</SmallFont>
           </p>
           </div>
         </div>
