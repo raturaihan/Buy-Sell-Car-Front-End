@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import instance from "../../config/axios";
-import { IGames, ITransactionPagination, PaymentParams } from "../../interface";
+import { ICoupon, IGames, ITransactionPagination, PaymentParams } from "../../interface";
 import { TransactionAction, TransactionActionType } from "./typesActions";
 
 interface IParams {
@@ -91,6 +91,41 @@ export const getCouponInfoError = (payload: string | null): TransactionAction =>
 export const resetCoupon = (): TransactionAction => {
     return {
         type: TransactionActionType.RESET_COUPON_INFO
+    }
+}
+
+export const setGameCoupons = (payload: ICoupon[]): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_GAME_COUPONS,
+        payload: payload
+    }
+}
+
+export const setGameCouponsLoading = (payload: boolean): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_GAME_COUPONS_LOADING,
+        payload: payload
+    }
+}
+
+export const setGameCouponsError = (payload: string | null): TransactionAction => {
+    return {
+        type: TransactionActionType.GET_GAME_COUPONS_ERROR,
+        payload: payload
+    }
+}
+
+export const playGame = (payload: ICoupon): TransactionAction => {
+    return {
+        type: TransactionActionType.PLAY_GAME,
+        payload: payload
+    }
+}
+
+export const playGameError = (payload: string | null): TransactionAction => {
+    return {
+        type: TransactionActionType.PLAY_GAME_ERROR,
+        payload: payload
     }
 }
 
@@ -185,5 +220,45 @@ export const getUserCouponInfo = (code: string | undefined) => {
         .catch((error) => {
             dispatch(getCouponInfoError(error))})
         .finally(() => dispatch(getCouponInfoLoading(false)));
+    }
+}
+
+export const getGameCoupons = () => {
+    return async(dispatch: Dispatch<TransactionAction>) => {
+        dispatch(setGameCouponsLoading(true))
+        dispatch(setGameCouponsError(""))
+
+        await instance.get("/user/coupons")
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to fetch coupons game')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(setGameCoupons(data))
+        })
+        .catch((error) => {
+            dispatch(setGameCouponsError(error))})
+        .finally(() => dispatch(setGameCouponsLoading(false)));
+    }
+}
+
+export const playGames = () => {
+    return async(dispatch: Dispatch<TransactionAction>) => {
+        dispatch(playGameError(""))
+
+        await instance.post("/user/games")
+        .then((response) => {
+            if(!response.data){
+                throw new Error('Failed to play game')
+            }
+            return response.data
+        })
+        .then((data) => {
+            dispatch(playGame(data))
+        })
+        .catch((error) => {
+            dispatch(playGameError(error))})
     }
 }

@@ -60,6 +60,11 @@ export interface ITransactionState {
     coupon: IGames;
     couponLoading: boolean;
     couponError: string | null;
+    gameCoupons: ICoupon[];
+    gameCouponsLoading: boolean;
+    gameCouponsError: string | null;
+    playGame: ICoupon;
+    playGameError: string | null;
 }
 
 export interface ICategoryState {

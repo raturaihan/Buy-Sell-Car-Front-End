@@ -28,6 +28,15 @@ const initialState: ITransactionState = {
   },
   couponLoading: false,
   couponError: null,
+  gameCoupons: [],
+  gameCouponsLoading: false,
+  gameCouponsError: null,
+  playGame: {
+    coupon_id: 0,
+    code: "",
+    promo_amount: 0,
+  },
+  playGameError: null,
 };
 
 export default function transactionReducer(
@@ -58,7 +67,17 @@ export default function transactionReducer(
     case TransactionActionType.GET_COUPON_INFO_ERROR:
       return { ...state, couponError: action.payload };
     case TransactionActionType.RESET_COUPON_INFO:
-      return {...state, coupon: initialState.coupon}
+      return { ...state, coupon: initialState.coupon };
+    case TransactionActionType.GET_GAME_COUPONS:
+      return { ...state, gameCoupons: action.payload };
+    case TransactionActionType.GET_GAME_COUPONS_LOADING:
+      return { ...state, gameCouponsLoading: action.payload };
+    case TransactionActionType.GET_GAME_COUPONS_ERROR:
+      return { ...state, gameCouponsError: action.payload };
+    case TransactionActionType.PLAY_GAME:
+      return { ...state, playGame: action.payload };
+    case TransactionActionType.PLAY_GAME_ERROR:
+      return { ...state, playGameError: action.payload };
     default:
       return state;
   }

@@ -5,6 +5,7 @@ import {
   ICarCatalog,
   ICategory,
   ICategoryPagination,
+  ICoupon,
   IFavorite,
   IFavorites,
   IGames,
@@ -329,7 +330,12 @@ export enum TransactionActionType {
   GET_COUPON_INFO = 'GET_COUPON_INFO',
   GET_COUPON_INFO_LOADING = 'GET_COUPON_INFO_LOADING',
   GET_COUPON_INFO_ERROR = 'GET_COUPON_INFO_ERROR',
-  RESET_COUPON_INFO = "RESET_COUPON_INFO"
+  RESET_COUPON_INFO = "RESET_COUPON_INFO",
+  GET_GAME_COUPONS = "GET_GAME_COUPONS",
+  GET_GAME_COUPONS_LOADING = "GET_GAME_COUPONS_LOADING",
+  GET_GAME_COUPONS_ERROR = "GET_GAME_COUPONS_ERROR",
+  PLAY_GAME = "PLAY_GAME",
+  PLAY_GAME_ERROR = "PLAY_GAME_ERROR"
 }
 
 export interface ISetTransactions {
@@ -391,6 +397,32 @@ export interface IResetCouponInfo {
   type: TransactionActionType.RESET_COUPON_INFO;
 }
 
+export interface IGetGameCoupons {
+  type: TransactionActionType.GET_GAME_COUPONS;
+  payload: ICoupon[];
+}
+
+export interface IGetGameCouponsLoading {
+  type: TransactionActionType.GET_GAME_COUPONS_LOADING;
+  payload: boolean;
+}
+
+export interface IGetGameCouponsError {
+  type: TransactionActionType.GET_GAME_COUPONS_ERROR;
+  payload: string | null;
+}
+
+export interface IPlayGame {
+  type: TransactionActionType.PLAY_GAME;
+  payload: ICoupon;
+}
+
+export interface IPlayGameError {
+  type: TransactionActionType.PLAY_GAME_ERROR;
+  payload: string | null;
+}
+
+
 export type TransactionAction =
   | ISetTransactions
   | ISetTransactionsLoading
@@ -403,7 +435,12 @@ export type TransactionAction =
   | IGetCouponInfo
   | IGetCouponInfoError
   | IGetCouponInfoLoading
-  | IResetCouponInfo;
+  | IResetCouponInfo
+  | IGetGameCoupons
+  | IGetGameCouponsLoading
+  | IGetGameCouponsError
+  | IPlayGame
+  | IPlayGameError;
 export type TransactionDispatch = ThunkDispatch<
   ITransactionState,
   any,
