@@ -157,7 +157,7 @@ function CarListingPage() {
           ) : carsError ? (
             <p>Error: {carsError}</p>
           ) : cars.Data.length == 0 ? (
-            <p>No Data Car</p>
+            <p>No Car Data</p>
           ) : (
             <>
               <div className="table-responsive">

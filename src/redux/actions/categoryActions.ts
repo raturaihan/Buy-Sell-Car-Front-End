@@ -98,7 +98,7 @@ export const fetchCategories = ({page, limit}: IParams) => {
 
 export const addNewCategory = (catname: string) => {
     return async(dispatch: Dispatch<CategoryAction>) => {
-        await instance.post('/admin/category', catname)
+        await instance.post('/admin/category', {category_name: catname})
         .then((response) => {
             if(!response.data) {
                 throw new Error('Failed to create new category')
@@ -117,7 +117,7 @@ export const addNewCategory = (catname: string) => {
 export const editCategoryData = ({id, category}: EditCategoryParams) => {
     return async(dispatch: Dispatch<CategoryAction>) => {
         dispatch(editCategoryError(""))
-        await instance.patch(`/admin/category/${id}`, category)
+        await instance.patch(`/admin/category/${id}`, {category_name: category})
         .then((response) => {
             if(!response.data) {
                 throw new Error("Failed to update category data")

@@ -47,7 +47,7 @@ export interface ICarCatalog {
 }
 export interface EditCategoryParams {
     id: string;
-    car: ICategory;
+    category: string;
 }
 
 export interface EditCarParams {
