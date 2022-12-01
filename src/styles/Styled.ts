@@ -118,7 +118,7 @@ export const CouponConteiner = styled.div({
   backgroundColor:"#f4d873",
   borderRadius: '15px',
   height: '80px',
-  width: '270px',
+  width: '280px',
   border: '2px dashed #fb5c3c'
 });
 
@@ -130,4 +130,38 @@ export const VerticalLine = styled.div({
 export const BorderPayment = styled.div({
   border: '1px solid lightgray',
   borderRadius: '10px'
+})
+
+export const GameTitle = styled.div({
+  border: '8px solid #fb5c3c',
+  borderRadius: '20%',
+  width:'400px',
+  height:'100px',
+  backgroundColor: ''
+})
+
+export const GameContainer = styled.div({
+  border: '8px dashed #fb5c3c',
+  borderRadius: '15px',
+  width:'600px',
+  height:'450px',
+  backgroundColor:"#f4d873",
+})
+
+export const GameCouponConteiner = styled.div({
+  boxShadow: "0 5px 10px rgba(0,0,0,.2)",
+  backgroundColor:"white",
+  borderRadius: '15px',
+  height: '120px',
+  width: '400px',
+  border: '4px dashed #fb5c3c'
+});
+
+export const GamesButton = styled.button({
+  border: "none",
+  borderRadius: '20px',
+  backgroundColor: '#fb5c3c',
+  color: 'white',
+  fontWeight: 'bold',
+  fontSize: '25px'
 })

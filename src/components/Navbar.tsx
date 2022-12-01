@@ -114,6 +114,14 @@ function Navbar() {
                       </a>
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link
+                      className="text-decoration-none text-secondary"
+                      to={"/games"}
+                    >
+                      <a className="nav-link nav-link-active">Games</a>
+                    </Link>
+                  </li>
                   <li className="nav-item dropdown">
                     <a
                       className="nav-link dropdown-toggle"
