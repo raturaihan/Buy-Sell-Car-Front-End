@@ -9,50 +9,36 @@ import {
 import { TestDriveDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { BlueGreenButton, ReverseBlueGreenButton } from "../styles/Styled";
+import Alert from "./Alert";
+
 
 function ModalTestDrive() {
   var todayDate = new Date().toISOString().slice(0, 10);
   const [inputDate, setInputDate] = useState("");
   const { car } = useSelector((state: RootState) => state.carReducer);
-  const { testDrivesUser } = useSelector(
-    (state: RootState) => state.testdriveReducer
-  );
-  const { reqTestDrive, reqTestDriveError } = useSelector(
+  const { testDrivesUser, reqTestDrive, reqTestDriveError } = useSelector(
     (state: RootState) => state.testdriveReducer
   );
   const testdriveDispatch: TestDriveDispatch = useDispatch();
   const [isRequested, setIsRequested] = useState(false);
-  const [alertSuccess, setAlertSuccess] = useState(false);
-  const [alertError, setAlertError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(reqTestDriveError);
+  const [alert, setAlert] = useState(false);
+
   let formatInput = moment(inputDate).format();
-  console.log("err msg",errorMessage)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!inputValidation(inputDate)) {
+    if (!inputValidation(formatInput)) {
       const testdriveData: TestDriveParams = {
         car_id: car.car_id,
         date_request: formatInput,
       };
       testdriveDispatch(testdriveRequest(testdriveData));
-      if (reqTestDrive == null) {
-        setErrorMessage("");
-        setAlertError(false);
-        setAlertSuccess(true);
-        return;
-      }
-      if (reqTestDriveError != null) {
-        setAlertSuccess(false);
-        setAlertError(true);
-        setErrorMessage(reqTestDriveError);
-        return;
-      }
+      setAlert(true);
     }
   };
 
   useEffect(() => {
     testdriveDispatch(getTestDriveUser());
-  }, [testdriveDispatch, alertError, alertSuccess, errorMessage, reqTestDriveError]);
+  }, [testdriveDispatch, reqTestDriveError]);
 
   useEffect(() => {
     const requestedCar = testDrivesUser.find(
@@ -61,13 +47,21 @@ function ModalTestDrive() {
     setIsRequested(!!requestedCar);
   }, [car, testDrivesUser]);
 
-  const [inputErrors, setInputErrors] = useState(false);
-
+  const [inputErrors, setInputErrors] = useState({
+    date: false
+  });
+  console.log(inputErrors)
   const inputValidation = (date: string) => {
-    if (date === "") {
-      setInputErrors(true);
+    let errorState = {
+      date: false
     }
-    return inputErrors;
+    let errorFlag = false
+    if (date === "Invalid date") {
+      errorState ={...errorState, date: true}
+      errorFlag = true;
+    }
+    setInputErrors(errorState)
+    return errorFlag;
   };
 
   return (
@@ -87,17 +81,24 @@ function ModalTestDrive() {
               </div>
             ) : (
               <>
-                {alertSuccess && !inputErrors ? (
-                  <div className="alert alert-success" role="alert">
-                    Test drive requested!
-                  </div>
-                ) : (
-                  <></>
-                )}
-                {alertError && !inputErrors ? (
-                  <div className="alert alert-danger" role="alert">
-                    {errorMessage}
-                  </div>
+                {alert ? (
+                  <>
+                    {reqTestDriveError == "" ? (
+                      <Alert
+                        show={alert}
+                        message={
+                          "You successfully request this car to test drive!"
+                        }
+                        type={"success"}
+                      />
+                    ) : (
+                      <Alert
+                        show={alert}
+                        message={reqTestDriveError}
+                        type={"danger"}
+                      />
+                    )}
+                  </>
                 ) : (
                   <></>
                 )}
@@ -120,7 +121,7 @@ function ModalTestDrive() {
                     value={inputDate}
                     onChange={(e) => setInputDate(e.currentTarget.value)}
                   />
-                  {inputErrors ? (
+                  {inputErrors.date ? (
                     <span className="text-danger">This Field is Required</span>
                   ) : (
                     <></>
@@ -128,6 +129,7 @@ function ModalTestDrive() {
                   <div className="d-flex justify-content-center mt-5 mb-3 gap-4">
                     <BlueGreenButton
                       type="submit"
+                      id="liveAlertBtn"
                       disabled={isRequested ? true : false}
                     >
                       Request Test Drive
