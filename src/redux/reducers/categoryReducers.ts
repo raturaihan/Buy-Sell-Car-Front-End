@@ -3,11 +3,11 @@ import { ICategoryState } from "./typesReducers";
 
 const initialState: ICategoryState = {
   categories: {
-    CurrentPage: 1,
-    TotalPage: 0,
-    TotalData: 0,
-    Limit: 10,
-    Data: [],
+    current_page: 1,
+    total_page: 0,
+    total_data: 0,
+    limit: 10,
+    data: [],
   },
   categoriesLoading: false,
   categoriesError: null,

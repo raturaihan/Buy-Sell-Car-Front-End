@@ -110,7 +110,7 @@ function CarCategoriesPage() {
             <p>Loading...</p>
           ) : categoriesError ? (
             <p>Error: {categoriesError}</p>
-          ) : categories.Data.length == 0 ? (
+          ) : categories.data.length == 0 ? (
             <p>No Category Data</p>
           ) : (
             <>
@@ -123,7 +123,7 @@ function CarCategoriesPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {categories.Data.map((val) => (
+                    {categories.data.map((val) => (
                       <tr key={val.category_id}>
                         <td>{val.category_id}</td>
                         <td>{val.category_name}</td>
@@ -247,7 +247,7 @@ function CarCategoriesPage() {
                 </button>
               </li>
               {Array.from(
-                { length: categories.TotalPage },
+                { length: categories.total_page },
                 (_, i) => i + 1
               ).map((page) => {
                 return (
@@ -270,7 +270,7 @@ function CarCategoriesPage() {
                 <button
                   className="page-link"
                   disabled={
-                    pagination.page == categories.TotalPage ? true : false
+                    pagination.page == categories.total_page ? true : false
                   }
                   onClick={() =>
                     setPagination({

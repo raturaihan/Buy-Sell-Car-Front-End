@@ -4,7 +4,7 @@ export interface ICategory {
 }
 
 export interface ICar {
-    CarID: number ;
+    car_id: number ;
     car_name: string ;
     car_year: number;
     car_img: string;
@@ -39,11 +39,11 @@ export interface INewCar {
 
 
 export interface ICarCatalog {
-    CurrentPage: number;
-    TotalPage: number;
-    TotalData: number;
-    Limit: number;
-    Data: ICar[];
+    current_page: number;
+    total_page: number;
+    total_data: number;
+    limit: number;
+    data: ICar[];
 }
 export interface EditCategoryParams {
     id: string;
@@ -76,7 +76,7 @@ export interface IFavorite {
 }
 
 export interface ITestDrives {
-    TestDriveID: number;
+    test_drive_id: number;
     user_id: number;
     car_id: number;
     status: string;
@@ -86,7 +86,7 @@ export interface ITestDrives {
 }
 
 export interface ITestDrive {
-    TestDriveID: number;
+    test_drive_id: number;
     user_id: number;
     car_id: number;
     date_request: string;
@@ -94,11 +94,11 @@ export interface ITestDrive {
 }
 
 export interface ITestDrivesPagination {
-    CurrentPage: number;
-    TotalPage: number;
-    TotalData: number;
-    Limit: number;
-    Data: ITestDrives[];
+    current_page: number;
+    total_page: number;
+    total_data: number;
+    limit: number;
+    data: ITestDrives[];
 }
 
 
@@ -119,17 +119,17 @@ export interface ITransaction {
     final_amount: number;
     coupon_id: number;
     trans_type: string;
-    CreatedAt: string;
+    created_at: string;
     Car: ICar;
     User: IUser;
 }
 
 export interface ITransactionPagination {
-    CurrentPage: number;
-    TotalPage: number;
-    TotalData: number;
-    Limit: number;
-    Data: ITransaction[];
+    current_page: number;
+    total_page: number;
+    total_data: number;
+    limit: number;
+    data: ITransaction[];
 }
 
 export interface PaymentParams {
@@ -153,9 +153,9 @@ export interface IGames {
 }
 
 export interface ICategoryPagination{
-    CurrentPage: number;
-    TotalPage: number;
-    TotalData: number;
-    Limit: number;
-    Data: ICategory[];
+    current_page: number;
+    total_page: number;
+    total_data: number;
+    limit: number;
+    data: ICategory[];
 }

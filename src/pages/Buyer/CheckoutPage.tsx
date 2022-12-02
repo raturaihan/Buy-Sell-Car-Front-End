@@ -86,7 +86,7 @@ function CheckoutPage() {
   const handleClick = () => {
     setModal(true);
     const transactionData: PaymentParams = {
-      car_id: car.CarID,
+      car_id: car.car_id,
       final_amount: finalAmount(),
       trans_type: transType(),
       coupon_id: coupon.coupon_id

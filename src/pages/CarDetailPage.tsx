@@ -50,8 +50,8 @@ function CarDetailPage() {
       navigate("/register");
     }
     isAddedtoFavorite
-      ? favoriteDispatch(removeCarFavorite(car.CarID))
-      : favoriteDispatch(addCarFavorite(car.CarID));
+      ? favoriteDispatch(removeCarFavorite(car.car_id))
+      : favoriteDispatch(addCarFavorite(car.car_id));
   };
 
   const handleClickTestDrive = () => {
@@ -77,7 +77,7 @@ function CarDetailPage() {
 
   useEffect(() => {
     const favoritedCar = carFavorites.find(
-      (carfav) => carfav.car_id === car.CarID
+      (carfav) => carfav.car_id === car.car_id
     );
     setIsAddedtoFavorite(!!favoritedCar);
   }, [carFavorites]);
@@ -191,7 +191,7 @@ function CarDetailPage() {
             ) : (
               suggestedCars.map((suggestedCar) => {
                 return (
-                  <CardCatalog car={suggestedCar} key={suggestedCar.CarID} />
+                  <CardCatalog car={suggestedCar} key={suggestedCar.car_id} />
                 );
               })
             )}

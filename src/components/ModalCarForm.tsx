@@ -59,7 +59,7 @@ function ModalCarForm({ car }: modalFormCarDetails) {
       description: { value: string };
     };
     const carData: ICar = {
-      CarID: car?.CarID || -1,
+      car_id: car?.car_id || -1,
       car_name: target.car_name.value,
       car_year: Number(target.car_year.value),
       car_img: imagePreviewUrl?.toString() || "",
@@ -76,7 +76,7 @@ function ModalCarForm({ car }: modalFormCarDetails) {
     };
     const editCarParams: EditCarParams = {
       car: carData,
-      id: car?.CarID.toString() || "",
+      id: car?.car_id.toString() || "",
     };
     carDispatch(editDataCar(editCarParams));
   };

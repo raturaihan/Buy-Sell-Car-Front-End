@@ -125,11 +125,11 @@ function CatalogPage() {
             <p>Loading...</p>
           ) : carsError ? (
             <p>Error: {carsError}</p>
-          ) : cars.Data.length === 0 ? (
+          ) : cars.data.length === 0 ? (
             <p>No Cars Available</p>
           ) : (
-            cars.Data.map((car) => {
-              return <CardCatalog car={car} key={car.CarID} />;
+            cars.data.map((car) => {
+              return <CardCatalog car={car} key={car.car_id} />;
             })
           )}
         </div>
@@ -155,7 +155,7 @@ function CatalogPage() {
                   <span aria-hidden="true">&laquo;</span>
                 </button>
               </li>
-              {Array.from({ length: cars.TotalPage }, (_, i) => i + 1).map(
+              {Array.from({ length: cars.total_page }, (_, i) => i + 1).map(
                 (page) => {
                   return (
                     <li key={page} className="page-item">
@@ -181,7 +181,7 @@ function CatalogPage() {
               <li className="page-item">
                 <button
                   className="page-link"
-                  disabled={pagination.page == cars.TotalPage ? true : false}
+                  disabled={pagination.page == cars.total_page ? true : false}
                   onClick={() =>
                     setPagination({
                       page: pagination.page + 1,

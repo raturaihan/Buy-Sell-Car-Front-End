@@ -2,14 +2,14 @@ import { CarAction, CarActionType } from "../actions/typesActions";
 import { ICarState } from "./typesReducers";
 
 const initialState: ICarState = {
-  cars: { CurrentPage: 1, TotalData: 0, TotalPage: 0, Limit: 10, Data: [] },
+  cars: { current_page: 1, total_data: 0, total_page: 0, limit: 10, data: [] },
   carsLoading: false,
   carsError: null,
   categories: [],
   categoriesLoading: false,
   categoriesError: null,
   car: {
-    CarID: 0,
+    car_id: 0,
     car_name: "",
     car_year: 0,
     car_img: "",
@@ -31,7 +31,7 @@ const initialState: ICarState = {
   suggestedCarsLoading: false,
   suggestedCarsError: null,
   updateCar: {
-    CarID: 0,
+    car_id: 0,
     car_name: "",
     car_year: 0,
     car_img: "",
@@ -49,7 +49,7 @@ const initialState: ICarState = {
   },
   updateCarError: null,
   deleteCar: {
-    CarID: 0,
+    car_id: 0,
     car_name: "",
     car_year: 0,
     car_img: "",
@@ -66,7 +66,7 @@ const initialState: ICarState = {
     Category: { category_id: 0, category_name: "" },
   },
   createCar: {
-    CarID: 0,
+    car_id: 0,
     car_name: "",
     car_year: 0,
     car_img: "",

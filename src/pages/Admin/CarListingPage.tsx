@@ -39,7 +39,7 @@ function CarListingPage() {
   const carDispatch: CarDispatch = useDispatch();
 
   const handleClickEdit = (id: string) => {
-    const car = cars.Data.find((c) => c.CarID === Number(id));
+    const car = cars.data.find((c) => c.car_id === Number(id));
     setSelectedCar(car);
   };
 
@@ -156,7 +156,7 @@ function CarListingPage() {
             <p>Loading...</p>
           ) : carsError ? (
             <p>Error: {carsError}</p>
-          ) : cars.Data.length == 0 ? (
+          ) : cars.data.length == 0 ? (
             <p>No Car Data</p>
           ) : (
             <>
@@ -175,8 +175,8 @@ function CarListingPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cars.Data.map((val) => (
-                      <tr key={val.CarID}>
+                    {cars.data.map((val) => (
+                      <tr key={val.car_id}>
                         <td>
                           {val.car_year} {val.car_name}
                         </td>
@@ -198,7 +198,7 @@ function CarListingPage() {
                         <td>
                           <div className="d-flex justify-content-center gap-2 mt-2">
                             <ReverseBlueGreenButton
-                              id={val.CarID?.toString()}
+                              id={val.car_id?.toString()}
                               data-bs-toggle="modal"
                               data-bs-target="#carModal"
                               onClick={(e) =>
@@ -209,7 +209,7 @@ function CarListingPage() {
                             </ReverseBlueGreenButton>
                             <ModalCarForm car={selectedCar} />
                             <ReverseRedButton
-                              id={val.CarID?.toString()}
+                              id={val.car_id?.toString()}
                               data-bs-toggle="modal"
                               data-bs-target="#deleteModal"
                               onClick={(e) => setCarId(e.currentTarget.id)}
@@ -288,7 +288,7 @@ function CarListingPage() {
                 <span aria-hidden="true">&laquo;</span>
               </button>
             </li>
-            {Array.from({ length: cars.TotalPage }, (_, i) => i + 1).map(
+            {Array.from({ length: cars.total_page }, (_, i) => i + 1).map(
               (page) => {
                 return (
                   <li key={page} className="page-item">
@@ -314,7 +314,7 @@ function CarListingPage() {
             <li className="page-item">
               <button
                 className="page-link"
-                disabled={pagination.page == cars.TotalPage ? true : false}
+                disabled={pagination.page == cars.total_page ? true : false}
                 onClick={() =>
                   setPagination({
                     page: pagination.page + 1,

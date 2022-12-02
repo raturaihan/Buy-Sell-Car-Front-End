@@ -135,7 +135,7 @@ export const BorderPayment = styled.div({
 export const GameTitle = styled.div({
   border: '8px solid #fb5c3c',
   borderRadius: '20%',
-  width:'400px',
+  width:'50%',
   height:'100px',
   backgroundColor: ''
 })
@@ -143,7 +143,7 @@ export const GameTitle = styled.div({
 export const GameContainer = styled.div({
   border: '8px dashed #fb5c3c',
   borderRadius: '15px',
-  width:'600px',
+  width:'50%',
   height:'450px',
   backgroundColor:"#f4d873",
 })
@@ -153,7 +153,7 @@ export const GameCouponConteiner = styled.div({
   backgroundColor:"white",
   borderRadius: '15px',
   height: '120px',
-  width: '400px',
+  width: '80%',
   border: '4px dashed #fb5c3c'
 });
 
@@ -163,5 +163,5 @@ export const GamesButton = styled.button({
   backgroundColor: '#fb5c3c',
   color: 'white',
   fontWeight: 'bold',
-  fontSize: '25px'
+  fontSize: '150%'
 })

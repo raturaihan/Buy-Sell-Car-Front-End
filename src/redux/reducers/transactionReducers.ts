@@ -6,11 +6,11 @@ import { ITransactionState } from "./typesReducers";
 
 const initialState: ITransactionState = {
   transactions: {
-    CurrentPage: 1,
-    TotalData: 0,
-    TotalPage: 0,
-    Limit: 10,
-    Data: [],
+    current_page: 1,
+    total_data: 0,
+    total_page: 0,
+    limit: 10,
+    data: [],
   },
   transactionsLoading: false,
   transactionsError: null,

@@ -10,7 +10,7 @@ interface CarCardProps {
 function CardCatalog({car}:CarCardProps) {
   return (
     <div>
-      <Link to={`/car/${car.CarID}`} style={{ textDecoration: 'none', color:'black' }}>
+      <Link to={`/car/${car.car_id}`} style={{ textDecoration: 'none', color:'black' }}>
       <div className='col'>
             <FormContainer className='card w-100'>
                 <CarImage className='ratio ratio-4x3' src={car.car_img} alt={car.car_name}/>
@@ -18,7 +18,7 @@ function CardCatalog({car}:CarCardProps) {
                     <h5 className='card-title text-truncate'>{car.car_year} {car.car_name}</h5>
                     <div className='d-flex gap-2'>
                     <CarCategory>{car.transmission_type}</CarCategory>
-                    <CarCategory>{car.Category.category_name}</CarCategory>
+                    <CarCategory>{car.Category?.category_name}</CarCategory>
                     </div>
                     <SmallFont className='card-text mt-2'>&#128205;{car.car_location}</SmallFont>
                     <div className='d-flex justify-content-end'>

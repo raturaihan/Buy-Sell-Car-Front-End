@@ -89,7 +89,7 @@ function TransactionPage() {
             <p>Loading...</p>
           ) : transactionsError ? (
             <p>Error: {transactionsError}</p>
-          ) : transactions.Data.length == 0 ? (
+          ) : transactions.data.length == 0 ? (
             <p>No Transactions Yet</p>
           ) : (
             <>
@@ -107,9 +107,9 @@ function TransactionPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {transactions.Data.map((val) => (
+                    {transactions.data.map((val) => (
                       <tr key={val.transaction_id}>
-                        <td>{moment(val.CreatedAt).format("HH:mm - D MMMM YYYY")}</td>
+                        <td>{moment(val.created_at).format("HH:mm - D MMMM YYYY")}</td>
                         <td>{val.User.full_name}</td>
                         <td>{val.User.email}</td>
                         <td>{val.User.phone}</td>
@@ -148,7 +148,7 @@ function TransactionPage() {
                 </button>
               </li>
               {Array.from(
-                { length: transactions.TotalPage },
+                { length: transactions.total_page },
                 (_, i) => i + 1
               ).map((page) => {
                 return (
@@ -174,7 +174,7 @@ function TransactionPage() {
                 <button
                   className="page-link"
                   disabled={
-                    pagination.page == transactions.TotalPage ? true : false
+                    pagination.page == transactions.total_page ? true : false
                   }
                   onClick={() =>
                     setPagination({

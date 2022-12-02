@@ -31,7 +31,7 @@ function ModalTestDrive() {
     event.preventDefault();
     if (!inputValidation(inputDate)) {
       const testdriveData: TestDriveParams = {
-        car_id: car.CarID,
+        car_id: car.car_id,
         date_request: formatInput,
       };
       testdriveDispatch(testdriveRequest(testdriveData));
@@ -56,7 +56,7 @@ function ModalTestDrive() {
 
   useEffect(() => {
     const requestedCar = testDrivesUser.find(
-      (carTD) => carTD.car_id === car.CarID && carTD.status != "REJECTED"
+      (carTD) => carTD.car_id === car.car_id && carTD.status != "REJECTED"
     );
     setIsRequested(!!requestedCar);
   }, [car, testDrivesUser]);

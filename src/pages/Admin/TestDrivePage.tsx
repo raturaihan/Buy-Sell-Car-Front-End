@@ -49,7 +49,7 @@ function TestDrivePage() {
             <p>Loading...</p>
           ) : testDriveAdminError ? (
             <p>Error: {testDriveAdminError}</p>
-          ) : testDriveAdmin.Data.length == 0 ? (
+          ) : testDriveAdmin.data.length == 0 ? (
             <p>No Test Drive Request Yet</p>
           ) : (
             <>
@@ -66,8 +66,8 @@ function TestDrivePage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {testDriveAdmin.Data.map((val) => (
-                      <tr key={val.TestDriveID}>
+                    {testDriveAdmin.data.map((val) => (
+                      <tr key={val.test_drive_id}>
                         <td>
                           {moment(val.date_request).format("D MMMM YYYY")}
                         </td>
@@ -80,7 +80,7 @@ function TestDrivePage() {
                         <td>{val.status}</td>
                         <td>
                           <ReverseBlueGreenButton
-                            id={val.TestDriveID?.toString()}
+                            id={val.test_drive_id?.toString()}
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal"
                             onClick={(e) => setTestDriveId(e.currentTarget.id)}
@@ -166,7 +166,7 @@ function TestDrivePage() {
                 </button>
               </li>
               {Array.from(
-                { length: testDriveAdmin.TotalPage },
+                { length: testDriveAdmin.total_page },
                 (_, i) => i + 1
               ).map((page) => {
                 return (
@@ -191,7 +191,7 @@ function TestDrivePage() {
                 <button
                   className="page-link"
                   disabled={
-                    pagination.page == testDriveAdmin.TotalPage ? true : false
+                    pagination.page == testDriveAdmin.total_page ? true : false
                   }
                   onClick={() =>
                     setPagination({
