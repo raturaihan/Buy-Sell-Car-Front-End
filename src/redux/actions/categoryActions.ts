@@ -72,6 +72,12 @@ export const deleteCategoryError = (payload: string | null): CategoryAction => {
     }
 }
 
+export const resetCategory = (): CategoryAction => {
+    return {
+        type: CategoryActionType.RESET_CATEGORY
+    }
+}
+
 export const fetchCategories = ({page, limit}: IParams) => {
     return async(dispatch: Dispatch<CategoryAction>) => {
         dispatch(setCategoriesLoading(true))

@@ -22,10 +22,11 @@ import {
   getUserCouponInfo,
 } from "../../redux/actions/transactionActions";
 import Navbar from "../../components/Navbar";
+import ModalFailed from "../../components/ModalFailed";
 
 function CheckoutPage() {
   const { car } = useSelector((state: RootState) => state.carReducer);
-  const { coupon, couponLoading, couponError } = useSelector(
+  const { coupon, couponLoading, couponError, paymentError } = useSelector(
     (state: RootState) => state.transactionReducer
   );
   const [inputCode, setInputCode] = useState("");
@@ -34,6 +35,7 @@ function CheckoutPage() {
     dp: 0.1,
     year: "5",
   });
+  console.log("error",couponError)
   const [modal, setModal] = useState(false);
   const transactionDispatch: TransactionDispatch = useDispatch();
   const downPayment = () => {
@@ -304,14 +306,22 @@ function CheckoutPage() {
                       >
                         Proceed to Payment
                       </BlueGreenButton>
-                      <ModalSuccess
+                      {paymentError == "" ? (<>
+                        <ModalSuccess
                         modalType="Checkout Success!"
                         buttonModal="Done"
                         pathTarget="/"
                         message={finalAmountModal()}
                         show={modal}
                         isPayment={true}
-                      />
+                      /></>):(<>
+                      <ModalFailed 
+                      modalType="Payment Failed"
+                      buttonModal="Close"
+                      pathTarget="/catalog"
+                      message={paymentError}
+                      show={modal}
+                      /></>)} 
                     </div>
                   </div>
                 </div>

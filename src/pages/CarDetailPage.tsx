@@ -22,8 +22,8 @@ import {
   removeCarFavorite,
 } from "../redux/actions/favoriteAction";
 import ModalTestDrive from "../components/ModalTestDrive";
-import { resetCoupon } from "../redux/actions/transactionActions";
-import { resetReqTestDrive } from "../redux/actions/testdriveActions";
+import { resetTransaction } from "../redux/actions/transactionActions";
+import { resetTestDrive } from "../redux/actions/testdriveActions";
 
 function CarDetailPage() {
   const navigate = useNavigate();
@@ -71,8 +71,8 @@ function CarDetailPage() {
     carDispatch(fetchCar(id));
     carDispatch(suggestedCar(car.category_id));
     favoriteDispatch(fetchFavorites());
-    transactionDispatch(resetCoupon());
-    testdriveDispatch(resetReqTestDrive());
+    transactionDispatch(resetTransaction());
+    testdriveDispatch(resetTestDrive());
   }, [carDispatch, car.category_id, id, addFavorite, removeFavorite]);
 
   useEffect(() => {

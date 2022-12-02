@@ -50,7 +50,6 @@ instance.interceptors.response.use(
         return res.data;
     }, 
     (err) => {
-        console.log(err)
         const error = err && err.response && err.response.data
         if (error && error.message === 'Invalid credential'){
             localStorage.clear();

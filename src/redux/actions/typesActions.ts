@@ -40,7 +40,8 @@ export enum CarActionType {
   UPDATE_CAR = "UPDATE_CAR",
   UPDATE_CAR_ERROR = "UPDATE_CAR_ERROR",
   DELETE_CAR = "DELETE_CAR",
-  CREATE_CAR = "CREATE_CAR"
+  CREATE_CAR = "CREATE_CAR",
+  RESET_CAR = "RESET_CAR"
 }
 
 export interface ISetCars {
@@ -123,6 +124,10 @@ export interface ICreateCar {
   payload: ICar;
 }
 
+export interface IResetCar {
+  type: CarActionType.RESET_CAR;
+}
+
 export type CarAction =
   | ISetCars
   | ISetCarsLoading
@@ -139,7 +144,8 @@ export type CarAction =
   | IUpdateCar
   | IUpdateCarError
   | IDeleteCar
-  | ICreateCar;
+  | ICreateCar
+  | IResetCar;
 export type CarDispatch = ThunkDispatch<ICarState, any, AnyAction>;
 
 export enum UserActionType {
@@ -246,7 +252,6 @@ export type FavoriteDispatch = ThunkDispatch<IFavoriteState, any, AnyAction>;
 export enum TestDriveActionType {
   REQUEST_TEST_DRIVE = "REQUEST_TEST_DRIVE",
   REQUEST_TEST_DRIVE_ERROR = "REQUEST_TEST_DRIVE_ERROR",
-  RESET_REQ_TEST_DRIVE_ERROR = "RESET_REQ_TEST_DRIVE_ERROR",
   SET_TEST_DRIVES_USER = "SET_TEST_DRIVES_USER",
   SET_TEST_DRIVES_USER_LOADING = "SET_TEST_DRIVES_USER_LOADING",
   SET_TEST_DRIVES_USER_ERROR = "SET_TEST_DRIVES_USER_ERROR",
@@ -254,6 +259,7 @@ export enum TestDriveActionType {
   SET_TEST_DRIVES_ADMIN_LOADING = "SET_TEST_DRIVES_ADMIN_LOADING",
   SET_TEST_DRIVES_ADMIN_ERROR = "SET_TEST_DRIVES_ADMIN_ERROR",
   UPDATE_TEST_DRIVE = "UPDATE_TEST_DRIVE",
+  RESET_TEST_DRIVE = "RESET_TEST_DRIVE",
 }
 
 export interface IRequestTestDrive {
@@ -264,10 +270,6 @@ export interface IRequestTestDrive {
 export interface IRequestTestDriveError {
   type: TestDriveActionType.REQUEST_TEST_DRIVE_ERROR;
   payload: string | null;
-}
-
-export interface IResetRequestTestDrive {
-  type: TestDriveActionType.RESET_REQ_TEST_DRIVE_ERROR;
 }
 
 export interface ISetTestDrivesUser {
@@ -305,6 +307,10 @@ export interface IUpdateTestDrive {
   payload: ITestDrive;
 }
 
+export interface IResetTestDrive {
+  type: TestDriveActionType.RESET_TEST_DRIVE;
+}
+
 export type TestDriveAction =
   | IRequestTestDrive
   | IRequestTestDriveError
@@ -315,7 +321,7 @@ export type TestDriveAction =
   | ISetTestDrivesAdminLoading
   | ISetTestDrivesAdminError
   | IUpdateTestDrive
-  | IResetRequestTestDrive;
+  | IResetTestDrive;
 export type TestDriveDispatch = ThunkDispatch<ITestDriveState, any, AnyAction>;
 
 export enum TransactionActionType {
@@ -330,12 +336,12 @@ export enum TransactionActionType {
   GET_COUPON_INFO = 'GET_COUPON_INFO',
   GET_COUPON_INFO_LOADING = 'GET_COUPON_INFO_LOADING',
   GET_COUPON_INFO_ERROR = 'GET_COUPON_INFO_ERROR',
-  RESET_COUPON_INFO = "RESET_COUPON_INFO",
   GET_GAME_COUPONS = "GET_GAME_COUPONS",
   GET_GAME_COUPONS_LOADING = "GET_GAME_COUPONS_LOADING",
   GET_GAME_COUPONS_ERROR = "GET_GAME_COUPONS_ERROR",
   PLAY_GAME = "PLAY_GAME",
-  PLAY_GAME_ERROR = "PLAY_GAME_ERROR"
+  PLAY_GAME_ERROR = "PLAY_GAME_ERROR",
+  RESET_TRANSACTION = "RESET_TRANSACTION",
 }
 
 export interface ISetTransactions {
@@ -393,10 +399,6 @@ export interface IGetCouponInfoError {
   payload: string | null;
 }
 
-export interface IResetCouponInfo {
-  type: TransactionActionType.RESET_COUPON_INFO;
-}
-
 export interface IGetGameCoupons {
   type: TransactionActionType.GET_GAME_COUPONS;
   payload: ICoupon[];
@@ -422,6 +424,9 @@ export interface IPlayGameError {
   payload: string | null;
 }
 
+export interface IResetTransaction {
+  type: TransactionActionType.RESET_TRANSACTION;
+}
 
 export type TransactionAction =
   | ISetTransactions
@@ -435,12 +440,12 @@ export type TransactionAction =
   | IGetCouponInfo
   | IGetCouponInfoError
   | IGetCouponInfoLoading
-  | IResetCouponInfo
   | IGetGameCoupons
   | IGetGameCouponsLoading
   | IGetGameCouponsError
   | IPlayGame
-  | IPlayGameError;
+  | IPlayGameError
+  | IResetTransaction;
 export type TransactionDispatch = ThunkDispatch<
   ITransactionState,
   any,
@@ -456,7 +461,8 @@ export enum CategoryActionType {
   EDIT_CATEGORY = "EDIT_CATEGORY",
   EDIT_CATEGORY_ERROR = "EDIT_CATEGORY_ERROR",
   DELETE_CATEGORY = "DELETE_CATEGORY",
-  DELETE_CATEGORY_ERROR = "DELETE_CATEGORY_ERROR"
+  DELETE_CATEGORY_ERROR = "DELETE_CATEGORY_ERROR",
+  RESET_CATEGORY = "RESET_CATEGORY"
 }
 
 export interface ISetCategories {
@@ -504,6 +510,10 @@ export interface IDeleteCategoryError {
   payload: string | null;
 }
 
+export interface IResetCategory {
+  type: CategoryActionType.RESET_CATEGORY;
+}
+
 export type CategoryAction = 
   | ISetCategories
   | ISetCategoriesLoading
@@ -513,5 +523,6 @@ export type CategoryAction =
   | IEditCategory
   | IEditCategoryError
   | IDeleteCategory
-  | IDeleteCategoryError; 
+  | IDeleteCategoryError
+  | IResetCategory; 
 export type CategoryDispatch = ThunkDispatch<ICategoryState, any, AnyAction>

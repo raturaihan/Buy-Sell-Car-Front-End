@@ -24,12 +24,6 @@ export const requestTestError = (payload: string | null): TestDriveAction => {
     }
 }
 
-export const resetReqTestDrive = (): TestDriveAction => {
-    return {
-        type: TestDriveActionType.RESET_REQ_TEST_DRIVE_ERROR,
-    }
-}
-
 export const setTestDriveUser = (payload: ITestDrives[]): TestDriveAction => {
     return {
         type: TestDriveActionType.SET_TEST_DRIVES_USER,
@@ -76,6 +70,12 @@ export const updateTestDriveAdmin = (payload: ITestDrive): TestDriveAction => {
     return {
         type: TestDriveActionType.UPDATE_TEST_DRIVE,
         payload: payload
+    }
+}
+
+export const resetTestDrive = (): TestDriveAction => {
+    return {
+        type: TestDriveActionType.RESET_TEST_DRIVE
     }
 }
 

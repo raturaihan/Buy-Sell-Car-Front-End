@@ -22,7 +22,7 @@ function GamesPage() {
   console.log(coupon)
   useEffect(() => {
     transactionDispatch(getGameCoupons())
-    if (isActive && playGameError === "") {
+    if (isActive && playGameError === null) {
       const i = setInterval(() => {
         setCoupon(gameCoupons[Math.floor(Math.random() * gameCoupons.length)].code)
       },50)

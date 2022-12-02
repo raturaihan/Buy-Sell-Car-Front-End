@@ -124,6 +124,11 @@ export const createCar = (payload: ICar): CarAction => {
     }
 }
 
+export const resetCar = (): CarAction => {
+    return {
+        type: CarActionType.RESET_CAR
+    }
+}
 
 export const fetchCars = ({page,limit,car_name, category_id, min_price, max_price}:IParams) => {
     return async(dispatch: Dispatch<CarAction>) => {

@@ -66,8 +66,6 @@ export default function transactionReducer(
       return { ...state, couponLoading: action.payload };
     case TransactionActionType.GET_COUPON_INFO_ERROR:
       return { ...state, couponError: action.payload };
-    case TransactionActionType.RESET_COUPON_INFO:
-      return { ...state, coupon: initialState.coupon };
     case TransactionActionType.GET_GAME_COUPONS:
       return { ...state, gameCoupons: action.payload };
     case TransactionActionType.GET_GAME_COUPONS_LOADING:
@@ -78,6 +76,8 @@ export default function transactionReducer(
       return { ...state, playGame: action.payload };
     case TransactionActionType.PLAY_GAME_ERROR:
       return { ...state, playGameError: action.payload };
+    case TransactionActionType.RESET_TRANSACTION:
+      return initialState;
     default:
       return state;
   }

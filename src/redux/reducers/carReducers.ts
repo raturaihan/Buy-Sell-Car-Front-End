@@ -121,6 +121,8 @@ export default function carReducer(
       return { ...state, deleteCar: action.payload };
     case CarActionType.CREATE_CAR:
       return { ...state, createCar: action.payload };
+    case CarActionType.RESET_CAR:
+      return initialState;
     default:
       return state;
   }
