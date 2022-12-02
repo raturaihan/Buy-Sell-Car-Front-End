@@ -13,7 +13,6 @@ function Alert({message, show, type}:alertDetails) {
     <div className={`${show} ? "d-flex" : "d-none"`}>
       <div className={`alert alert-${type} alert-dismissible`} role="alert">
         <div>{message}</div>
-        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     </div>
   );

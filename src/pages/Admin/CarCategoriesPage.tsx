@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Alert from "../../components/Alert";
 import Navbar from "../../components/Navbar";
 import { EditCategoryParams, ICategory } from "../../interface";
 import {
   addNewCategory,
   deleteCategoryData,
+  deleteCategoryError,
   editCategory,
   editCategoryData,
   fetchCategories,
+  resetCategory,
 } from "../../redux/actions/categoryActions";
 import { CategoryDispatch } from "../../redux/actions/typesActions";
 import { RootState } from "../../redux/reducers/indexReducers";
@@ -29,16 +32,28 @@ function CarCategoriesPage() {
     categoriesError,
     editCategory,
     delCategory,
+    delCategoryError,
     addCategory,
+    addCategoryError,
   } = useSelector((state: RootState) => state.categoryReducer);
+  const [alertDelete, setAlertDelete] = useState(false);
+  const [alertCreate, setAlertCreate] = useState(false);
   const categoryDispatch: CategoryDispatch = useDispatch();
 
   useEffect(() => {
     categoryDispatch(fetchCategories(pagination));
-  }, [categoryDispatch, pagination, editCategory, delCategory, addCategory]);
+  }, [
+    categoryDispatch,
+    pagination,
+    editCategory,
+    delCategory,
+    addCategory,
+    addCategoryError,
+  ]);
 
   const handleDelete = () => {
     categoryDispatch(deleteCategoryData(categoryId));
+    setAlertDelete(true);
   };
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,8 +73,9 @@ function CarCategoriesPage() {
     const target = event.target as typeof event.target & {
       category_name: { value: string };
     };
-    categoryDispatch(addNewCategory(target.category_name.value))
-  }
+    categoryDispatch(addNewCategory(target.category_name.value));
+    setAlertCreate(true);
+  };
   return (
     <div>
       <Navbar />
@@ -82,8 +98,27 @@ function CarCategoriesPage() {
               <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                   <div className="modal-body">
+                    {alertCreate ? (
+                      <>
+                        {addCategoryError == "" || addCategoryError == null? (
+                          <Alert
+                            show={alertCreate}
+                            message={"Successfully add new category"}
+                            type={"success"}
+                          />
+                        ) : (
+                          <Alert
+                            show={alertCreate}
+                            message={addCategoryError}
+                            type={"danger"}
+                          />
+                        )}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                     <div className="d-flex justify-content-center mt-4">
-                      <h3>Create New Category</h3>
+                      <h3>Add New Category</h3>
                     </div>
                     <form onSubmit={handleCreate}>
                       <div className="row mt-3 px-4">
@@ -99,6 +134,11 @@ function CarCategoriesPage() {
                         <BlueGreenButton type="submit">Create</BlueGreenButton>
                       </div>
                     </form>
+                    <div className="d-flex justify-content-end">
+                      <ReverseBlueGreenButton data-bs-dismiss="modal">
+                        Close
+                      </ReverseBlueGreenButton>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,6 +240,29 @@ function CarCategoriesPage() {
                               <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                   <div className="modal-body">
+                                    {alertDelete ? (
+                                      <>
+                                        {delCategoryError != "" || delCategoryError != null ? (
+                                          <Alert
+                                            show={alertDelete}
+                                            message={delCategoryError}
+                                            type={"danger"}
+                                          />
+                                        ) : (
+                                          <>
+                                            <Alert
+                                              show={alertDelete}
+                                              message={
+                                                "Successfully delete this category"
+                                              }
+                                              type={"success"}
+                                            />
+                                          </>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
                                     <div className="d-flex justify-content-center my-3">
                                       <h5>
                                         Are you sure want to delete this
