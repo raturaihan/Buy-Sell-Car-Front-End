@@ -1,6 +1,8 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ModalFailed from "../../components/ModalFailed";
+import ModalSuccess from "../../components/ModalSuccess";
 import Navbar from "../../components/Navbar";
 import { INewCar } from "../../interface";
 import { addNewCar, fetchCarsCategory } from "../../redux/actions/carActions";
@@ -9,14 +11,14 @@ import { RootState } from "../../redux/reducers/indexReducers";
 import { BlueGreenButton, FormContainer } from "../../styles/Styled";
 
 function AddNewCarPage() {
-  const { categories, categoriesLoading, categoriesError } = useSelector(
-    (state: RootState) => state.carReducer
-  );
+  const { categories, categoriesLoading, categoriesError, createCarError } =
+    useSelector((state: RootState) => state.carReducer);
   const [imagePreviewUrl, setImagePreviewUrl] = React.useState<string>();
+  const [modal, setModal] = useState(false);
   const carDispatch: CarDispatch = useDispatch();
 
   useEffect(() => {
-    carDispatch(fetchCarsCategory())
+    carDispatch(fetchCarsCategory());
   }, [carDispatch]);
 
   const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +70,7 @@ function AddNewCarPage() {
     };
 
     carDispatch(addNewCar(carData));
+    setModal(true);
   };
 
   return (
@@ -281,9 +284,32 @@ function AddNewCarPage() {
                     />
                   </div>
                   <div className="d-flex justify-content-center mt-5">
-                    <BlueGreenButton className="px-5" type="submit">
+                    <BlueGreenButton
+                      className="px-5"
+                      type="submit"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
                       Add Car
                     </BlueGreenButton>
+                    {createCarError == "" || createCarError == null ? (
+                      <ModalSuccess
+                        modalType="Add Car Success!"
+                        buttonModal="Go"
+                        pathTarget="/carlisting"
+                        message="Check new car on dashboard"
+                        show={modal}
+                        isPayment={false}
+                      />
+                    ) : (
+                      <ModalFailed
+                        modalType="Add Car Failed"
+                        buttonModal="Close"
+                        pathTarget="/carlisting"
+                        message={createCarError}
+                        show={modal}
+                      />
+                    )}
                   </div>
                 </div>
               </form>

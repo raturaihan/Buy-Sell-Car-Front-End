@@ -82,6 +82,7 @@ const initialState: ICarState = {
     description: "",
     Category: { category_id: 0, category_name: "" },
   },
+  createCarError: null
 };
 
 export default function carReducer(

@@ -124,6 +124,13 @@ export const createCar = (payload: ICar): CarAction => {
     }
 }
 
+export const createCarError = (payload: string | null): CarAction => {
+    return {
+        type: CarActionType.CREATE_CAR_ERROR,
+        payload: payload
+    }
+}
+
 export const resetCar = (): CarAction => {
     return {
         type: CarActionType.RESET_CAR
@@ -260,6 +267,7 @@ export const editDataCar = ({id, car}: EditCarParams) => {
 
 export const addNewCar = (payload: INewCar) => {
     return async(dispatch: Dispatch<CarAction>) => {
+        dispatch(createCarError(""))
         await instance.post(`/admin/car`, payload)
         .then((response) => {
             if(!response.data) {
@@ -271,7 +279,7 @@ export const addNewCar = (payload: INewCar) => {
             dispatch(createCar(data))
         })
         .catch((error) => {
-            throw error
+            dispatch(createCarError(error))
         })
     }
 }

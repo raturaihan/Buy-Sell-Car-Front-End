@@ -11,6 +11,8 @@ export const BlueButton = styled.button({
 
 export const FormContainer = styled.div({
   boxShadow: "0 5px 10px rgba(0,0,0,.2)",
+  borderRadius: "15px",
+  border: "none"
 });
 
 export const ModalButton = styled.button({

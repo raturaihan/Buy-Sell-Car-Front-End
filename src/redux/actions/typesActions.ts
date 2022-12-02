@@ -41,6 +41,7 @@ export enum CarActionType {
   UPDATE_CAR_ERROR = "UPDATE_CAR_ERROR",
   DELETE_CAR = "DELETE_CAR",
   CREATE_CAR = "CREATE_CAR",
+  CREATE_CAR_ERROR = "CREATE_CAR_ERROR",
   RESET_CAR = "RESET_CAR"
 }
 
@@ -124,6 +125,12 @@ export interface ICreateCar {
   payload: ICar;
 }
 
+export interface ICreateCarError {
+  type: CarActionType.CREATE_CAR_ERROR;
+  payload: string | null;
+}
+
+
 export interface IResetCar {
   type: CarActionType.RESET_CAR;
 }
@@ -145,6 +152,7 @@ export type CarAction =
   | IUpdateCarError
   | IDeleteCar
   | ICreateCar
+  | ICreateCarError
   | IResetCar;
 export type CarDispatch = ThunkDispatch<ICarState, any, AnyAction>;
 

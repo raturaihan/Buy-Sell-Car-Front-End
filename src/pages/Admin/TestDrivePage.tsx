@@ -26,7 +26,6 @@ function TestDrivePage() {
   });
   const [status, setStatus] = useState("ACCEPTED");
   const [testdriveid, setTestDriveId] = useState("");
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const testdriveData: IUpdateTD = {
@@ -80,7 +79,7 @@ function TestDrivePage() {
                         <td>{val.status}</td>
                         <td>
                           <ReverseBlueGreenButton
-                            id={val.test_drive_id?.toString()}
+                            id={val.test_drive_id.toString()}
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal"
                             onClick={(e) => setTestDriveId(e.currentTarget.id)}

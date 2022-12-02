@@ -17,6 +17,7 @@ export interface ICarState {
     updateCarError: string | null;
     deleteCar: ICar;
     createCar: ICar;
+    createCarError: string | null;
 }
 
 export interface IUserState {

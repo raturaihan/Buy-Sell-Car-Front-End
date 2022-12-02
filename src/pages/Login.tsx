@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import instance, { handleHTTPResponse } from "../config/axios";
 import { BlueGreenButton, FormContainer } from "../styles/Styled";
 
@@ -80,6 +81,7 @@ function Login() {
 
   return (
     <>
+    <Navbar />
     {isError?(<div className="alert alert-danger" role="alert">{errorMessage}</div>):(<></>)}
     <div className="mt-5 d-flex justify-content-center">
       <FormContainer className="card py-5 px-5">

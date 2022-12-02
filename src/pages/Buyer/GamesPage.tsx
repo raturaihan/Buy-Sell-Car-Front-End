@@ -46,7 +46,7 @@ function GamesPage() {
         <div className="d-flex justify-content-center mt-3">
             <GameContainer>
                 <h3 className="text-center mt-5">Press the button and win the voucher!</h3>
-                {playGameError != "" ? (<h5 className="text-danger text-center">Come back tomorrow to play games!</h5>):(<></>)}
+                {playGameError != null ? (<h5 className="text-danger text-center">Come back tomorrow to play games!</h5>):(<></>)}
                 <div className="d-flex justify-content-center mt-5">
                     <GameCouponConteiner className="d-flex justify-content-center">
                       <h1 className="align-self-center">{isActive ? coupon : "?"}</h1>
