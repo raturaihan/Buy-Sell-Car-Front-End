@@ -79,9 +79,9 @@ function CarCategoriesPage() {
 
   const handleCloseModal = () => {
     categoryDispatch(resetCategory());
-    setAlertDelete(false)
-    setAlertCreate(false)
-  }
+    setAlertDelete(false);
+    setAlertCreate(false);
+  };
   return (
     <div>
       <Navbar />
@@ -106,7 +106,7 @@ function CarCategoriesPage() {
                   <div className="modal-body">
                     {alertCreate ? (
                       <>
-                        {addCategoryError == "" || addCategoryError == null? (
+                        {addCategoryError == "" || addCategoryError == null ? (
                           <Alert
                             show={alertCreate}
                             message={"Successfully add new category"}
@@ -141,7 +141,10 @@ function CarCategoriesPage() {
                       </div>
                     </form>
                     <div className="d-flex justify-content-end">
-                      <ReverseBlueGreenButton data-bs-dismiss="modal" onClick={handleCloseModal}>
+                      <ReverseBlueGreenButton
+                        data-bs-dismiss="modal"
+                        onClick={handleCloseModal}
+                      >
                         Close
                       </ReverseBlueGreenButton>
                     </div>
@@ -248,20 +251,20 @@ function CarCategoriesPage() {
                                   <div className="modal-body">
                                     {alertDelete ? (
                                       <>
-                                        {delCategoryError != "" || delCategoryError != null ? (
+                                        {delCategoryError == null ? (
                                           <Alert
                                             show={alertDelete}
-                                            message={delCategoryError}
-                                            type={"danger"}
+                                            message={
+                                              "Successfully delete this category"
+                                            }
+                                            type={"success"}
                                           />
                                         ) : (
                                           <>
                                             <Alert
                                               show={alertDelete}
-                                              message={
-                                                "Successfully delete this category"
-                                              }
-                                              type={"success"}
+                                              message={delCategoryError}
+                                              type={"danger"}
                                             />
                                           </>
                                         )}
@@ -279,7 +282,10 @@ function CarCategoriesPage() {
                                       <BlueGreenButton onClick={handleDelete}>
                                         Yes
                                       </BlueGreenButton>
-                                      <ReverseBlueGreenButton data-bs-dismiss="modal" onClick={handleCloseModal}>
+                                      <ReverseBlueGreenButton
+                                        data-bs-dismiss="modal"
+                                        onClick={handleCloseModal}
+                                      >
                                         No
                                       </ReverseBlueGreenButton>
                                     </div>
