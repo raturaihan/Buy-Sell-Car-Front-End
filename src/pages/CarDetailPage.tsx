@@ -74,7 +74,7 @@ function CarDetailPage() {
     favoriteDispatch(fetchFavorites());
     transactionDispatch(resetTransaction());
     testdriveDispatch(resetTestDrive());
-  }, [carDispatch, car.category_id, id, addFavorite, removeFavorite]);
+  }, [carDispatch, car.category_id, id, addFavorite, removeFavorite, car.car_id]);
 
   useEffect(() => {
     const favoritedCar = carFavorites.find(

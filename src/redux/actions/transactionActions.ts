@@ -170,6 +170,7 @@ export const fetchTransactions = ({
         return response.data;
       })
       .then((data) => {
+        console.log("data",data)
         dispatch(setTransactions(data));
       })
       .catch((error) => {

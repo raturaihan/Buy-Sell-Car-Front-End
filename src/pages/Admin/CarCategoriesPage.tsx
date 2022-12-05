@@ -161,14 +161,14 @@ function CarCategoriesPage() {
           ) : (
             <>
               <div className="table-responsive">
-                <table className="table table-striped">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>Category ID</th>
                       <th>Category Name</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="table-group-divider">
                     {categories.data.map((val) => (
                       <tr key={val.category_id}>
                         <td>{val.category_id}</td>

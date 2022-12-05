@@ -94,7 +94,7 @@ function TransactionPage() {
           ) : (
             <>
               <div className="table-responsive">
-                <table className="table table-striped">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>Transaction Date</th>
@@ -106,8 +106,9 @@ function TransactionPage() {
                       <th>Payment</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {transactions.data.map((val) => (
+                  <tbody className="table-group-divider">
+                    {transactions?.data?.map((val) => {
+                      return (
                       <tr key={val.transaction_id}>
                         <td>{moment(val.created_at).format("HH:mm - D MMMM YYYY")}</td>
                         <td>{val.User.full_name}</td>
@@ -119,7 +120,7 @@ function TransactionPage() {
                         <td>{val.trans_type}</td>
                         <td>Rp {FormatBalance(val.final_amount)}</td>
                       </tr>
-                    ))}
+                    )})}
                   </tbody>
                 </table>
               </div>

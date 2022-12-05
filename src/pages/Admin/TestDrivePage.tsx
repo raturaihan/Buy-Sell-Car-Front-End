@@ -53,7 +53,7 @@ function TestDrivePage() {
           ) : (
             <>
               <div className="table-responsive">
-                <table className="table table-striped">
+                <table className="table table-hover">
                   <thead>
                     <tr>
                       <th>Requested Date</th>
@@ -64,7 +64,7 @@ function TestDrivePage() {
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="table-group-divider">
                     {testDriveAdmin.data.map((val) => (
                       <tr key={val.test_drive_id}>
                         <td>
