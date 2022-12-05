@@ -167,3 +167,10 @@ export const GamesButton = styled.button({
   fontWeight: 'bold',
   fontSize: '150%'
 })
+
+export const NavbarList = styled.li`
+  &:active {
+    color: rgba(17,95,134,255) !important;
+    font-weight:bold !important;
+  }
+`

@@ -5,6 +5,7 @@ import { resetFavorite } from "../redux/actions/favoriteAction";
 import { FavoriteDispatch, UserDispatch } from "../redux/actions/typesActions";
 import { resetUser } from "../redux/actions/userActions";
 import { RootState } from "../redux/reducers/indexReducers";
+import { NavbarList } from "../styles/Styled";
 
 function Navbar() {
   const navigate = useNavigate();
