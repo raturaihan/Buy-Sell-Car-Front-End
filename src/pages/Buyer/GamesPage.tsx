@@ -13,26 +13,27 @@ function GamesPage() {
   const [isActive, setIsActive] = useState(false)
   const [coupon, setCoupon] = useState("")
   const transactionDispatch: TransactionDispatch = useDispatch();
+
   function toggle(){
-    if (playGameError == ""){
+    if (playGameError == null){
       setIsActive(!isActive)
     }
     transactionDispatch(playGames())
   }
-  console.log(coupon)
+  
   useEffect(() => {
     transactionDispatch(getGameCoupons())
-    if (isActive && playGameError === null) {
+    if (isActive && playGameError != null) {
       const i = setInterval(() => {
         setCoupon(gameCoupons[Math.floor(Math.random() * gameCoupons.length)].code)
       },50)
 
       setTimeout(() => {
-        setCoupon(playGame.code)
         clearInterval(i)
-      }, 4000)
+        setCoupon(playGame.code)
+      }, 5500)
     }
-  },[isActive, transactionDispatch, playGame.code, playGameError])
+  },[isActive, transactionDispatch, playGameError, playGame])
 
   return (
     <div>

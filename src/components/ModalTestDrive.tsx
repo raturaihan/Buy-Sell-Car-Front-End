@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TestDriveParams } from "../interface";
 import {
   getTestDriveUser,
+  resetTestDrive,
   testdriveRequest,
 } from "../redux/actions/testdriveActions";
 import { TestDriveDispatch } from "../redux/actions/typesActions";
@@ -35,6 +36,12 @@ function ModalTestDrive() {
       setAlert(true);
     }
   };
+
+  const handleCloseModal = () => {
+    setAlert(false)
+    setInputDate("")
+    testdriveDispatch(resetTestDrive());
+  }
 
   useEffect(() => {
     testdriveDispatch(getTestDriveUser());
@@ -139,7 +146,7 @@ function ModalTestDrive() {
               </>
             )}
             <div className="d-flex justify-content-end">
-              <ReverseBlueGreenButton data-bs-dismiss="modal">
+              <ReverseBlueGreenButton data-bs-dismiss="modal" onClick={handleCloseModal}>
                 Close
               </ReverseBlueGreenButton>
             </div>

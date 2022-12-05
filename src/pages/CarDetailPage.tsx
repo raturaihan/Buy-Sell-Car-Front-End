@@ -24,6 +24,7 @@ import {
 import ModalTestDrive from "../components/ModalTestDrive";
 import { resetTransaction } from "../redux/actions/transactionActions";
 import { resetTestDrive } from "../redux/actions/testdriveActions";
+import Footer from "../components/Footer";
 
 function CarDetailPage() {
   const navigate = useNavigate();
@@ -81,6 +82,7 @@ function CarDetailPage() {
     );
     setIsAddedtoFavorite(!!favoritedCar);
   }, [carFavorites]);
+
 
   return (
     <div>
@@ -198,6 +200,7 @@ function CarDetailPage() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

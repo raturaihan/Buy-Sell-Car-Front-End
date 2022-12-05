@@ -52,8 +52,13 @@ export default function categoryReducer(
     case CategoryActionType.DELETE_CATEGORY_ERROR:
       return { ...state, delCategoryError: action.payload };
     case CategoryActionType.RESET_CATEGORY:
-      return initialState;
+      return {
+        ...state,
+        addCategoryError: initialState.addCategoryError,
+        editCategoryError: initialState.editCategoryError,
+        delCategoryError: initialState.delCategoryError,
+      };
     default:
-        return state;
+      return state;
   }
 }

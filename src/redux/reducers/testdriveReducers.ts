@@ -55,7 +55,7 @@ export default function testdriveReducer(
     case TestDriveActionType.UPDATE_TEST_DRIVE:
       return {...state, updateStatusTestDrive: action.payload};
     case TestDriveActionType.RESET_TEST_DRIVE:
-      return initialState;
+      return {...state, reqTestDriveError: initialState.reqTestDriveError};
     default:
       return state
   }

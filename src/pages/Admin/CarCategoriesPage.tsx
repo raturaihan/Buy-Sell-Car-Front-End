@@ -76,6 +76,12 @@ function CarCategoriesPage() {
     categoryDispatch(addNewCategory(target.category_name.value));
     setAlertCreate(true);
   };
+
+  const handleCloseModal = () => {
+    categoryDispatch(resetCategory());
+    setAlertDelete(false)
+    setAlertCreate(false)
+  }
   return (
     <div>
       <Navbar />
@@ -135,7 +141,7 @@ function CarCategoriesPage() {
                       </div>
                     </form>
                     <div className="d-flex justify-content-end">
-                      <ReverseBlueGreenButton data-bs-dismiss="modal">
+                      <ReverseBlueGreenButton data-bs-dismiss="modal" onClick={handleCloseModal}>
                         Close
                       </ReverseBlueGreenButton>
                     </div>
@@ -273,7 +279,7 @@ function CarCategoriesPage() {
                                       <BlueGreenButton onClick={handleDelete}>
                                         Yes
                                       </BlueGreenButton>
-                                      <ReverseBlueGreenButton data-bs-dismiss="modal">
+                                      <ReverseBlueGreenButton data-bs-dismiss="modal" onClick={handleCloseModal}>
                                         No
                                       </ReverseBlueGreenButton>
                                     </div>

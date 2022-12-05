@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CardCatalog from '../../components/CardCatalog';
+import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar'
 import { fetchFavorites } from '../../redux/actions/favoriteAction';
 import { FavoriteDispatch } from '../../redux/actions/typesActions';

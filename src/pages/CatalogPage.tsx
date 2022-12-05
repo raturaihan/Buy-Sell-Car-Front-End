@@ -8,6 +8,7 @@ import { CarDispatch } from "../redux/actions/typesActions";
 import { RootState } from "../redux/reducers/indexReducers";
 import { DebounceInput } from "react-debounce-input";
 import { GetMaximumPrice, GetMinimumPrice } from "../utils/utils";
+import Footer from "../components/Footer";
 
 function CatalogPage() {
   const { cars, carsLoading, carsError } = useSelector(
@@ -201,6 +202,7 @@ function CatalogPage() {
           </nav>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
